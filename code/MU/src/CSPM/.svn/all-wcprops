@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM
+END
+StartBucketTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/StartBucketTask.cpp
+END
+ExtentTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/ExtentTask.h
+END
+MigrationClientTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/MigrationClientTask.h
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/Makefile.in
+END
+StartBucketTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/StartBucketTask.h
+END
+StopBucketTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/StopBucketTask.cpp
+END
+CSHeartbeatTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/CSHeartbeatTask.cpp
+END
+CSTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/CSTask.cpp
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/Makefile.am
+END
+ExtentTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/ExtentTask.cpp
+END
+MigrationClientTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/MigrationClientTask.cpp
+END
+StopBucketTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/StopBucketTask.h
+END
+CSHeartbeatTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/CSHeartbeatTask.h
+END
+CSTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/CSPM/CSTask.h
+END

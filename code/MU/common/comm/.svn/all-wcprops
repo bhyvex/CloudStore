@@ -1,0 +1,305 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/20352/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm
+END
+SocketAddress.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/SocketAddress.cpp
+END
+Error.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Error.h
+END
+Agent.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Agent.cpp
+END
+TCPSocket.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/!svn/ver/18632/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/TCPSocket.cpp
+END
+comm.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/comm.h
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/20351/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Makefile.in
+END
+UnxDmnReader.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnReader.h
+END
+Reader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Reader.cpp
+END
+BufferManager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/!svn/ver/19643/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BufferManager.cpp
+END
+UDPSocket.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UDPSocket.h
+END
+UDPAgent.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UDPAgent.cpp
+END
+TCPAgent.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/TCPAgent.h
+END
+UnxDmnWriter.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnWriter.h
+END
+UnxDmnListenAgent.h
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnListenAgent.h
+END
+Writer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Writer.cpp
+END
+Buffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Buffer.h
+END
+Epoll.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Epoll.h
+END
+Tool.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Tool.h
+END
+EpollEvent.h
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/EpollEvent.h
+END
+UnxDmnSocket.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnSocket.cpp
+END
+BaseReq.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BaseReq.h
+END
+UnxDmnAgent.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnAgent.cpp
+END
+TCPListenAgent.h
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/18632/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/TCPListenAgent.h
+END
+AgentManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/20352/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/AgentManager.h
+END
+UDPSocket.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UDPSocket.cpp
+END
+BaseTask.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BaseTask.h
+END
+SocketAddress.h
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/SocketAddress.h
+END
+Agent.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20351/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Agent.h
+END
+TCPSocket.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/TCPSocket.h
+END
+TCPAgent.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/TCPAgent.cpp
+END
+UnxDmnAgentReadCallback.h
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnAgentReadCallback.h
+END
+Reader.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Reader.h
+END
+Buffer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Buffer.cpp
+END
+BufferManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/19635/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BufferManager.h
+END
+Epoll.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/18632/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Epoll.cpp
+END
+UDPAgent.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UDPAgent.h
+END
+WriteCallback.h
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/WriteCallback.h
+END
+Tool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Tool.cpp
+END
+EpollEvent.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/EpollEvent.cpp
+END
+Writer.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Writer.h
+END
+AppProtoSpec.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/AppProtoSpec.h
+END
+UnxDmnAgentWriteCallback.h
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnAgentWriteCallback.h
+END
+UnxDmnSocket.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnSocket.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/18868/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/Makefile.am
+END
+BaseHeader.h
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BaseHeader.h
+END
+AgentManager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/AgentManager.cpp
+END
+ReadCallback.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/ReadCallback.h
+END
+BaseTask.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/BaseTask.cpp
+END
+UnxDmnAgent.h
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnAgent.h
+END
+UnxDmnSocketAddress.h
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/!svn/ver/18222/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/common/comm/UnxDmnSocketAddress.h
+END

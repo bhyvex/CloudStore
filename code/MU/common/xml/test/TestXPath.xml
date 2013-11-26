@@ -1,0 +1,12 @@
+<Root>
+    <bookstore>
+        <book>
+            <title>title00</title>
+            <author>author00</author>
+        </book>
+        <book>
+            <title>title01</title>
+            <author>author01</author>
+        </book>
+    </bookstore>
+</Root>
