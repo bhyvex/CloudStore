@@ -1,0 +1,6 @@
+MUDAO.lo: ../../../src/frame/MUDAO.cpp ../../../src/frame/MUDAO.h \
+  ../../../src/protocol/MUMacros.h
+
+../../../src/frame/MUDAO.h:
+
+../../../src/protocol/MUMacros.h:

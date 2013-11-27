@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao
+END
+FileMetaDAO.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/FileMetaDAO.h
+END
+BucketDAO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/BucketDAO.cpp
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/Makefile.in
+END
+UserDAO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/UserDAO.cpp
+END
+LogDAO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/LogDAO.cpp
+END
+LogFileDAO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/LogFileDAO.cpp
+END
+BucketDAO.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/BucketDAO.h
+END
+UserDAO.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/UserDAO.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/Makefile.am
+END
+FileMetaDAO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/FileMetaDAO.cpp
+END
+LogDAO.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/LogDAO.h
+END
+LogFileDAO.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/20499/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/MU/src/dao/LogFileDAO.h
+END

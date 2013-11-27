@@ -1,0 +1,2 @@
+SUBDIRS = sqlite3
+

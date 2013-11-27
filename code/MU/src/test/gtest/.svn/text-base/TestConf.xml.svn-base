@@ -1,0 +1,7 @@
+<TestConf>
+    <MU>
+        <ClientListenIP>192.168.1.135</ClientListenIP>
+        <ClientListenPort>45000</ClientListenPort>
+        <FileSystemRoot>../../../data</FileSystemRoot>
+    </MU>
+</TestConf>
