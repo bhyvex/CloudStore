@@ -1,4 +1,0 @@
-2012-09-21
-1.fix several memory leak bugs in FileOpItem and InitTask.
-2.fix race condition when getting user lock.
-3.open sqlite transaction to write oplogs, and commit per second.

@@ -1,9 +1,0 @@
--DDEBUG
--Wno-deprecated-declarations
--std=c++0x
--I./common
--I./MU
--I./lib
--I/usr/local/protobuf/include
--I/usr/local/gtest/include
--I/usr/include/libxml2
