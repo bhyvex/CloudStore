@@ -11,7 +11,8 @@ export AM_CXXFLAGS
 
 GLOBAL_INCLUDES = -I/usr/local/protobuf/include  \
 				  -I/usr/local/include/libxml2  \
-				  -I/usr/local/gtest/include
+				  -I/usr/local/gtest/include  \
+				  -I/usr/include
 export GLOBAL_INCLUDES 
 
 INCLUDES = $(GLOBAL_INCLUDES)  \

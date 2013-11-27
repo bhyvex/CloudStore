@@ -1,0 +1,4 @@
+Channel.lo: ../../../src/storage/Channel.cpp \
+  ../../../src/storage/Channel.h
+
+../../../src/storage/Channel.h:

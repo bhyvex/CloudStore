@@ -85,6 +85,7 @@ AC_CONFIG_FILES([Makefile
                  build/src/oplog/Makefile
                  build/src/protocol/Makefile
                  build/src/state/Makefile
+                 build/src/storage/Makefile
                  build/src/zip/Makefile
                  common/DevLog/Makefile
                  common/DevLog/test/Makefile
@@ -114,6 +115,7 @@ AC_CONFIG_FILES([Makefile
                  src/oplog/test/Makefile
                  src/protocol/Makefile
                  src/state/Makefile
+                 src/storage/Makefile
                  src/test/Makefile
                  src/test/fakeModule/Makefile
                  src/test/gtest/Makefile

@@ -43,8 +43,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libMU_la_DEPENDENCIES = ClientPM/libClientPM.la CSPM/libCSPM.la \
-	dao/libdao.la frame/libframe.la init/libinit.la \
-	item/libitem.la MigrationPM/libMigrationPM.la \
+	dao/libdao.la frame/libframe.la storage/libstorage.la \
+	init/libinit.la item/libitem.la MigrationPM/libMigrationPM.la \
 	oplog/liboplog.la protocol/libprotocol.la state/libstate.la \
 	zip/libmuzip.la
 am_libMU_la_OBJECTS =
@@ -74,12 +74,12 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/newCStore/MU/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/newCStore/MU/missing --run tar
+ACLOCAL = ${SHELL} /home/CloudStore/code/MU/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/CloudStore/code/MU/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/newCStore/MU/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/newCStore/MU/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/newCStore/MU/missing --run automake-1.10
+AUTOCONF = ${SHELL} /home/CloudStore/code/MU/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/CloudStore/code/MU/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/CloudStore/code/MU/missing --run automake-1.10
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -115,7 +115,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/newCStore/MU/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/CloudStore/code/MU/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -124,22 +124,22 @@ OBJEXT = o
 OTOOL = 
 OTOOL64 = 
 PACKAGE = mu
-PACKAGE_BUGREPORT = shiwei2012@gmail.com
+PACKAGE_BUGREPORT = lvpengcheng6300@gmail.com
 PACKAGE_NAME = mu
-PACKAGE_STRING = mu 2.0
+PACKAGE_STRING = mu 3.0
 PACKAGE_TARNAME = mu
-PACKAGE_VERSION = 2.0
+PACKAGE_VERSION = 3.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.0
-abs_builddir = /home/newCStore/MU/build/src
-abs_srcdir = /home/newCStore/MU/build/../src
-abs_top_builddir = /home/newCStore/MU/build
-abs_top_srcdir = /home/newCStore/MU/build/..
+VERSION = 3.0
+abs_builddir = /home/CloudStore/code/MU/build/src
+abs_srcdir = /home/CloudStore/code/MU/build/../src
+abs_top_builddir = /home/CloudStore/code/MU/build
+abs_top_srcdir = /home/CloudStore/code/MU/build/..
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_DUMPBIN = 
@@ -168,7 +168,7 @@ host_vendor = suse
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/newCStore/MU/install-sh
+install_sh = $(SHELL) /home/CloudStore/code/MU/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -195,6 +195,7 @@ libMU_la_LIBADD = ClientPM/libClientPM.la  \
 				 CSPM/libCSPM.la  \
 				 dao/libdao.la  \
 				 frame/libframe.la  \
+				 storage/libstorage.la  \
 				 init/libinit.la  \
 				 item/libitem.la  \
 				 MigrationPM/libMigrationPM.la  \
@@ -203,7 +204,7 @@ libMU_la_LIBADD = ClientPM/libClientPM.la  \
 				 state/libstate.la  \
 				 zip/libmuzip.la
 
-SUBDIRS = ClientPM CSPM dao frame init item MigrationPM  \
+SUBDIRS = ClientPM CSPM dao frame storage init item MigrationPM  \
 		  oplog protocol state zip
 
 all: all-recursive

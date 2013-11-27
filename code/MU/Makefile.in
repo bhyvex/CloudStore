@@ -214,7 +214,8 @@ MU_LDADD = src/libMU.la  \
 AM_CXXFLAGS = -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 GLOBAL_INCLUDES = -I/usr/local/protobuf/include  \
 				  -I/usr/local/include/libxml2  \
-				  -I/usr/local/gtest/include
+				  -I/usr/local/gtest/include  \
+				  -I/usr/include
 
 INCLUDES = $(GLOBAL_INCLUDES)  \
 		   -I$(top_srcdir)/common  \

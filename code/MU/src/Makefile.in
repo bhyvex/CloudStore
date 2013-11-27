@@ -43,8 +43,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libMU_la_DEPENDENCIES = ClientPM/libClientPM.la CSPM/libCSPM.la \
-	dao/libdao.la frame/libframe.la init/libinit.la \
-	item/libitem.la MigrationPM/libMigrationPM.la \
+	dao/libdao.la frame/libframe.la storage/libstorage.la \
+	init/libinit.la item/libitem.la MigrationPM/libMigrationPM.la \
 	oplog/liboplog.la protocol/libprotocol.la state/libstate.la \
 	zip/libmuzip.la
 am_libMU_la_OBJECTS =
@@ -195,6 +195,7 @@ libMU_la_LIBADD = ClientPM/libClientPM.la  \
 				 CSPM/libCSPM.la  \
 				 dao/libdao.la  \
 				 frame/libframe.la  \
+				 storage/libstorage.la  \
 				 init/libinit.la  \
 				 item/libitem.la  \
 				 MigrationPM/libMigrationPM.la  \
@@ -203,7 +204,7 @@ libMU_la_LIBADD = ClientPM/libClientPM.la  \
 				 state/libstate.la  \
 				 zip/libmuzip.la
 
-SUBDIRS = ClientPM CSPM dao frame init item MigrationPM  \
+SUBDIRS = ClientPM CSPM dao frame storage init item MigrationPM  \
 		  oplog protocol state zip
 
 all: all-recursive

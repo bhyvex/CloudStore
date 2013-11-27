@@ -12,6 +12,7 @@ autoscan: warning: missing AC_PROG_RANLIB wanted by:
 	build/src/Makefile:133
 	build/src/protocol/Makefile:121
 	build/src/CSPM/Makefile:122
+	build/src/storage/Makefile:121
 	build/src/item/Makefile:124
 	build/src/oplog/Makefile:123
 	build/src/ClientPM/Makefile:121
@@ -35,6 +36,7 @@ autoscan: warning: missing AC_PROG_RANLIB wanted by:
 	build/src/Makefile:133
 	build/src/protocol/Makefile:121
 	build/src/CSPM/Makefile:122
+	build/src/storage/Makefile:121
 	build/src/item/Makefile:124
 	build/src/oplog/Makefile:123
 	build/src/ClientPM/Makefile:121

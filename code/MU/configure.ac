@@ -2,10 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.59])
-AC_INIT([mu], [2.0], [shiwei2012@gmail.com])
+AC_INIT([mu], [3.0], [lvpengcheng6300@gmail.com])
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE(mu, 2.0)
+AM_INIT_AUTOMAKE(mu, 3.0)
 
 # Checks for programs.
 AC_PROG_CXX
@@ -85,6 +85,7 @@ AC_CONFIG_FILES([Makefile
                  src/CSPM/Makefile
                  src/dao/Makefile
                  src/frame/Makefile
+                 src/storage/Makefile
                  src/init/Makefile
                  src/item/Makefile
                  src/MigrationPM/Makefile
