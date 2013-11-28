@@ -45,7 +45,8 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libstorage_la_LIBADD =
 am_libstorage_la_OBJECTS = Channel.lo ChannelMappingStrategy.lo \
 	HashMappingStrategy.lo NameSpace.lo FSNameSpace.lo \
-	KVNameSpace.lo StoreEngine.lo LevelDBEngine.lo
+	KVNameSpace.lo BuildStrategy.lo SplitPathStrategy.lo \
+	FullPathStrategy.lo StoreEngine.lo LevelDBEngine.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -188,6 +189,9 @@ libstorage_la_SOURCES = Channel.cpp  \
 						NameSpace.cpp \
 						FSNameSpace.cpp \
 						KVNameSpace.cpp \
+						BuildStrategy.cpp \
+						SplitPathStrategy.cpp \
+						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp 
 
@@ -246,13 +250,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/BuildStrategy.Plo
 include ./$(DEPDIR)/Channel.Plo
 include ./$(DEPDIR)/ChannelMappingStrategy.Plo
 include ./$(DEPDIR)/FSNameSpace.Plo
+include ./$(DEPDIR)/FullPathStrategy.Plo
 include ./$(DEPDIR)/HashMappingStrategy.Plo
 include ./$(DEPDIR)/KVNameSpace.Plo
 include ./$(DEPDIR)/LevelDBEngine.Plo
 include ./$(DEPDIR)/NameSpace.Plo
+include ./$(DEPDIR)/SplitPathStrategy.Plo
 include ./$(DEPDIR)/StoreEngine.Plo
 
 .cpp.o:

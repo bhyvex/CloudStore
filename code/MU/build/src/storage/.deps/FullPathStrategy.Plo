@@ -1,0 +1,7 @@
+FullPathStrategy.lo: ../../../src/storage/FullPathStrategy.cpp \
+  ../../../src/storage/FullPathStrategy.h \
+  ../../../src/storage/BuildStrategy.h
+
+../../../src/storage/FullPathStrategy.h:
+
+../../../src/storage/BuildStrategy.h:

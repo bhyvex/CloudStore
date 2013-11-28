@@ -45,7 +45,8 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libstorage_la_LIBADD =
 am_libstorage_la_OBJECTS = Channel.lo ChannelMappingStrategy.lo \
 	HashMappingStrategy.lo NameSpace.lo FSNameSpace.lo \
-	KVNameSpace.lo StoreEngine.lo LevelDBEngine.lo
+	KVNameSpace.lo BuildStrategy.lo SplitPathStrategy.lo \
+	FullPathStrategy.lo StoreEngine.lo LevelDBEngine.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -188,6 +189,9 @@ libstorage_la_SOURCES = Channel.cpp  \
 						NameSpace.cpp \
 						FSNameSpace.cpp \
 						KVNameSpace.cpp \
+						BuildStrategy.cpp \
+						SplitPathStrategy.cpp \
+						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp 
 
@@ -246,13 +250,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BuildStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Channel.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ChannelMappingStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FSNameSpace.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FullPathStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HashMappingStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/KVNameSpace.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LevelDBEngine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/NameSpace.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SplitPathStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StoreEngine.Plo@am__quote@
 
 .cpp.o:

@@ -1,0 +1,7 @@
+SplitPathStrategy.lo: ../../../src/storage/SplitPathStrategy.cpp \
+  ../../../src/storage/SplitPathStrategy.h \
+  ../../../src/storage/BuildStrategy.h
+
+../../../src/storage/SplitPathStrategy.h:
+
+../../../src/storage/BuildStrategy.h:

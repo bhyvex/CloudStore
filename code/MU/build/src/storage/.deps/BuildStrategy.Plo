@@ -1,0 +1,4 @@
+BuildStrategy.lo: ../../../src/storage/BuildStrategy.cpp \
+  ../../../src/storage/BuildStrategy.h
+
+../../../src/storage/BuildStrategy.h:

@@ -7,6 +7,9 @@ libstorage_la_SOURCES = Channel.cpp  \
 						NameSpace.cpp \
 						FSNameSpace.cpp \
 						KVNameSpace.cpp \
+						BuildStrategy.cpp \
+						SplitPathStrategy.cpp \
+						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp 
 						
