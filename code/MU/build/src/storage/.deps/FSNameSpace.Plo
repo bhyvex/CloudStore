@@ -1,0 +1,6 @@
+FSNameSpace.lo: ../../../src/storage/FSNameSpace.cpp \
+  ../../../src/storage/FSNameSpace.h ../../../src/storage/NameSpace.h
+
+../../../src/storage/FSNameSpace.h:
+
+../../../src/storage/NameSpace.h:

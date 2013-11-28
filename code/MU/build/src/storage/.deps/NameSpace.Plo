@@ -1,0 +1,4 @@
+NameSpace.lo: ../../../src/storage/NameSpace.cpp \
+  ../../../src/storage/NameSpace.h
+
+../../../src/storage/NameSpace.h:

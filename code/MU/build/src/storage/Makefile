@@ -43,7 +43,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libstorage_la_LIBADD =
-am_libstorage_la_OBJECTS = Channel.lo StoreEngine.lo LevelDBEngine.lo
+am_libstorage_la_OBJECTS = Channel.lo ChannelMappingStrategy.lo \
+	HashMappingStrategy.lo NameSpace.lo FSNameSpace.lo \
+	KVNameSpace.lo StoreEngine.lo LevelDBEngine.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -181,8 +183,13 @@ top_srcdir = ../../..
 #lib_LTLIBRARIES = libstorage.la
 noinst_LTLIBRARIES = libstorage.la
 libstorage_la_SOURCES = Channel.cpp  \
+						ChannelMappingStrategy.cpp \
+						HashMappingStrategy.cpp \
+						NameSpace.cpp \
+						FSNameSpace.cpp \
+						KVNameSpace.cpp \
 						StoreEngine.cpp  \
-						LevelDBEngine.cpp
+						LevelDBEngine.cpp 
 
 INCLUDES = $(GLOBAL_INCLUDES)  \
 		   -I$(top_srcdir)/common  \
@@ -240,7 +247,12 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/Channel.Plo
+include ./$(DEPDIR)/ChannelMappingStrategy.Plo
+include ./$(DEPDIR)/FSNameSpace.Plo
+include ./$(DEPDIR)/HashMappingStrategy.Plo
+include ./$(DEPDIR)/KVNameSpace.Plo
 include ./$(DEPDIR)/LevelDBEngine.Plo
+include ./$(DEPDIR)/NameSpace.Plo
 include ./$(DEPDIR)/StoreEngine.Plo
 
 .cpp.o:

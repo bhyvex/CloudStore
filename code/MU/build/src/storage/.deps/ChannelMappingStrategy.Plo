@@ -1,0 +1,5 @@
+ChannelMappingStrategy.lo:  \
+ ../../../src/storage/ChannelMappingStrategy.cpp \
+  ../../../src/storage/ChannelMappingStrategy.h
+
+../../../src/storage/ChannelMappingStrategy.h:

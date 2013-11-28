@@ -19,7 +19,7 @@ public:
 	}
 
 	// Ignore the following methods for now:
-	const char* Name() const { return "MyComparator"; }
+	const char* Name() const { return "LevelDBComparator"; }
 	void FindShortestSeparator(std::string*, const leveldb::Slice&) const { }
 	void FindShortSuccessor(std::string*) const { }
 };

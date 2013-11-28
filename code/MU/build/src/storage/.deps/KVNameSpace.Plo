@@ -1,0 +1,6 @@
+KVNameSpace.lo: ../../../src/storage/KVNameSpace.cpp \
+  ../../../src/storage/KVNameSpace.h ../../../src/storage/NameSpace.h
+
+../../../src/storage/KVNameSpace.h:
+
+../../../src/storage/NameSpace.h:
