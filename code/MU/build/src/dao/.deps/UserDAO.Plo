@@ -57,7 +57,25 @@ UserDAO.lo: ../../../src/dao/UserDAO.cpp ../../../src/dao/UserDAO.h \
   /usr/include/getopt.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/atomic_word.h \
   /usr/include/c++/4.3/bits/basic_string.tcc \
-  ../../../src/frame/MUConfiguration.h /usr/include/sys/types.h \
+  ../../../src/frame/MUConfiguration.h /usr/include/c++/4.3/iostream \
+  /usr/include/c++/4.3/ostream /usr/include/c++/4.3/ios \
+  /usr/include/c++/4.3/bits/ios_base.h \
+  /usr/include/c++/4.3/bits/locale_classes.h \
+  /usr/include/c++/4.3/bits/locale_classes.tcc \
+  /usr/include/c++/4.3/streambuf /usr/include/c++/4.3/bits/streambuf.tcc \
+  /usr/include/c++/4.3/bits/basic_ios.h \
+  /usr/include/c++/4.3/bits/locale_facets.h /usr/include/c++/4.3/cwctype \
+  /usr/include/wctype.h \
+  /usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_base.h \
+  /usr/include/c++/4.3/bits/streambuf_iterator.h \
+  /usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_inline.h \
+  /usr/include/c++/4.3/bits/locale_facets.tcc \
+  /usr/include/c++/4.3/bits/basic_ios.tcc \
+  /usr/include/c++/4.3/bits/ostream.tcc /usr/include/c++/4.3/istream \
+  /usr/include/c++/4.3/bits/istream.tcc /usr/include/c++/4.3/map \
+  /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h /usr/include/sys/types.h \
   /usr/include/sys/select.h /usr/include/bits/select.h \
   /usr/include/sys/sysmacros.h ../../../common/sys/sys.h \
   ../../../common/sys/Cond.h /usr/include/c++/4.3/cerrno \
@@ -71,29 +89,11 @@ UserDAO.lo: ../../../src/dao/UserDAO.cpp ../../../src/dao/UserDAO.h \
   /usr/include/c++/4.3/cstdarg /usr/include/c++/4.3/list \
   /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc \
   ../../../common/sys/noncopyable.h ../../../common/log/LogLevel.h \
-  ../../../common/log/LoggerFactory.h /usr/include/c++/4.3/map \
-  /usr/include/c++/4.3/bits/stl_tree.h \
-  /usr/include/c++/4.3/bits/stl_map.h \
-  /usr/include/c++/4.3/bits/stl_multimap.h \
-  ../../../common/sys/Singleton.h ../../../common/log/Logger.h \
-  ../../../common/sys/Lock.h ../../../common/sys/RWLock.h \
-  ../../../common/sys/Singleton.h ../../../common/sys/Thread.h \
-  ../../../common/util/util.h ../../../common/util/conv.h \
-  /usr/include/c++/4.3/sstream /usr/include/c++/4.3/istream \
-  /usr/include/c++/4.3/ios /usr/include/c++/4.3/bits/ios_base.h \
-  /usr/include/c++/4.3/bits/locale_classes.h \
-  /usr/include/c++/4.3/bits/locale_classes.tcc \
-  /usr/include/c++/4.3/streambuf /usr/include/c++/4.3/bits/streambuf.tcc \
-  /usr/include/c++/4.3/bits/basic_ios.h \
-  /usr/include/c++/4.3/bits/locale_facets.h /usr/include/c++/4.3/cwctype \
-  /usr/include/wctype.h \
-  /usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_base.h \
-  /usr/include/c++/4.3/bits/streambuf_iterator.h \
-  /usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_inline.h \
-  /usr/include/c++/4.3/bits/locale_facets.tcc \
-  /usr/include/c++/4.3/bits/basic_ios.tcc /usr/include/c++/4.3/ostream \
-  /usr/include/c++/4.3/bits/ostream.tcc \
-  /usr/include/c++/4.3/bits/istream.tcc \
+  ../../../common/log/LoggerFactory.h ../../../common/sys/Singleton.h \
+  ../../../common/log/Logger.h ../../../common/sys/Lock.h \
+  ../../../common/sys/RWLock.h ../../../common/sys/Singleton.h \
+  ../../../common/sys/Thread.h ../../../common/util/util.h \
+  ../../../common/util/conv.h /usr/include/c++/4.3/sstream \
   /usr/include/c++/4.3/bits/sstream.tcc ../../../common/util/io.h \
   ../../../common/util/os.h /usr/include/sys/stat.h \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
@@ -282,6 +282,54 @@ UserDAO.lo: ../../../src/dao/UserDAO.cpp ../../../src/dao/UserDAO.h \
 
 ../../../src/frame/MUConfiguration.h:
 
+/usr/include/c++/4.3/iostream:
+
+/usr/include/c++/4.3/ostream:
+
+/usr/include/c++/4.3/ios:
+
+/usr/include/c++/4.3/bits/ios_base.h:
+
+/usr/include/c++/4.3/bits/locale_classes.h:
+
+/usr/include/c++/4.3/bits/locale_classes.tcc:
+
+/usr/include/c++/4.3/streambuf:
+
+/usr/include/c++/4.3/bits/streambuf.tcc:
+
+/usr/include/c++/4.3/bits/basic_ios.h:
+
+/usr/include/c++/4.3/bits/locale_facets.h:
+
+/usr/include/c++/4.3/cwctype:
+
+/usr/include/wctype.h:
+
+/usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_base.h:
+
+/usr/include/c++/4.3/bits/streambuf_iterator.h:
+
+/usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_inline.h:
+
+/usr/include/c++/4.3/bits/locale_facets.tcc:
+
+/usr/include/c++/4.3/bits/basic_ios.tcc:
+
+/usr/include/c++/4.3/bits/ostream.tcc:
+
+/usr/include/c++/4.3/istream:
+
+/usr/include/c++/4.3/bits/istream.tcc:
+
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
 /usr/include/sys/types.h:
 
 /usr/include/sys/select.h:
@@ -338,14 +386,6 @@ UserDAO.lo: ../../../src/dao/UserDAO.cpp ../../../src/dao/UserDAO.h \
 
 ../../../common/log/LoggerFactory.h:
 
-/usr/include/c++/4.3/map:
-
-/usr/include/c++/4.3/bits/stl_tree.h:
-
-/usr/include/c++/4.3/bits/stl_map.h:
-
-/usr/include/c++/4.3/bits/stl_multimap.h:
-
 ../../../common/sys/Singleton.h:
 
 ../../../common/log/Logger.h:
@@ -363,44 +403,6 @@ UserDAO.lo: ../../../src/dao/UserDAO.cpp ../../../src/dao/UserDAO.h \
 ../../../common/util/conv.h:
 
 /usr/include/c++/4.3/sstream:
-
-/usr/include/c++/4.3/istream:
-
-/usr/include/c++/4.3/ios:
-
-/usr/include/c++/4.3/bits/ios_base.h:
-
-/usr/include/c++/4.3/bits/locale_classes.h:
-
-/usr/include/c++/4.3/bits/locale_classes.tcc:
-
-/usr/include/c++/4.3/streambuf:
-
-/usr/include/c++/4.3/bits/streambuf.tcc:
-
-/usr/include/c++/4.3/bits/basic_ios.h:
-
-/usr/include/c++/4.3/bits/locale_facets.h:
-
-/usr/include/c++/4.3/cwctype:
-
-/usr/include/wctype.h:
-
-/usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_base.h:
-
-/usr/include/c++/4.3/bits/streambuf_iterator.h:
-
-/usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_inline.h:
-
-/usr/include/c++/4.3/bits/locale_facets.tcc:
-
-/usr/include/c++/4.3/bits/basic_ios.tcc:
-
-/usr/include/c++/4.3/ostream:
-
-/usr/include/c++/4.3/bits/ostream.tcc:
-
-/usr/include/c++/4.3/bits/istream.tcc:
 
 /usr/include/c++/4.3/bits/sstream.tcc:
 

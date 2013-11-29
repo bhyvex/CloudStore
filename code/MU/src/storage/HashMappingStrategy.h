@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "ChannelMappingStrategy.h"
+#include "storage/ChannelManager.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ public:
 	HashMappingStrategy();
 	~HashMappingStrategy();
 
-	ChannelBucket Mapping(int UserID);//must be quick
+	virtual uint64_t Mapping(int BucketID);//must be quick
 	
 	bool InsertChannelTable();
 	bool InsertBucketTable();

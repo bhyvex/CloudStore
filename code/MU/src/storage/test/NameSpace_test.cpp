@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <map>
 #include <stdlib.h>
 #include <string.h>
 #include "../FSNameSpace.h"
@@ -128,11 +130,12 @@ int main()
 
 
 	string filename = "./fs_test";
-	struct stat dirstat;
-	args.arg1 = &dirstat;
-	ret = fs.Stat(filename.c_str(), &args);
+	FileAttr attr;
+	ret = fs.Stat(filename.c_str(), &attr);
 	if(ret < 0){
 		perror("stat error:");
+	}else{
+		cout <<"./fs_test's size = "<< attr.m_Size <<endl;
 	}
 
 	ret = fs.Move("./fs_test/aaa/a.txt", "./fs_test/a.txt");
@@ -159,7 +162,20 @@ int main()
 	cout <<"it is done."<<endl;
 
 	
+	vector<string*> hehe;
+	hehe.resize(22);
+	
+	string str = "fdafd";
+	hehe[0] = &str;
 
+	if(hehe[0]){
+		cout <<(*(hehe[0]))<<endl;
+	}
+	if(hehe[20]){
+		cout <<(*(hehe[20]))<<endl;
+	}else{
+		cout <<"not found"<<endl;
+	}
 	
 
 	

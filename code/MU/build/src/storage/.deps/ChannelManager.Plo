@@ -1,7 +1,6 @@
-LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
-  ../../../src/dao/LogFileDAO.h ../../../src/frame/MUDAO.h \
-  ../../../src/protocol/MUMacros.h ../../../src/frame/ReturnStatus.h \
-  /usr/include/c++/4.3/list /usr/include/c++/4.3/bits/stl_algobase.h \
+ChannelManager.lo: ../../../src/storage/ChannelManager.cpp \
+  ../../../src/storage/ChannelManager.h /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_algobase.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/c++config.h \
   /usr/include/bits/wordsize.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/os_defines.h \
@@ -25,13 +24,12 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
   /usr/include/c++/4.3/bits/allocator.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/c++allocator.h \
   /usr/include/c++/4.3/ext/new_allocator.h /usr/include/c++/4.3/new \
-  /usr/include/c++/4.3/exception /usr/include/c++/4.3/bits/stl_list.h \
-  /usr/include/c++/4.3/bits/list.tcc /usr/include/c++/4.3/map \
-  /usr/include/c++/4.3/bits/stl_tree.h \
-  /usr/include/c++/4.3/bits/stl_function.h \
-  /usr/include/c++/4.3/backward/binders.h \
-  /usr/include/c++/4.3/bits/stl_map.h \
-  /usr/include/c++/4.3/bits/stl_multimap.h /usr/include/c++/4.3/string \
+  /usr/include/c++/4.3/exception \
+  /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc /usr/include/c++/4.3/string \
   /usr/include/c++/4.3/bits/stringfwd.h \
   /usr/include/c++/4.3/bits/char_traits.h \
   /usr/include/c++/4.3/bits/postypes.h /usr/include/c++/4.3/cwchar \
@@ -50,6 +48,8 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
   /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
   /usr/include/c++/4.3/bits/ostream_insert.h \
   /usr/include/c++/4.3/cxxabi-forced.h \
+  /usr/include/c++/4.3/bits/stl_function.h \
+  /usr/include/c++/4.3/backward/binders.h \
   /usr/include/c++/4.3/bits/basic_string.h \
   /usr/include/c++/4.3/ext/atomicity.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/gthr.h \
@@ -63,9 +63,34 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
   /usr/include/getopt.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/atomic_word.h \
   /usr/include/c++/4.3/bits/basic_string.tcc /usr/include/inttypes.h \
-  ../../../src/frame/MUConfiguration.h /usr/include/c++/4.3/iostream \
-  /usr/include/c++/4.3/ostream /usr/include/c++/4.3/ios \
-  /usr/include/c++/4.3/bits/ios_base.h \
+  /usr/include/math.h /usr/include/bits/huge_val.h \
+  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
+  /usr/include/bits/inf.h /usr/include/bits/nan.h \
+  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
+  /usr/include/bits/mathinline.h ../../../common/sys/sys.h \
+  ../../../common/sys/Cond.h /usr/include/c++/4.3/cerrno \
+  /usr/include/errno.h /usr/include/bits/errno.h \
+  /usr/include/linux/errno.h /usr/include/asm/errno.h \
+  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+  ../../../common/sys/Mutex.h ../../../common/sys/Time.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h \
+  /usr/include/bits/select.h /usr/include/sys/types.h \
+  /usr/include/sys/sysmacros.h ../../../common/log/log.h \
+  /usr/include/c++/4.3/cstring /usr/include/string.h \
+  ../../../common/log/LogLevel.h ../../../common/log/Logger.h \
+  /usr/include/c++/4.3/cstdarg /usr/include/c++/4.3/list \
+  /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc \
+  ../../../common/sys/noncopyable.h ../../../common/log/LogLevel.h \
+  ../../../common/log/LoggerFactory.h /usr/include/c++/4.3/map \
+  /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h \
+  ../../../common/sys/Singleton.h ../../../common/log/Logger.h \
+  ../../../common/sys/Lock.h ../../../common/sys/RWLock.h \
+  ../../../common/sys/Singleton.h ../../../common/sys/Thread.h \
+  ../../../common/util/util.h ../../../common/util/conv.h \
+  /usr/include/c++/4.3/sstream /usr/include/c++/4.3/istream \
+  /usr/include/c++/4.3/ios /usr/include/c++/4.3/bits/ios_base.h \
   /usr/include/c++/4.3/bits/locale_classes.h \
   /usr/include/c++/4.3/bits/locale_classes.tcc \
   /usr/include/c++/4.3/streambuf /usr/include/c++/4.3/bits/streambuf.tcc \
@@ -76,42 +101,27 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
   /usr/include/c++/4.3/bits/streambuf_iterator.h \
   /usr/include/c++/4.3/x86_64-suse-linux/bits/ctype_inline.h \
   /usr/include/c++/4.3/bits/locale_facets.tcc \
-  /usr/include/c++/4.3/bits/basic_ios.tcc \
-  /usr/include/c++/4.3/bits/ostream.tcc /usr/include/c++/4.3/istream \
-  /usr/include/c++/4.3/bits/istream.tcc /usr/include/sys/types.h \
-  /usr/include/sys/select.h /usr/include/bits/select.h \
-  /usr/include/sys/sysmacros.h ../../../common/sys/sys.h \
-  ../../../common/sys/Cond.h /usr/include/c++/4.3/cerrno \
-  /usr/include/errno.h /usr/include/bits/errno.h \
-  /usr/include/linux/errno.h /usr/include/asm/errno.h \
-  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
-  ../../../common/sys/Mutex.h ../../../common/sys/Time.h \
-  /usr/include/sys/time.h ../../../common/log/log.h \
-  /usr/include/c++/4.3/cstring /usr/include/string.h \
-  ../../../common/log/LogLevel.h ../../../common/log/Logger.h \
-  /usr/include/c++/4.3/cstdarg ../../../common/sys/noncopyable.h \
-  ../../../common/log/LogLevel.h ../../../common/log/LoggerFactory.h \
-  ../../../common/sys/Singleton.h ../../../common/log/Logger.h \
-  ../../../common/sys/Lock.h ../../../common/sys/RWLock.h \
-  ../../../common/sys/Singleton.h ../../../common/sys/Thread.h \
-  ../../../common/util/util.h ../../../common/util/conv.h \
-  /usr/include/c++/4.3/sstream /usr/include/c++/4.3/bits/sstream.tcc \
-  ../../../common/util/io.h ../../../common/util/os.h \
-  /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/fcntl.h \
-  /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
-  ../../../common/util/os_path.h ../../../common/util/TimeCounter.h \
-  ../../../common/sys/ThreadPool.h ../../../common/sys/noncopyable.h \
-  ../../../src/frame/MUMacros.h
+  /usr/include/c++/4.3/bits/basic_ios.tcc /usr/include/c++/4.3/ostream \
+  /usr/include/c++/4.3/bits/ostream.tcc \
+  /usr/include/c++/4.3/bits/istream.tcc \
+  /usr/include/c++/4.3/bits/sstream.tcc ../../../common/util/io.h \
+  ../../../common/util/os.h /usr/include/sys/stat.h \
+  /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+  /usr/include/bits/uio.h ../../../common/util/os_path.h \
+  ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
+  ../../../common/sys/noncopyable.h ../../../src/storage/Channel.h \
+  ../../../src/storage/NameSpace.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/c++/4.3/iostream ../../../src/data/FileMeta.h \
+  ../../../src/frame/MUConfiguration.h \
+  ../../../src/storage/HashMappingStrategy.h \
+  ../../../src/storage/ChannelMappingStrategy.h \
+  ../../../src/storage/ChannelManager.h
 
-../../../src/dao/LogFileDAO.h:
+../../../src/storage/ChannelManager.h:
 
-../../../src/frame/MUDAO.h:
-
-../../../src/protocol/MUMacros.h:
-
-../../../src/frame/ReturnStatus.h:
-
-/usr/include/c++/4.3/list:
+/usr/include/c++/4.3/vector:
 
 /usr/include/c++/4.3/bits/stl_algobase.h:
 
@@ -169,21 +179,15 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 
 /usr/include/c++/4.3/exception:
 
-/usr/include/c++/4.3/bits/stl_list.h:
+/usr/include/c++/4.3/bits/stl_construct.h:
 
-/usr/include/c++/4.3/bits/list.tcc:
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
 
-/usr/include/c++/4.3/map:
+/usr/include/c++/4.3/bits/stl_vector.h:
 
-/usr/include/c++/4.3/bits/stl_tree.h:
+/usr/include/c++/4.3/bits/stl_bvector.h:
 
-/usr/include/c++/4.3/bits/stl_function.h:
-
-/usr/include/c++/4.3/backward/binders.h:
-
-/usr/include/c++/4.3/bits/stl_map.h:
-
-/usr/include/c++/4.3/bits/stl_multimap.h:
+/usr/include/c++/4.3/bits/vector.tcc:
 
 /usr/include/c++/4.3/string:
 
@@ -249,6 +253,10 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 
 /usr/include/c++/4.3/cxxabi-forced.h:
 
+/usr/include/c++/4.3/bits/stl_function.h:
+
+/usr/include/c++/4.3/backward/binders.h:
+
 /usr/include/c++/4.3/bits/basic_string.h:
 
 /usr/include/c++/4.3/ext/atomicity.h:
@@ -291,11 +299,107 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 
 /usr/include/inttypes.h:
 
-../../../src/frame/MUConfiguration.h:
+/usr/include/math.h:
 
-/usr/include/c++/4.3/iostream:
+/usr/include/bits/huge_val.h:
 
-/usr/include/c++/4.3/ostream:
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../../../common/sys/sys.h:
+
+../../../common/sys/Cond.h:
+
+/usr/include/c++/4.3/cerrno:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/Time.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/sysmacros.h:
+
+../../../common/log/log.h:
+
+/usr/include/c++/4.3/cstring:
+
+/usr/include/string.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/Logger.h:
+
+/usr/include/c++/4.3/cstdarg:
+
+/usr/include/c++/4.3/list:
+
+/usr/include/c++/4.3/bits/stl_list.h:
+
+/usr/include/c++/4.3/bits/list.tcc:
+
+../../../common/sys/noncopyable.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/LoggerFactory.h:
+
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
+../../../common/sys/Singleton.h:
+
+../../../common/log/Logger.h:
+
+../../../common/sys/Lock.h:
+
+../../../common/sys/RWLock.h:
+
+../../../common/sys/Singleton.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/util/util.h:
+
+../../../common/util/conv.h:
+
+/usr/include/c++/4.3/sstream:
+
+/usr/include/c++/4.3/istream:
 
 /usr/include/c++/4.3/ios:
 
@@ -327,79 +431,11 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 
 /usr/include/c++/4.3/bits/basic_ios.tcc:
 
+/usr/include/c++/4.3/ostream:
+
 /usr/include/c++/4.3/bits/ostream.tcc:
 
-/usr/include/c++/4.3/istream:
-
 /usr/include/c++/4.3/bits/istream.tcc:
-
-/usr/include/sys/types.h:
-
-/usr/include/sys/select.h:
-
-/usr/include/bits/select.h:
-
-/usr/include/sys/sysmacros.h:
-
-../../../common/sys/sys.h:
-
-../../../common/sys/Cond.h:
-
-/usr/include/c++/4.3/cerrno:
-
-/usr/include/errno.h:
-
-/usr/include/bits/errno.h:
-
-/usr/include/linux/errno.h:
-
-/usr/include/asm/errno.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-../../../common/sys/Mutex.h:
-
-../../../common/sys/Time.h:
-
-/usr/include/sys/time.h:
-
-../../../common/log/log.h:
-
-/usr/include/c++/4.3/cstring:
-
-/usr/include/string.h:
-
-../../../common/log/LogLevel.h:
-
-../../../common/log/Logger.h:
-
-/usr/include/c++/4.3/cstdarg:
-
-../../../common/sys/noncopyable.h:
-
-../../../common/log/LogLevel.h:
-
-../../../common/log/LoggerFactory.h:
-
-../../../common/sys/Singleton.h:
-
-../../../common/log/Logger.h:
-
-../../../common/sys/Lock.h:
-
-../../../common/sys/RWLock.h:
-
-../../../common/sys/Singleton.h:
-
-../../../common/sys/Thread.h:
-
-../../../common/util/util.h:
-
-../../../common/util/conv.h:
-
-/usr/include/c++/4.3/sstream:
 
 /usr/include/c++/4.3/bits/sstream.tcc:
 
@@ -425,4 +461,28 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 
 ../../../common/sys/noncopyable.h:
 
-../../../src/frame/MUMacros.h:
+../../../src/storage/Channel.h:
+
+../../../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/c++/4.3/iostream:
+
+../../../src/data/FileMeta.h:
+
+../../../src/frame/MUConfiguration.h:
+
+../../../src/storage/HashMappingStrategy.h:
+
+../../../src/storage/ChannelMappingStrategy.h:
+
+../../../src/storage/ChannelManager.h:

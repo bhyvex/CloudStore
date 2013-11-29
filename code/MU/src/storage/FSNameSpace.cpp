@@ -9,17 +9,6 @@ FSNameSpace::~FSNameSpace()
 }
 
 
-bool FSNameSpace::setRoot(string path)
-{
-	if(1){
-		m_Root= path;
-		return true;
-	}else{
-		return false;
-	}
-}
-
-
 //file
 int FSNameSpace::Open(const char *pathname, int flags)
 {
@@ -95,9 +84,25 @@ int FSNameSpace::Remove(const char *pathname)
 	return ::remove(pathname);
 }
 
-int FSNameSpace::Stat(const char *path, Args *args)
+int FSNameSpace::Stat(const char *path, FileAttr *fileAttr)
 {
-	return ::stat(path, (struct stat*)(args->arg1));
+	if(fileAttr == NULL){
+		return -1;
+	}
+	
+	struct stat st;
+	int ret = stat(path, &st);
+	if(ret == -1){
+		return -1;
+	}
+
+	fileAttr->m_Mode = st.st_mode;
+	fileAttr->m_CTime = st.st_ctime;
+    fileAttr->m_MTime = st.st_mtime;
+    fileAttr->m_Size = st.st_size;
+
+    return 0;
+	
 }
 
 int FSNameSpace::Move(const char *oldpath, const char *newpath)

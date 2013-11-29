@@ -1,5 +1,25 @@
 ChannelMappingStrategy.lo:  \
  ../../../src/storage/ChannelMappingStrategy.cpp \
-  ../../../src/storage/ChannelMappingStrategy.h
+  ../../../src/storage/ChannelMappingStrategy.h /usr/include/inttypes.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-64.h /usr/include/stdint.h \
+  /usr/include/bits/wchar.h
 
 ../../../src/storage/ChannelMappingStrategy.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:

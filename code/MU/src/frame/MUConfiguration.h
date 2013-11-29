@@ -12,7 +12,9 @@
 #ifndef _MUCONFIGURATION_H_
 #define _MUCONFIGURATION_H_
 
+#include <iostream>
 #include <string>
+#include <map>
 
 #include <sys/types.h>
 #include <inttypes.h>
@@ -63,6 +65,12 @@ public:
     // Migration module
     std::string m_MigrationIP;
     uint16_t m_MigrationPort;
+
+
+	//storage
+	int m_ChannelNum;
+	int m_MainChannelID;
+	std::map<int, std::string> m_ChannelVec;
 
     // file system root
     std::string m_FileSystemRoot;

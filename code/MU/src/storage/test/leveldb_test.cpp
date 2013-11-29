@@ -22,7 +22,7 @@ string IntToString(int num)
 int main()
 {
 	LevelDBEngine db;
-	string dbPath = "./leveldb_test";
+	string dbPath = "./leveldbDir";
 	bool ret;
 	
 	ret = db.Open(dbPath);

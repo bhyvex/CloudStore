@@ -76,7 +76,10 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
   /usr/include/sys/select.h /usr/include/bits/select.h \
   /usr/include/sys/sysmacros.h /usr/include/alloca.h \
-  ../src/frame/MUConfiguration.h /usr/include/inttypes.h \
+  ../src/frame/MUConfiguration.h /usr/include/c++/4.3/map \
+  /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h /usr/include/inttypes.h \
   ../common/sys/sys.h ../common/sys/Cond.h /usr/include/c++/4.3/cerrno \
   /usr/include/errno.h /usr/include/bits/errno.h \
   /usr/include/linux/errno.h /usr/include/asm/errno.h \
@@ -87,10 +90,7 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   /usr/include/c++/4.3/cstdarg /usr/include/c++/4.3/list \
   /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc \
   ../common/sys/noncopyable.h ../common/log/LogLevel.h \
-  ../common/log/LoggerFactory.h /usr/include/c++/4.3/map \
-  /usr/include/c++/4.3/bits/stl_tree.h \
-  /usr/include/c++/4.3/bits/stl_map.h \
-  /usr/include/c++/4.3/bits/stl_multimap.h ../common/sys/Singleton.h \
+  ../common/log/LoggerFactory.h ../common/sys/Singleton.h \
   ../common/log/Logger.h ../common/sys/Lock.h ../common/sys/RWLock.h \
   ../common/sys/Singleton.h ../common/sys/Thread.h ../common/util/util.h \
   ../common/util/conv.h /usr/include/c++/4.3/sstream \
@@ -337,6 +337,14 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 
 ../src/frame/MUConfiguration.h:
 
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
 /usr/include/inttypes.h:
 
 ../common/sys/sys.h:
@@ -386,14 +394,6 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 ../common/log/LogLevel.h:
 
 ../common/log/LoggerFactory.h:
-
-/usr/include/c++/4.3/map:
-
-/usr/include/c++/4.3/bits/stl_tree.h:
-
-/usr/include/c++/4.3/bits/stl_map.h:
-
-/usr/include/c++/4.3/bits/stl_multimap.h:
 
 ../common/sys/Singleton.h:
 

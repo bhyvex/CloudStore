@@ -100,7 +100,8 @@ LogAccessEngine.lo: ../../../src/oplog/LogAccessEngine.cpp \
   ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
   ../../../common/sys/noncopyable.h ../../../src/frame/ReturnStatus.h \
   ../../../src/oplog/Statement.h ../../../src/frame/MUConfiguration.h \
-  ../../../src/frame/MUMacros.h ../../../src/protocol/protocol.h \
+  /usr/include/c++/4.3/iostream ../../../src/frame/MUMacros.h \
+  ../../../src/protocol/protocol.h \
   ../../../src/protocol/cstore.protocol.pb.h \
   /usr/local/include/google/protobuf/stubs/common.h /usr/include/assert.h \
   /usr/include/stdlib.h /usr/include/bits/waitflags.h \
@@ -457,6 +458,8 @@ LogAccessEngine.lo: ../../../src/oplog/LogAccessEngine.cpp \
 ../../../src/oplog/Statement.h:
 
 ../../../src/frame/MUConfiguration.h:
+
+/usr/include/c++/4.3/iostream:
 
 ../../../src/frame/MUMacros.h:
 

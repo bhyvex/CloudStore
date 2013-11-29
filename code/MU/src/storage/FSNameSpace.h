@@ -16,7 +16,6 @@ public:
 	FSNameSpace();
 	~FSNameSpace();
 
-	bool setRoot(string path);
 
 	//file
 	virtual int Open(const char *pathname, int flags);
@@ -34,14 +33,11 @@ public:
 
 	//common
 	virtual int Remove(const char *pathname);
-	virtual int Stat(const char *path, Args *args);
+	virtual int Stat(const char *path, FileAttr  *fileAttr);
 	virtual int Move(const char *oldpath, const char *newpath);
 	virtual int Link(const char *oldpath, const char *newpath);
 	virtual int Unlink(const char *pathname);
 
-
-	string m_Root;
-	
 
 
 	

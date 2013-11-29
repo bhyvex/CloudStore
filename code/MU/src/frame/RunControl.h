@@ -47,6 +47,8 @@ private:
     void initMigrationListen();
 
     void initRecycleTask();
+    
+    void initChannel();
 
     void initFilesystemRoot();
 

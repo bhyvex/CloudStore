@@ -8,9 +8,11 @@ HashMappingStrategy::~HashMappingStrategy()
 {
 }
 
-ChannelBucket HashMappingStrategy::Mapping(int UserID)
+uint64_t HashMappingStrategy::Mapping(int BucketID)
 {
+	return BucketID % ChannelManager::getInstance()->ChannelSize();
 }
+
 
 bool HashMappingStrategy::InsertChannelTable()
 {

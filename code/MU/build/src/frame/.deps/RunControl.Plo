@@ -97,16 +97,16 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   /usr/include/bits/uio.h ../../../common/util/os_path.h \
   ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
   ../../../common/sys/noncopyable.h ../../../src/frame/MUConfiguration.h \
-  /usr/include/inttypes.h ../../../src/frame/MURegister.h \
-  ../../../common/comm/comm.h ../../../common/comm/BaseTask.h \
-  ../../../common/comm/BaseReq.h ../../../common/comm/BaseHeader.h \
-  /usr/include/netinet/in.h /usr/include/sys/socket.h \
-  /usr/include/sys/uio.h /usr/include/bits/socket.h \
-  /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
-  /usr/include/asm-generic/socket.h /usr/include/asm/sockios.h \
-  /usr/include/asm-generic/sockios.h /usr/include/bits/in.h \
-  ../../../common/comm/Epoll.h /usr/include/sys/epoll.h \
-  ../../../common/comm/Error.h /usr/include/c++/4.3/iostream \
+  /usr/include/c++/4.3/iostream /usr/include/inttypes.h \
+  ../../../src/frame/MURegister.h ../../../common/comm/comm.h \
+  ../../../common/comm/BaseTask.h ../../../common/comm/BaseReq.h \
+  ../../../common/comm/BaseHeader.h /usr/include/netinet/in.h \
+  /usr/include/sys/socket.h /usr/include/sys/uio.h \
+  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
+  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+  /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+  /usr/include/bits/in.h ../../../common/comm/Epoll.h \
+  /usr/include/sys/epoll.h ../../../common/comm/Error.h \
   ../../../common/comm/EpollEvent.h ../../../common/comm/TCPSocket.h \
   ../../../common/comm/SocketAddress.h ../../../common/comm/Agent.h \
   ../../../common/comm/UDPSocket.h ../../../common/comm/AgentManager.h \
@@ -174,7 +174,19 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   ../../../src/MigrationPM/MigrationServerTask.h \
   ../../../src/item/MigrationServerItem.h \
   ../../../src/CSPM/StopBucketTask.h ../../../src/CSPM/StartBucketTask.h \
-  ../../../src/state/CheckIdleUserTask.h
+  ../../../src/state/CheckIdleUserTask.h \
+  ../../../src/storage/ChannelManager.h /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+  ../../../src/storage/Channel.h ../../../src/storage/NameSpace.h \
+  /usr/include/dirent.h /usr/include/bits/dirent.h \
+  /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
+  /usr/include/linux/limits.h
 
 ../../../src/frame/RunControl.h:
 
@@ -488,6 +500,8 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 
 ../../../src/frame/MUConfiguration.h:
 
+/usr/include/c++/4.3/iostream:
+
 /usr/include/inttypes.h:
 
 ../../../src/frame/MURegister.h:
@@ -525,8 +539,6 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 /usr/include/sys/epoll.h:
 
 ../../../common/comm/Error.h:
-
-/usr/include/c++/4.3/iostream:
 
 ../../../common/comm/EpollEvent.h:
 
@@ -741,3 +753,45 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 ../../../src/CSPM/StartBucketTask.h:
 
 ../../../src/state/CheckIdleUserTask.h:
+
+../../../src/storage/ChannelManager.h:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../../../src/storage/Channel.h:
+
+../../../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:

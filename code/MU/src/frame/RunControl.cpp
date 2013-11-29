@@ -37,6 +37,9 @@
 #include "CSPM/CSTask.h"
 #include "MigrationPM/MigrationServerTask.h"
 #include "state/CheckIdleUserTask.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+
 
 // required by communication base classes
 DevLog *g_pDevLog = NULL;
@@ -75,6 +78,8 @@ RunControl::initialize()
     initEpoll();
 
     initThreadPool();
+
+    initChannel();
 
     initFilesystemRoot();
 
@@ -328,6 +333,36 @@ RunControl::startSystem()
 
     INFO_LOG("Now try to start the system.");
 }
+
+void
+RunControl::initChannel()
+{
+	ChannelManager::getInstance()->init();
+
+	//create Channel
+	for(int i = 0; i < MUConfiguration::getInstance()->m_ChannelNum; i++){
+	
+		int ChannelID = i;
+		std::string RootPath = MUConfiguration::getInstance()->m_ChannelVec[i];
+		ChannelManager::getInstance()->createChannel(i, RootPath);
+	}
+
+	if(MUConfiguration::getInstance()->m_ChannelNum 
+		!= ChannelManager::getInstance()->ChannelSize()){
+
+		ERROR_LOG("initChannel() error. Start system failed. Program will exit.");
+	}
+
+	//create mapping strategy
+	ChannelManager::getInstance()->createStrategy(SimpleHash);
+	//just test
+	Channel* pChannel = ChannelManager::getInstance()->Mapping(10);
+
+	INFO_LOG("Initialize ChannelManager, %d Channel OK. test User10 Mapped to Channel*=0x%x OK.", 
+							ChannelManager::getInstance()->ChannelSize(), pChannel);
+}
+
+
 
 void
 RunControl::initFilesystemRoot()

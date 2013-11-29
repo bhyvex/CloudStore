@@ -224,19 +224,39 @@ MUConfiguration::configWithXML(const std::string &confFileName)
 
     m_SyncListenPort = util::conv::conv<uint16_t, std::string>(val);
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/Root", &val);
 
-    if (-1 == rt) {
+	rt = x.getNodeValueByXPath("/MU/Storage/ChannelNum", &val);
+	if (-1 == rt) {
         return -1;
     }
+	m_ChannelNum = util::conv::conv<int, std::string>(val);
+	std::cout <<"/MU/Storage/ChannelNum = "<< m_ChannelNum <<std::endl;
 
-    if (val.at(val.length() - 1) == '/') {
-        val = val.substr(val.length() - 1);
+	rt = x.getNodeValueByXPath("/MU/Storage/MainChannelID", &val);
+	if (-1 == rt) {
+        return -1;
     }
+	m_MainChannelID = util::conv::conv<int, std::string>(val);
+	std::cout <<"/MU/Storage/MainChannelID = "<< m_MainChannelID <<std::endl;
 
-    m_FileSystemRoot = val;
+	for(int i = 0; i < m_ChannelNum; i ++){
+	
+		std::string key = "/MU/Storage/Channel";
+		key += util::conv::conv<std::string, int>(i);
+		key += "_Root";
+		std::cout <<"  key = "<< key <<std::endl;
+		
+		rt = x.getNodeValueByXPath(key.c_str(), &val);
+		if (-1 == rt) {
+        	return -1;
+    	}
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/UserSerializable", &val);
+    	m_ChannelVec.insert(std::pair<int, std::string>(i, val));
+    	std::cout <<"/MU/Storage/m_ChannelVec["<<i<<"] = "<< m_ChannelVec[i] <<std::endl;
+    	
+	}
+
+    rt = x.getNodeValueByXPath("/MU/User/UserSerializable", &val);
 
     if (-1 == rt) {
         return -1;
@@ -252,8 +272,9 @@ MUConfiguration::configWithXML(const std::string &confFileName)
         fprintf(stderr, "Unexpected user searializable value %s.", val.c_str());
         return -1;
     }
+    std::cout <<"/MU/User/UserSerializable = "<< m_UserSerializable <<std::endl;
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/Log/RotateStrategy", &val);
+    rt = x.getNodeValueByXPath("/MU/Log/RotateStrategy", &val);
 
     if (-1 == rt) {
         return -1;
@@ -262,35 +283,39 @@ MUConfiguration::configWithXML(const std::string &confFileName)
     if (val == LOG_ROTATION_STRATEGY_SIZE ||
         val == LOG_ROTATION_STRATEGY_TIME) {
         m_LogRotateStrategy = val;
+        std::cout <<"/MU/Log/RotateStrategy = "<< m_LogRotateStrategy <<std::endl;
 
     } else {
         fprintf(stderr, "Unexpected log rotation strategy %s.", val.c_str());
         return -1;
     }
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/Log/RotateTime", &val);
+    rt = x.getNodeValueByXPath("/MU/Log/RotateTime", &val);
 
     if (-1 == rt) {
         return -1;
     }
 
     m_LogRotateTime = util::conv::conv<uint64_t, std::string>(val);
+    std::cout <<"/MU/Log/RotateTime = "<< m_LogRotateTime <<std::endl;
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/Log/RotateSize", &val);
+    rt = x.getNodeValueByXPath("/MU/Log/RotateSize", &val);
 
     if (-1 == rt) {
         return -1;
     }
 
     m_LogRotateSize = util::conv::conv<uint64_t, std::string>(val);
+    std::cout <<"/MU/Log/RotateSize = "<< m_LogRotateSize <<std::endl;
 
-    rt = x.getNodeValueByXPath("/MU/Filesystem/Log/RotateLogFiles", &val);
+    rt = x.getNodeValueByXPath("/MU/Log/RotateLogFiles", &val);
 
     if (-1 == rt) {
         return -1;
     }
 
     m_RotateLogFiles = util::conv::conv<int, std::string>(val);
+    std::cout <<"/MU/Log/RotateLogFiles = "<< m_RotateLogFiles <<std::endl;
 
     if (m_RotateLogFiles < LEAST_ARCHIVED_LOG_FILES) {
         fprintf(stderr, "Invalid number of archived log files %" PRIi32,

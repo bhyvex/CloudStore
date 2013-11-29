@@ -2,6 +2,7 @@
 noinst_LTLIBRARIES = libstorage.la
 
 libstorage_la_SOURCES = Channel.cpp  \
+						ChannelManager.cpp \
 						ChannelMappingStrategy.cpp \
 						HashMappingStrategy.cpp \
 						NameSpace.cpp \

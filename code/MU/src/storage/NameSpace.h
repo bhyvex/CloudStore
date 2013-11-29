@@ -9,6 +9,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <string>
+#include "data/FileMeta.h"
 
 using namespace std;
 
@@ -36,6 +37,14 @@ public:
 	NameSpace();
 	~NameSpace();
 
+	/*
+	  * @path must be absolute path and the last letter mustn't be '/'
+	  * so eg: 
+	  *		@path == "/home/cstore/MU/data" is right;
+	  *		@path == "/home/cstore/MU/data/" is wrong.
+	  */
+	bool setRoot(string path);
+
 	/* interface like posix */
 	//file
 	virtual int Open(const char *pathname, int flags) = 0;
@@ -53,10 +62,14 @@ public:
 
 	//common
 	virtual int Remove(const char *pathname) = 0;
-	virtual int Stat(const char *path, Args *args) = 0;
+	virtual int Stat(const char *path, FileAttr *fileAttr) = 0;
 	virtual int Move(const char *oldpath, const char *newpath) = 0;
 	virtual int Link(const char *oldpath, const char *newpath) = 0;
 	virtual int Unlink(const char *pathname) = 0;
+
+
+	
+	string m_Root;
 
 
 };
