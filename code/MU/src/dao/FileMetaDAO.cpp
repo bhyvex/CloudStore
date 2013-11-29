@@ -108,19 +108,19 @@ FileMetaDAO::checkPrefix(const std::string &path)
 
     if (0 == rt) {
 
-        if (S_ISDIR(st.st_mode)) {
+        if (S_ISDIR(st.st_mode)) {//如果path是个存在的目录
             // prefix path is existed and refers to a directory
             return ReturnStatus(MU_FAILED, PATH_NOT_EXIST);
 
-        } else {
+        } else {//如果path是个存在的文件
             return ReturnStatus(MU_FAILED, PATH_INVALID);
         }
 
     } else {
-        if (errno == ENOENT || errno == ENOTDIR) {
+        if (errno == ENOENT || errno == ENOTDIR) {//如果这个路径不存在
             return ReturnStatus(MU_FAILED, PATH_INVALID);
 
-        } else {
+        } else {//
             return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         }
     }
