@@ -1,3 +1,18 @@
----- readdir Matches (2 in 1 files) ----
-BucketDAO.cpp (j:\home\cloudstore\code\mu\src\dao):    while (NULL != (pEnt = ::readdir(pDir))) {
-BucketDAO.cpp (j:\home\cloudstore\code\mu\src\dao):    while (NULL != (pEnt = ::readdir(pDir))) {
+---- getBucketIdByUserId Matches (17 in 2 files) ----
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getUserInfo.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(createUser.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delUser.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(putDir.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delDir.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getDir.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(statDir.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getDir2.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(movDir.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(putFile.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delFile.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getFile.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(movFile.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getUserLog.uid()));
+ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(userId);
+RuleManager.h (j:\home\cloudstore\code\mu\src\state):    inline uint64_t getBucketIdByUserId(uint64_t userId);
+RuleManager.h (j:\home\cloudstore\code\mu\src\state):RuleManager::getBucketIdByUserId(uint64_t userId)
