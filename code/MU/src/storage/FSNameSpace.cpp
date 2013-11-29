@@ -66,20 +66,26 @@ int FSNameSpace::OpenDir(const char *name, Args *args)
 	}
 }
 
-Args FSNameSpace::ReadDirNext(Args *Dir)
+bool FSNameSpace::ReadDirNext(Args *Dir, Dirent *dirent_)
 {
 	DIR *pDir = (DIR*)(Dir->arg1);
 	
 	struct dirent *pEnt = NULL;
-	Args args;
 	
 	if (NULL == (pEnt = ::readdir(pDir))) {
 		::closedir(pDir);
+		return false;
 	}
 
-	args.arg1 = pEnt;
+	dirent_->filename = pEnt->d_name;
+	
+	if(pEnt->d_type == DT_DIR){
+		dirent_->filetype = DIR_;
+	}else{
+		dirent_->filetype = FILE_;
+	}
 
-	return args;
+	return true;
 }
 
 

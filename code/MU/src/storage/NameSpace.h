@@ -7,12 +7,27 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <iostream>
+#include <string>
 
+using namespace std;
+
+enum FileType
+{
+	DIR_,
+	FILE_
+};
 
 struct Args
 {
 	void *arg1;
 	void *arg2;
+};
+
+struct Dirent
+{
+	string filename;
+	enum FileType filetype;
 };
 
 class NameSpace 
@@ -33,7 +48,7 @@ public:
 	virtual int MkDir(const char *pathname, mode_t mode) = 0;
 	virtual int RmDir(const char *pathname) = 0;
 	virtual int OpenDir(const char *name, Args *args) = 0;
-	virtual Args ReadDirNext(Args *Dir) = 0;
+	virtual bool ReadDirNext(Args *Dir, Dirent *dirent_)= 0;
 
 
 	//common

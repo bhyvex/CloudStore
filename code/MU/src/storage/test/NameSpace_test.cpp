@@ -103,35 +103,27 @@ int main()
 	cout <<"3"<<endl;
 
 	Args args;
-	do{
-		cout <<"4"<<endl;
-		args = fs.ReadDirNext(&args1);
+	Dirent dirent;
 
-		if(args.arg1){
-		
-			cout <<"5"<<endl;
+	while(fs.ReadDirNext(&args1, &dirent)){
+		string filename = "./fs_test/";
+		filename += dirent.filename;
 
-			struct dirent *pDirent = (struct dirent *)(args.arg1);
-			cout <<"5.1"<<endl;
+		cout <<"./fs_test have:"<< filename <<endl;
 
-			string filename = "./fs_test/";
-			filename += pDirent->d_name;
-			
-			
-			cout <<"./fs_test have:"<< filename <<endl;
+		if(dirent.filetype == DIR_){
 			ret = fs.RmDir(filename.c_str());
 			if(ret < 0){
 				perror("rmdir error:");
 			}
-			cout <<"6"<<endl;
+		}else{
+
 			ret = fs.Remove(filename.c_str());
 			if(ret < 0){
 				perror("remove error:");
 			}
 		}
-		
-		cout <<"7"<<endl;
-	}while(args.arg1);
+	}
 
 
 

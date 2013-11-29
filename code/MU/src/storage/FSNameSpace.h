@@ -29,7 +29,7 @@ public:
 	virtual int MkDir(const char *pathname, mode_t mode);
 	virtual int RmDir(const char *pathname);
 	virtual int OpenDir(const char *name, Args *args);
-	virtual Args ReadDirNext(Args *Dir);
+	virtual bool ReadDirNext(Args *Dir, Dirent *dirent_);
 
 
 	//common
