@@ -25,6 +25,10 @@ int FSNameSpace::Open(const char *pathname, int flags)
 {
 	return ::open(pathname, flags);
 }
+int FSNameSpace::Open(const char *pathname, int flags, mode_t mode)
+{
+	return ::open(pathname, flags, mode);
+}
 int FSNameSpace::Close(int fd)
 {
 	return ::close(fd);
@@ -48,41 +52,32 @@ int FSNameSpace::RmDir(const char *pathname)
 {
 	return ::rmdir(pathname);
 }
-int FSNameSpace::ReadDir(const char *name, vector<KeyValuePair> *KVVec)
-{
-	
-	
-	while (NULL != (pEnt = ::readdir(pDir))) {
-		entryName = pEnt->d_name;
-		
-		KVVec->push_back();
-	}
-}
 
-int FSNameSpace::ReadDir(const char *name)
+int FSNameSpace::OpenDir(const char *name, Args *args)
 {
-	int ret;
-		
-	m_pDir = ::opendir(name);
-	if(NULL == m_pDir){
+	DIR *pDir = ::opendir(name);
+
+	(args->arg1) = pDir;
+	
+	if(NULL == args->arg1){
 		return -1;
 	}else{
 		return 0;
 	}
 }
 
-Args FSNameSpace::ReadDirNext()
+Args FSNameSpace::ReadDirNext(Args *Dir)
 {
-	int ret;
+	DIR *pDir = (DIR*)(Dir->arg1);
+	
 	struct dirent *pEnt = NULL;
 	Args args;
+	
+	if (NULL == (pEnt = ::readdir(pDir))) {
+		::closedir(pDir);
+	}
 
 	args.arg1 = pEnt;
-	
-	if (NULL == (pEnt = ::readdir(m_pDir))) {
-		::closedir(m_pDir);
-		m_pDir = NULL;
-	}
 
 	return args;
 }
@@ -94,9 +89,9 @@ int FSNameSpace::Remove(const char *pathname)
 	return ::remove(pathname);
 }
 
-int FSNameSpace::Stat(const char *path, Args args)
+int FSNameSpace::Stat(const char *path, Args *args)
 {
-	return ::stat(path, args.arg1);
+	return ::stat(path, (struct stat*)(args->arg1));
 }
 
 int FSNameSpace::Move(const char *oldpath, const char *newpath)
