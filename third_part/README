@@ -1,3 +1,9 @@
 ============= leveldb =============
 1 make
 2 ./install install
+
+================ snappy ================
+1 ./autogen.sh
+2 ./configure
+3 make
+4 make install
