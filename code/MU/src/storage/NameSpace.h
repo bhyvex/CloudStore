@@ -45,7 +45,12 @@ public:
 	  */
 	bool setRoot(string path);
 
-	/* interface like posix */
+	/* interface like posix, but the first letter mustn't be "/"
+	  *
+	  * so eg :
+	  *		@path == "bucket0/user1" is right;
+	  *		@path == "/bucket0/user1" is wrong.
+	  */
 	//file
 	virtual int Open(const char *pathname, int flags) = 0;
 	virtual int Open(const char *pathname, int flags, mode_t mode) = 0;

@@ -16,43 +16,43 @@ int main()
 {
 	int ret;
 	
-	ret = fs.setRoot("./");
+	ret = fs.setRoot(".");
 
-	ret = fs.MkDir("./fs_test", S_IRWXU);
+	ret = fs.MkDir("fs_test", S_IRWXU);
 	if(ret < 0){
 		cout <<"fs.MkDir error"<<endl;
 	}
 
-	ret = fs.MkDir("./fs_test/aaa", S_IRWXU);
+	ret = fs.MkDir("fs_test/aaa", S_IRWXU);
 	if(ret < 0){
 		cout <<"fs.MkDir error"<<endl;
 	}
 
-	int fd1 = fs.Open("./fs_test/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd1 = fs.Open("fs_test/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd1< 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	int fd2 = fs.Open("./fs_test/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd2 = fs.Open("fs_test/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd2 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(fd2);
-	int fd3 = fs.Open("./fs_test/c.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd3 = fs.Open("fs_test/c.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd3 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(fd3);
-	int fd4 = fs.Open("./fs_test/d.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd4 = fs.Open("fs_test/d.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd4 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(fd4);
-	int fd5 = fs.Open("./fs_test/aaa/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd5 = fs.Open("fs_test/aaa/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd5 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(fd5);
-	int fd6 = fs.Open("./fs_test/aaa/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	int fd6 = fs.Open("fs_test/aaa/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd6 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
@@ -68,7 +68,7 @@ int main()
 		cout <<"fs.Close error"<<endl;
 	}
 
-	fd1 = fs.Open("./fs_test/a.txt", O_RDONLY);
+	fd1 = fs.Open("fs_test/a.txt", O_RDONLY);
 	if(fd1< 0){
 		cout <<"fs.Open error"<<endl;
 	}
@@ -98,7 +98,7 @@ int main()
 	//-----|->c.txt
 	//-----|->d.txt
 	Args args1;
-	ret = fs.OpenDir("./fs_test", &args1);
+	ret = fs.OpenDir("fs_test", &args1);
 	if(ret < 0){
 		cout <<"fs.OpenDir error"<<endl;
 	}
@@ -108,10 +108,10 @@ int main()
 	Dirent dirent;
 
 	while(fs.ReadDirNext(&args1, &dirent)){
-		string filename = "./fs_test/";
+		string filename = "fs_test/";
 		filename += dirent.filename;
 
-		cout <<"./fs_test have:"<< filename <<endl;
+		cout <<"fs_test have:"<< filename <<endl;
 
 		if(dirent.filetype == DIR_){
 			ret = fs.RmDir(filename.c_str());
@@ -129,31 +129,31 @@ int main()
 
 
 
-	string filename = "./fs_test";
+	string filename = "fs_test";
 	FileAttr attr;
 	ret = fs.Stat(filename.c_str(), &attr);
 	if(ret < 0){
 		perror("stat error:");
 	}else{
-		cout <<"./fs_test's size = "<< attr.m_Size <<endl;
+		cout <<"fs_test's size = "<< attr.m_Size <<endl;
 	}
 
-	ret = fs.Move("./fs_test/aaa/a.txt", "./fs_test/a.txt");
+	ret = fs.Move("fs_test/aaa/a.txt", "./fs_test/a.txt");
 	if(ret < 0){
 		perror("rename error:");
 	}
 
-	ret = fs.Link("./fs_test/a.txt", "./fs_test/a_ptr.txt");
+	ret = fs.Link("fs_test/a.txt", "./fs_test/a_ptr.txt");
 	if(ret < 0){
 		perror("link error:");
 	}
 
-	ret = fs.Link("./fs_test/aaa/b.txt", "./fs_test/b_ptr.txt");
+	ret = fs.Link("fs_test/aaa/b.txt", "./fs_test/b_ptr.txt");
 	if(ret < 0){
 		perror("link error:");
 	}
 
-	ret = fs.Unlink("./fs_test/a_ptr.txt");
+	ret = fs.Unlink("fs_test/a_ptr.txt");
 	if(ret < 0){
 		perror("unlink error:");
 	}

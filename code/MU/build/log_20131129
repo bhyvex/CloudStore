@@ -1,6 +1,0 @@
-
-
-=======================DevLog starts==========================
-2013-11-29 23:48:50 [4aa6:7f1d8211a720] ERROR   	the opposit close the connection
-2013-11-29 23:48:50 [4aa6:7f1d8211a720] ERROR   	TCPAgent::readData():m_Bufv.read()
-2013-11-29 23:48:50 [4aa6:7f1d8211a720] ERROR   	opposit: 192.168.9.63 33292

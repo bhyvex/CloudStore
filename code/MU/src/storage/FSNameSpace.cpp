@@ -1,4 +1,5 @@
 #include "FSNameSpace.h"
+#include "frame/MUMacros.h"
 
 FSNameSpace::FSNameSpace()
 {
@@ -12,11 +13,15 @@ FSNameSpace::~FSNameSpace()
 //file
 int FSNameSpace::Open(const char *pathname, int flags)
 {
-	return ::open(pathname, flags);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+	
+	return ::open(path.c_str(), flags);
 }
 int FSNameSpace::Open(const char *pathname, int flags, mode_t mode)
 {
-	return ::open(pathname, flags, mode);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+	
+	return ::open(path.c_str(), flags, mode);
 }
 int FSNameSpace::Close(int fd)
 {
@@ -35,16 +40,22 @@ int FSNameSpace::Write(int fd, const void *buf, size_t count)
 //dir
 int FSNameSpace::MkDir(const char *pathname, mode_t mode)
 {
-	return ::mkdir(pathname, mode);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+	
+	return ::mkdir(path.c_str(), mode);
 }
 int FSNameSpace::RmDir(const char *pathname)
 {
-	return ::rmdir(pathname);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+
+	return ::rmdir(path.c_str());
 }
 
 int FSNameSpace::OpenDir(const char *name, Args *args)
 {
-	DIR *pDir = ::opendir(name);
+	string path = m_Root + PATH_SEPARATOR_STRING + name;
+
+	DIR *pDir = ::opendir(path.c_str());
 
 	(args->arg1) = pDir;
 	
@@ -81,7 +92,9 @@ bool FSNameSpace::ReadDirNext(Args *Dir, Dirent *dirent_)
 //common
 int FSNameSpace::Remove(const char *pathname)
 {
-	return ::remove(pathname);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+
+	return ::remove(path.c_str());
 }
 
 int FSNameSpace::Stat(const char *path, FileAttr *fileAttr)
@@ -91,7 +104,8 @@ int FSNameSpace::Stat(const char *path, FileAttr *fileAttr)
 	}
 	
 	struct stat st;
-	int ret = stat(path, &st);
+	string pathname = m_Root + PATH_SEPARATOR_STRING + path;
+	int ret = stat(pathname.c_str(), &st);
 	if(ret == -1){
 		return -1;
 	}
@@ -107,16 +121,22 @@ int FSNameSpace::Stat(const char *path, FileAttr *fileAttr)
 
 int FSNameSpace::Move(const char *oldpath, const char *newpath)
 {
-	return ::rename(oldpath, newpath);
+	string old_path = m_Root + PATH_SEPARATOR_STRING + oldpath;
+	string new_path = m_Root + PATH_SEPARATOR_STRING + newpath;
+	return ::rename(old_path.c_str(), new_path.c_str());
 }
 
 int FSNameSpace::Link(const char *oldpath, const char *newpath)
 {
-	return ::link(oldpath, newpath);
+	string old_path = m_Root + PATH_SEPARATOR_STRING + oldpath;
+	string new_path = m_Root + PATH_SEPARATOR_STRING + newpath;
+	return ::link(old_path.c_str(), new_path.c_str());
 }
 
 int FSNameSpace::Unlink(const char *pathname)
 {
-	return ::unlink(pathname);
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+
+	return ::unlink(path.c_str());
 }
 
