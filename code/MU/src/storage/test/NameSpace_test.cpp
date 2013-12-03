@@ -8,6 +8,11 @@
 #include "../KVNameSpace.h"
 #include <errno.h>
 
+
+//"../../protocol/MUMacros.h" define
+#define MU_DIRECTORY                0
+
+
 using namespace std;
 
 FSNameSpace fs;
@@ -30,31 +35,31 @@ int main()
 	}
 
 	Args fd1 = fs.Open("fs_test/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd1< 0){
+	if(fd1.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	Args fd2 = fs.Open("fs_test/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd2 < 0){
+	if(fd2.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(&fd2);
 	Args fd3 = fs.Open("fs_test/c.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd3 < 0){
+	if(fd3.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(&fd3);
 	Args fd4 = fs.Open("fs_test/d.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd4 < 0){
+	if(fd4.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(&fd4);
 	Args fd5 = fs.Open("fs_test/aaa/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd5 < 0){
+	if(fd5.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(&fd5);
 	Args fd6 = fs.Open("fs_test/aaa/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
-	if(fd6 < 0){
+	if(fd6.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 	fs.Close(&fd6);
@@ -70,7 +75,7 @@ int main()
 	}
 
 	fd1 = fs.Open("fs_test/a.txt", O_RDONLY);
-	if(fd1< 0){
+	if(fd1.valid == false){
 		cout <<"fs.Open error"<<endl;
 	}
 
@@ -114,7 +119,7 @@ int main()
 
 		cout <<"fs_test have:"<< filename <<endl;
 
-		if(dirent.filetype == DIR_){
+		if(dirent.filetype == MU_DIRECTORY){
 			ret = fs.RmDir(filename.c_str());
 			if(ret < 0){
 				perror("rmdir error:");

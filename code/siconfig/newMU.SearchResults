@@ -1,11 +1,11 @@
----- MUConfiguration::getInstance()->m_MainChannelID Matches (10 in 3 files) ----
-BucketDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-BucketDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-LogAccessEngine.cpp (mu\src\oplog):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-LogAccessEngine.cpp (mu\src\oplog):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):	Channel* pChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):    Channel* pChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):    Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
-UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+---- UserDAO() Matches (10 in 4 files) ----
+FileOpItem.cpp (mu\src\item):    UserDAO *pUserDAO = new UserDAO();
+FileOpItem.cpp (mu\src\item):    UserDAO *pUserDAO = new UserDAO();
+FileOpItem.cpp (mu\src\item):    UserDAO *pUserDAO = new UserDAO();
+UserDAO.cpp (mu\src\dao):UserDAO::~UserDAO()
+UserDAO.cpp (mu\src\dao):UserDAO::UserDAO()
+UserDAO.h (mu\src\dao):    virtual ~UserDAO();
+UserDAO.h (mu\src\dao):    UserDAO();
+UserItem.cpp (mu\src\item):    UserDAO *pUserDAO = new UserDAO();
+UserItem.cpp (mu\src\item):    UserDAO *pUserDAO = new UserDAO();
+UserItem.cpp (mu\src\item):    UserDAO *pUDAO = new UserDAO();

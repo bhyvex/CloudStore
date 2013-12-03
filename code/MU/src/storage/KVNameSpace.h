@@ -8,7 +8,7 @@ class KVNameSpace : public NameSpace
 public:
 	KVNameSpace();
 	~KVNameSpace();
-
+	
 
 	//file
 	virtual Args Open(const char *pathname, int flags);
@@ -34,6 +34,10 @@ public:
 	virtual int Link(const char *oldpath, const char *newpath);
 	virtual int Unlink(const char *pathname);
 	virtual int RmdirRecursive(const char *pathname);
+
+private:
+	StoreEngine *m_StoreEngine;
+	BuildStrategy *m_BuildStrategy;
 
 };
 

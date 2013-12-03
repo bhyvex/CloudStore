@@ -1,7 +1,11 @@
 #include "KVNameSpace.h"
+#include "LevelDBEngine.h"
+#include "SplitPathStrategy.h"
 
 KVNameSpace::KVNameSpace()
 {
+	m_StoreEngine = LevelDBEngine();
+	m_BuildStrategy = SplitPathStrategy();
 }
 
 KVNameSpace::~KVNameSpace()
@@ -11,8 +15,18 @@ KVNameSpace::~KVNameSpace()
 //file
 Args KVNameSpace::Open(const char *pathname, int flags)
 {
-	Args arg;
-	return arg;
+	Args args;
+	args.valid = false;
+	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
+	
+	int fd = ::open(path.c_str(), flags);
+	args.arg2 = fd;
+	if(fd >= 0){
+		args.valid = true;
+	}
+
+	return args;
+
 }
 
 Args KVNameSpace::Open(const char *pathname, int flags, mode_t mode)
