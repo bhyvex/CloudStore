@@ -17,6 +17,8 @@
 #include "data/FileMeta.h"
 #include "frame/MUMacros.h"
 #include "protocol/MUMacros.h"
+#include "storage/ChannelManager.h"
+
 
 DataGen::~DataGen()
 {
@@ -446,6 +448,7 @@ DataGen::readUserInfo(UserInfo *pInfo)
 
     std::string path = _userRoot + PATH_SEPARATOR_STRING + USER_INFO_NAME;
 
+	
     rt = ::open(path.c_str(), O_RDONLY);
 
     if (-1 == rt) {

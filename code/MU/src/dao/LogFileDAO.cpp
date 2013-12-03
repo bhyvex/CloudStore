@@ -14,6 +14,13 @@
 #include "frame/ReturnStatus.h"
 #include "frame/MUConfiguration.h"
 #include "frame/MUMacros.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
 
 #include "log/log.h"
 #include "util/util.h"
@@ -64,8 +71,11 @@ LogFileDAO::checkLogFileSize(
 std::string
 LogFileDAO::logPath(uint64_t bucketId)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
+               InfoNS->m_Root +
                PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(bucketId) +
@@ -73,6 +83,7 @@ LogFileDAO::logPath(uint64_t bucketId)
                BUCKET_LOG_FILE_NAME
            );
 }
+
 
 
 

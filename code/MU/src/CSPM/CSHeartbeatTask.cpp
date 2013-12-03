@@ -21,6 +21,13 @@
 #include "protocol/protocol.h"
 #include "state/Bucket.h"
 #include "state/BucketManager.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
 
 #include "comm/comm.h"
 
@@ -245,17 +252,13 @@ CSHeartbeatTask::sendHandshake()
     MsgHeader msg;
     msg.cmd = MSG_MU_CS_HEARTBEAT_HANDSHAKE;
 
-    struct statvfs st;
+	int sizeInMB = 0;
 
-    rt = ::statvfs(MUConfiguration::getInstance()->m_FileSystemRoot.c_str(),
-                   &st);
-
-    if (-1 == rt) {
-        DEBUG_LOG("statvfs() error, %s.", strerror(errno));
-        return -1;
+    int DataChannelNum = MUConfiguration::getInstance()->m_ChannelNum - 1;
+    for(int i = 0; i < DataChannelNum; i++){
+    	Channel* pDataChannel = ChannelManager::getInstance()->findChannel(i);
+    	sizeInMB += pDataChannel->m_SizeInMB;
     }
-
-    uint32_t sizeInMB = ((uint64_t) st.f_frsize) * st.f_blocks / 1024 / 1024;
 
     cstore::pb_MSG_MU_CS_HEARTBEAT_HANDSHAKE handshake;
     handshake.set_storage_load_limit(sizeInMB);

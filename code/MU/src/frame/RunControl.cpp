@@ -81,7 +81,7 @@ RunControl::initialize()
 
     initChannel();
 
-    initFilesystemRoot();
+    //initFilesystemRoot();
 
     //initRecycleTask();
 
@@ -345,12 +345,17 @@ RunControl::initChannel()
 		int ChannelID = i;
 		std::string RootPath = MUConfiguration::getInstance()->m_ChannelVec[i];
 		ChannelManager::getInstance()->createChannel(i, RootPath);
+		
 	}
 
 	if(MUConfiguration::getInstance()->m_ChannelNum 
 		!= ChannelManager::getInstance()->ChannelSize()){
 
 		ERROR_LOG("initChannel() error. Start system failed. Program will exit.");
+	}
+
+	for(int i = 0; i < MUConfiguration::getInstance()->m_ChannelNum; i++){
+		cout <<"ii="<<i<<"    Channel*="<<ChannelManager::getInstance()->findChannel(i)->m_Root <<endl;
 	}
 
 	//create mapping strategy
@@ -367,6 +372,7 @@ RunControl::initChannel()
 void
 RunControl::initFilesystemRoot()
 {
+/*
     int rt = 0;
     struct stat st;
 
@@ -385,7 +391,9 @@ RunControl::initFilesystemRoot()
         ERROR_LOG("Initialize filesystem root failed. Program will exit.");
         exit(1);
     }
+    */
 }
+
 void
 RunControl::initMigrationListen()
 {

@@ -15,6 +15,14 @@
 #include "frame/MUMacros.h"
 #include "frame/MUConfiguration.h"
 #include "data/FileMeta.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
+
 
 #include "log/log.h"
 #include "util/util.h"
@@ -40,12 +48,27 @@ FileMetaDAO::FileMetaDAO()
 
 }
 
+bool FileMetaDAO::setBucketID(uint64_t Id)
+{
+	m_BucketId = Id;
+	return true;
+}
+bool FileMetaDAO::setUserID(uint64_t Id)
+{
+	m_UserId = Id;
+	return true;
+}
+
+
 ReturnStatus
 FileMetaDAO::putDir(const std::string &path)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
 
-    rt = ::mkdir(path.c_str(),
+    rt = DataNS->MkDir(path.c_str(),
                  S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
 
     if (0 == rt) {
@@ -101,14 +124,17 @@ FileMetaDAO::prefix(const std::string &path)
 ReturnStatus
 FileMetaDAO::checkPrefix(const std::string &path)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
 
-    struct stat st;
-    rt = ::stat(prefix(path).c_str(), &st);
+	FileAttr st;
+    rt = DataNS->Stat(prefix(path).c_str(), &st);
 
     if (0 == rt) {
 
-        if (S_ISDIR(st.st_mode)) {//如果path是个存在的目录
+        if (st.m_Type == MU_DIRECTORY) {//如果path是个存在的目录
             // prefix path is existed and refers to a directory
             return ReturnStatus(MU_FAILED, PATH_NOT_EXIST);
 
@@ -130,15 +156,18 @@ FileMetaDAO::checkPrefix(const std::string &path)
 ReturnStatus
 FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
     ReturnStatus rs;
     int error = 0;
     std::string entryName;
     std::string npath;
+    Args st;
 
-    DIR *pDir = ::opendir(path.c_str());
-
-    if (NULL == pDir) {
+	rt = DataNS->OpenDir(path.c_str(), &st);
+    if (rt < 0) {
         error = errno;
 
         DEBUG_LOG("path %s, opendir() error, %s.",
@@ -155,10 +184,10 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
 
     // delete its children
 
-    struct dirent *pEnt = NULL;
+    Dirent dirent;
 
-    while (NULL != (pEnt = ::readdir(pDir))) {
-        entryName = pEnt->d_name;
+    while(DataNS->ReadDirNext(&st, &dirent)){
+        entryName = dirent.filename;
 
         // omit "." and ".."
         // omit user info file in user root dir
@@ -170,7 +199,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
 
         npath = path + PATH_SEPARATOR_STRING + entryName;
 
-        if (DT_DIR == pEnt->d_type) {
+        if (MU_DIRECTORY == dirent.filetype) {
             // directory, call myself to delete it
             rs = rmdirRecursive(npath, pDelta);
 
@@ -184,7 +213,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
             addFileSizeToDelta(npath, pDelta);
 
             // delete it directly
-            rt = ::unlink(npath.c_str());
+            rt = DataNS->Unlink(npath.c_str());
 
             if (-1 == rt) {
                 DEBUG_LOG("path %s, unlink() error, %s.",
@@ -194,7 +223,6 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
         }
     }
 
-    ::closedir(pDir);
 
     // delete path
 
@@ -203,7 +231,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
         return ReturnStatus(MU_SUCCESS);
     }
 
-    rt = ::rmdir(path.c_str());
+    rt = DataNS->RmDir(path.c_str());
 
     if (-1 == rt) {
         DEBUG_LOG("path %s, rmdir() error, %s.",
@@ -214,25 +242,31 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
     return ReturnStatus(MU_SUCCESS);
 }
 
+
 void
 FileMetaDAO::addFileSizeToDelta(const std::string &path, uint64_t *pDelta)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
+    Args fd;
 
     // read file size
-    rt = ::open(path.c_str(), O_RDONLY);
+    
+    fd = DataNS->Open(path.c_str(), O_RDONLY);
 
-    if (-1 == rt) {
+    if (false == fd.valid) {
         DEBUG_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
         return ;
     }
 
-    int fd = rt;
+    //int fd = rt;
 
     FileAttr attr;
 
-    rt = util::io::readn(fd, &attr, sizeof(attr));
-    ::close(fd);
+    rt = DataNS->readn(&fd, &attr, sizeof(attr));
+    DataNS->Close(&fd);
 
     if (sizeof(attr) != rt) {
         DEBUG_LOG("path %s, readn() error", path.c_str());
@@ -247,13 +281,17 @@ FileMetaDAO::getDir(const std::string &path, std::list<PDEntry> *pEntryList)
 {
     assert(pEntryList);
 
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     int rt = 0;
     int error = 0;
     std::string entryName;
+    Args st;
 
-    DIR *pDir = ::opendir(path.c_str());
+    rt = DataNS->OpenDir(path.c_str(), &st);
 
-    if (NULL == pDir) {
+    if (false == st.valid) {
         error = errno;
 
         DEBUG_LOG("path %s, opendir() error, %s.",
@@ -267,10 +305,10 @@ FileMetaDAO::getDir(const std::string &path, std::list<PDEntry> *pEntryList)
         }
     }
 
-    struct dirent *pEnt = NULL;
+    Dirent dirent;
 
-    while (NULL != (pEnt = ::readdir(pDir))) {
-        entryName = pEnt->d_name;
+    while(DataNS->ReadDirNext(&st, &dirent)){
+        entryName = dirent.filename;
 
         // omit "." and ".."
         // omit user info file in user root dir
@@ -283,7 +321,7 @@ FileMetaDAO::getDir(const std::string &path, std::list<PDEntry> *pEntryList)
         PDEntry ent;
         ent.m_Name = entryName;
 
-        if (DT_DIR == pEnt->d_type) {
+        if (MU_DIRECTORY == dirent.filetype) {
             ent.m_Type = MU_DIRECTORY;
 
         } else {
@@ -293,7 +331,6 @@ FileMetaDAO::getDir(const std::string &path, std::list<PDEntry> *pEntryList)
         pEntryList->push_back(ent);
     }
 
-    ::closedir(pDir);
 
     return ReturnStatus(MU_SUCCESS);
 }
@@ -304,11 +341,14 @@ FileMetaDAO::statDir(const std::string &path, FileMeta *pMeta)
 {
     assert(pMeta);
 
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     int rt = 0;
     int error = 0;
 
-    struct stat st;
-    rt = ::stat(path.c_str(), &st);
+	FileAttr st;
+	rt = DataNS->Stat(path.c_str(), &st);
 
     if (-1 == rt) {
         error = errno;
@@ -322,15 +362,15 @@ FileMetaDAO::statDir(const std::string &path, FileMeta *pMeta)
         }
     }
 
-    if (!S_ISDIR(st.st_mode)) {
+    if (st.m_Type != MU_DIRECTORY) {
         DEBUG_LOG("path %s, not directory", path.c_str());
         return ReturnStatus(MU_FAILED, NOT_DIRECTORY);
     }
 
-    pMeta->m_Attr.m_Mode = st.st_mode;
-    pMeta->m_Attr.m_CTime = st.st_ctime;
-    pMeta->m_Attr.m_MTime = st.st_mtime;
-    pMeta->m_Attr.m_Size = st.st_size;
+    pMeta->m_Attr.m_Mode = st.m_Mode;
+    pMeta->m_Attr.m_CTime = st.m_CTime;
+    pMeta->m_Attr.m_MTime = st.m_MTime;
+    pMeta->m_Attr.m_Size = st.m_Size;
 
     return ReturnStatus(MU_SUCCESS);
 }
@@ -341,14 +381,17 @@ FileMetaDAO::getDir2(const std::string &path,
 {
     assert(pEntryList);
 
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     int rt = 0;
     int error = 0;
     std::string entryName;
     std::string npath;
+	Args st;
 
-    DIR *pDir = ::opendir(path.c_str());
-
-    if (NULL == pDir) {
+    rt = DataNS->OpenDir(path.c_str(), &st);
+    if (false == st.valid) {
         error = errno;
 
         DEBUG_LOG("path %s, opendir() error, %s.",
@@ -362,14 +405,12 @@ FileMetaDAO::getDir2(const std::string &path,
         }
     }
 
-    struct dirent *pEnt = NULL;
-
     FileMeta meta;
-
     ReturnStatus rs;
+    Dirent dirent;
 
-    while (NULL != (pEnt = ::readdir(pDir))) {
-        entryName = pEnt->d_name;
+    while(DataNS->ReadDirNext(&st, &dirent)){
+        entryName = dirent.filetype;
         npath = path + PATH_SEPARATOR_STRING + entryName;
 
         // omit "." and ".."
@@ -383,7 +424,7 @@ FileMetaDAO::getDir2(const std::string &path,
         EDEntry ent;
         ent.m_Name = entryName;
 
-        if (DT_DIR == pEnt->d_type) {
+        if (MU_DIRECTORY == dirent.filetype) {
             ent.m_Type = MU_DIRECTORY;
 
             rs = statDir(npath, &meta);
@@ -422,7 +463,6 @@ FileMetaDAO::getDir2(const std::string &path,
         pEntryList->push_back(ent);
     }
 
-    ::closedir(pDir);
 
     return ReturnStatus(MU_SUCCESS);
 }
@@ -431,6 +471,9 @@ ReturnStatus
 FileMetaDAO::movDir(const std::string &srcPath,
                     const std::string &destPath)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
     int error = 0;
 
@@ -466,7 +509,7 @@ FileMetaDAO::movDir(const std::string &srcPath,
         return rs;
     }
 
-    rt = ::rename(srcPath.c_str(), destPath.c_str());
+    rt = DataNS->Move(srcPath.c_str(), destPath.c_str());
 
     if (-1 == rt) {
         error = errno;
@@ -490,13 +533,17 @@ FileMetaDAO::movDir(const std::string &srcPath,
 ReturnStatus
 FileMetaDAO::isdir(const std::string &path)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
+	
     int rt = 0;
 
-    struct stat st;
-    rt = ::stat(path.c_str(), &st);
+	FileAttr st;
+    rt = DataNS->Stat(path.c_str(), &st);
 
     if (0 == rt) {
-        if (S_ISDIR(st.st_mode)) {
+        if (MU_DIRECTORY == st.m_Type) {
             return ReturnStatus(MU_SUCCESS);
 
         } else {
@@ -526,9 +573,11 @@ FileMetaDAO::putFile(const std::string &path, const FileMeta &meta,
     assert(pDelta);
 
     if (FILE_VERSION_INIT == meta.m_Attr.m_Version) {
+    	DEBUG_LOG("createFile, %s", path.c_str());
         return createFile(path, meta, pMeta, pDelta);
 
     } else {
+    	DEBUG_LOG("updateFile, %s", path.c_str());
         return updateFile(path, meta, pMeta, pDelta);
     }
 }
@@ -543,12 +592,15 @@ FileMetaDAO::createFile(
     int *pDelta)
 {
     int rt = 0;
-    int fd = 0;
     int error = 0;
+    Args fd;
 
-    rt = ::open(path.c_str(), O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
 
-    if (-1 == rt) {
+	fd = DataNS->Open(path.c_str(), O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+
+    if (false == fd.valid) {
         error = errno;
         DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(error));
 
@@ -562,23 +614,22 @@ FileMetaDAO::createFile(
                 return rs;
             }
 
-            rt = ::open(path.c_str(), O_RDONLY);
+            fd = DataNS->Open(path.c_str(), O_RDONLY);
 
-            if (-1 == rt) {
+            if (false == fd.valid) {
                 DEBUG_LOG("path %s, open() error, %s",
                           path.c_str(), strerror(errno));
                 return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             }
 
-            fd = rt;
 
             // check file version
 
             FileAttr attr;
 
-            rt = util::io::readn(fd, &attr, sizeof(attr));
+            rt = DataNS->readn(&fd, &attr, sizeof(attr));
 
-            ::close(fd);
+            DataNS->Close(&fd);
 
             if (sizeof(attr) != rt) {
                 return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -597,11 +648,10 @@ FileMetaDAO::createFile(
         }
     }
 
-    fd = rt;
 
-    ReturnStatus rs = writeFileMeta(fd, meta);
+    ReturnStatus rs = writeFileMeta(&fd, meta);
 
-    ::close(fd);
+    DataNS->Close(&fd);
 
     // return file size delta
     *pDelta = meta.m_Attr.m_Size;
@@ -613,8 +663,11 @@ ReturnStatus
 FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
                         FileMeta *pMeta, int *pDelta)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
-    int fd = 0;
+    Args fd;
 
     ReturnStatus rs;
 
@@ -624,7 +677,7 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
         return rs;
     }
 
-    rt = ::open(path.c_str(), O_RDWR);
+    fd = DataNS->Open(path.c_str(), O_RDWR);
 
     if (-1 == rt) {
         DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
@@ -633,17 +686,16 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    fd = rt;
 
     // check file version
 
     FileAttr attr;
 
-    rt = util::io::readn(fd, &attr, sizeof(attr));
+    rt = DataNS->readn(&fd, &attr, sizeof(attr));
 
     if (sizeof(attr) != rt) {
         DEBUG_LOG("readn() error");
-        ::close(fd);
+        DataNS->Close(&fd);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -651,16 +703,16 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
         DEBUG_LOG("version outdated, current version %" PRIu64 ", "
                   "received version %" PRIu64,
                   attr.m_Version, meta.m_Attr.m_Version);
-        ::close(fd);
+        DataNS->Close(&fd);
         pMeta->m_Attr = attr;
         return ReturnStatus(MU_FAILED, VERSION_OUTDATED);
     }
 
     // write metadata
 
-    rs = writeFileMeta(fd, meta);
+    rs = writeFileMeta(&fd, meta);
 
-    ::close(fd);
+    DataNS->Close(&fd);;
 
     // return file size delta
     *pDelta = meta.m_Attr.m_Size - attr.m_Size;
@@ -670,11 +722,14 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
 
 
 ReturnStatus
-FileMetaDAO::writeFileMeta(int fd, const FileMeta &meta)
+FileMetaDAO::writeFileMeta(Args *fd, const FileMeta &meta)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     int rt = 0;
 
-    rt = ::lseek(fd, 0, SEEK_SET);
+    rt = DataNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
         DEBUG_LOG("lseek() error, %s.", strerror(errno));
@@ -700,7 +755,7 @@ FileMetaDAO::writeFileMeta(int fd, const FileMeta &meta)
         bufIdx += FIXED_BLOCK_CHECKSUM_LEN;
     }
 
-    rt = util::io::writen(fd, pBuf, bufIdx);
+    rt = DataNS->writen(fd, pBuf, bufIdx);
 
     delete [] pBuf;
     pBuf = NULL;
@@ -738,16 +793,19 @@ FileMetaDAO::writeFileMeta(int fd, const FileMeta &meta)
 ReturnStatus
 FileMetaDAO::isfile(const std::string &path)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
+    FileAttr st;
 
-    struct stat st;
-    rt = ::stat(path.c_str(), &st);
+    rt = DataNS->Stat(path.c_str(), &st);
 
     if (0 == rt) {
-        if (S_ISREG(st.st_mode)) {
+        if (MU_REGULAR_FILE == st.m_Type) {
             return ReturnStatus(MU_SUCCESS);
 
-        } else if (S_ISDIR(st.st_mode)) {
+        } else if (MU_DIRECTORY == st.m_Type) {
             DEBUG_LOG("path %s, is directory", path.c_str());
             return ReturnStatus(MU_FAILED, IS_DIRECTORY);
 
@@ -772,7 +830,11 @@ FileMetaDAO::isfile(const std::string &path)
 ReturnStatus
 FileMetaDAO::delFile(const std::string &path, int *pDelta)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
+    Args fd;
 
     ReturnStatus rs;
 
@@ -783,19 +845,18 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     }
 
     // read file size
-    rt = ::open(path.c_str(), O_RDONLY);
+    fd = DataNS->Open(path.c_str(), O_RDONLY);
 
-    if (-1 == rt) {
+    if (false == fd.valid) {
         DEBUG_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    int fd = rt;
 
     FileAttr attr;
 
-    rt = util::io::readn(fd, &attr, sizeof(attr));
-    ::close(fd);
+    rt = DataNS->readn(&fd, &attr, sizeof(attr));
+    DataNS->Close(&fd);
 
     if (sizeof(attr) != rt) {
         DEBUG_LOG("path %s, readn() error", path.c_str());
@@ -806,7 +867,7 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
 
     // do delete action
 
-    rt = ::unlink(path.c_str());
+    rt = DataNS->Unlink(path.c_str());
 
     if (-1 == rt) {
         DEBUG_LOG("path %s, unlink() error, %s.",
@@ -823,6 +884,9 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
 {
     assert(pMeta);
 
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     // clear possible data
     pMeta->m_BlockList.clear();
 
@@ -835,19 +899,19 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
     }
 
     int rt = 0;
+    Args fd;
 
-    rt = ::open(path.c_str(), O_RDONLY);
+    fd = DataNS->Open(path.c_str(), O_RDONLY);
 
-    if (-1 == rt) {
+    if (false == fd.valid) {
         DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    int fd = rt;
 
-    rs = readFileMeta(fd, pMeta);
+    rs = readFileMeta(&fd, pMeta);
 
-    ::close(fd);
+    DataNS->Close(&fd);
 
     if (!rs.success()) {
         DEBUG_LOG("path %s, readFileMeta() error", path.c_str());
@@ -858,13 +922,16 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
 
 
 ReturnStatus
-FileMetaDAO::readFileMeta(int fd, FileMeta *pMeta)
+FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
 {
     assert(pMeta);
 
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
     int rt = 0;
 
-    rt = util::io::readn(fd, &(pMeta->m_Attr), sizeof(pMeta->m_Attr));
+    rt = DataNS->readn(fd, &(pMeta->m_Attr), sizeof(pMeta->m_Attr));
 
     if (sizeof(pMeta->m_Attr) != rt) {
         DEBUG_LOG("read attr, readn() error");
@@ -879,7 +946,7 @@ FileMetaDAO::readFileMeta(int fd, FileMeta *pMeta)
 
     char *pBlockList = new char[blocks * FIXED_BLOCK_CHECKSUM_LEN];
 
-    rt = util::io::readn(fd, pBlockList, blocks * FIXED_BLOCK_CHECKSUM_LEN);
+    rt = DataNS->readn(fd, pBlockList, blocks * FIXED_BLOCK_CHECKSUM_LEN);
 
     if (blocks * FIXED_BLOCK_CHECKSUM_LEN != rt) {
         DEBUG_LOG("read block list, readn() error");
@@ -906,6 +973,9 @@ ReturnStatus
 FileMetaDAO::movFile(const std::string &srcPath,
                      const std::string &destPath)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
     int error = 0;
 
@@ -941,7 +1011,7 @@ FileMetaDAO::movFile(const std::string &srcPath,
         return rs;
     }
 
-    rt = ::rename(srcPath.c_str(), destPath.c_str());
+    rt = DataNS->Move(srcPath.c_str(), destPath.c_str());
 
     if (-1 == rt) {
         error = errno;
@@ -958,5 +1028,8 @@ FileMetaDAO::movFile(const std::string &srcPath,
 
     return ReturnStatus(MU_SUCCESS);
 }
+
+
+
 
 

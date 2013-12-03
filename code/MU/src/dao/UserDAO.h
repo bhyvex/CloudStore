@@ -15,6 +15,8 @@
 #include "frame/MUDAO.h"
 #include "frame/ReturnStatus.h"
 #include "data/UserInfo.h"
+#include "storage/NameSpace.h"
+
 
 #include <inttypes.h>
 
@@ -39,18 +41,17 @@ public:
                                uint64_t userId, const UserInfo &info);
 
 protected:
-    ReturnStatus readUserInfo(int fd, UserInfo *pInfo);
+    ReturnStatus readUserInfo(Args *fd, UserInfo *pInfo);
 
-    ReturnStatus writeUserInfo(int fd, const UserInfo &info);
+    ReturnStatus writeUserInfo(Args *fd, const UserInfo &info);
 
     /**
-     * @brief Delete a specified directory, even it's no empty.
+     * @brief Delete a specified user, even it's no empty.
      *
-     * @param path
      *
      * @return
      */
-    ReturnStatus rmdirRecursive(const std::string &path);
+    ReturnStatus rmUserRecursive(uint64_t bucketId, uint64_t userId);
 
     std::string absUserRootPath(uint64_t bucketId, uint64_t userId);
 };

@@ -21,6 +21,13 @@
 #include "state/BucketManager.h"
 #include "state/User.h"
 #include "state/UserManager.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
 
 #include "dao/FileMetaDAO.h"
 #include "dao/UserDAO.h"
@@ -158,6 +165,8 @@ FileOpItem::putDir()
     TRACE_LOG("put dir, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->putDir(path);
 
@@ -172,13 +181,15 @@ FileOpItem::putDir()
 void
 FileOpItem::delDir()
 {
-    std::string path = absPath(m_Path);
+    std::string path = absPath(m_Path);//"bucket1/user1/hehe"
 
     TRACE_LOG("del dir, path %s", path.c_str());
 
     uint64_t delta = 0;
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->delDir(path, &delta);
 
@@ -227,11 +238,13 @@ FileOpItem::delDir()
 void
 FileOpItem::getDir()
 {
-    std::string path = absPath(m_Path);
+    std::string path = absPath(m_Path);//"bucket1/user1/hehe"
 
     TRACE_LOG("get dir, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->getDir(path, &m_PDEntryList);
 
@@ -251,6 +264,8 @@ FileOpItem::statDir()
     TRACE_LOG("stat dir, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->statDir(path, &m_FileMetaOut);
 
@@ -270,6 +285,8 @@ FileOpItem::getDir2()
     TRACE_LOG("get dir2, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->getDir2(path, &m_EDEntryList);
 
@@ -291,6 +308,8 @@ FileOpItem::movDir()
               srcPath.c_str(), destPath.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->movDir(srcPath, destPath);
 
@@ -310,16 +329,24 @@ FileOpItem::putFile()
 
     TRACE_LOG("put file, path %s", path.c_str());
 
+    INFO_LOG("put file1, path %s", path.c_str());
+
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     int delta = 0;
+    INFO_LOG("put file2, path %s", path.c_str());
     m_ReturnStatus = pMetaDAO->putFile(
                          absPath(m_Path), m_FileMetaIn,
                          &m_FileMetaOut, &delta);
 
     delete pMetaDAO;
     pMetaDAO = NULL;
+    
 
+	INFO_LOG("put file3, path %s", path.c_str());
+	
     if (!m_ReturnStatus.success()) {
         DEBUG_LOG("path %s, put file failed", path.c_str());
         return ;
@@ -329,9 +356,13 @@ FileOpItem::putFile()
 
     UserDAO *pUserDAO = new UserDAO();
 
+    INFO_LOG("put file4, path %s", path.c_str());
+
     struct UserInfo info;
 
     m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
+
+    INFO_LOG("put file5, path %s", path.c_str());
 
     if (!m_ReturnStatus.success()) {
         DEBUG_LOG("path %s, readUserInfo() failed", path.c_str());
@@ -344,6 +375,8 @@ FileOpItem::putFile()
         return ;
     }
 
+    INFO_LOG("put file6, path %s", path.c_str());
+
     if (delta > 0) {
         info.m_UsedQuota += delta;
 
@@ -353,12 +386,15 @@ FileOpItem::putFile()
 
     m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
 
+    INFO_LOG("put file7, path %s", path.c_str());
+
     if (!m_ReturnStatus.success()) {
         DEBUG_LOG("path %s, writeUserInfo() failed", path.c_str());
 
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
     }
+    INFO_LOG("put file8, path %s", path.c_str());
 
     delete pUserDAO;
     pUserDAO = NULL;
@@ -372,6 +408,8 @@ FileOpItem::delFile()
     TRACE_LOG("del file, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     int delta = 0;
     m_ReturnStatus = pMetaDAO->delFile(path, &delta);
@@ -426,6 +464,8 @@ FileOpItem::getFile()
     TRACE_LOG("get file, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->getFile(absPath(m_Path), &m_FileMetaOut);
 
@@ -448,6 +488,8 @@ FileOpItem::movFile()
               srcPath.c_str(), destPath.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
+    pMetaDAO->setBucketID(m_BucketId);
+    pMetaDAO->setUserID(m_UserId);
 
     m_ReturnStatus = pMetaDAO->movFile(srcPath, destPath);
 
@@ -477,16 +519,19 @@ FileOpItem::delay()
 ReturnStatus
 FileOpItem::userExists()
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
 
     std::string userRootPath = userRoot();
 
-    struct stat st;
-    rt = ::stat(userRootPath.c_str(), &st);
+	FileAttr st;
+    rt = DataNS->Stat(userRootPath.c_str(), &st);
 
     if (0 == rt) {
 
-        if (S_ISDIR(st.st_mode)) {
+        if (st.m_Type == MU_DIRECTORY) {
             return ReturnStatus(MU_SUCCESS);
 
         } else {
@@ -513,8 +558,6 @@ std::string
 FileOpItem::userRoot()
 {
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
-               PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(m_BucketId) +
                PATH_SEPARATOR_STRING +

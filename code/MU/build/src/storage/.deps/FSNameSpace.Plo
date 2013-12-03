@@ -83,7 +83,20 @@ FSNameSpace.lo: ../../../src/storage/FSNameSpace.cpp \
   /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
   ../../../src/data/FileMeta.h /usr/include/inttypes.h \
   /usr/include/c++/4.3/list /usr/include/c++/4.3/bits/stl_list.h \
-  /usr/include/c++/4.3/bits/list.tcc ../../../src/frame/MUMacros.h
+  /usr/include/c++/4.3/bits/list.tcc ../../../src/frame/MUMacros.h \
+  ../../../src/frame/ReturnStatus.h ../../../src/protocol/MUMacros.h \
+  ../../../common/log/log.h /usr/include/c++/4.3/cstring \
+  /usr/include/string.h /usr/include/c++/4.3/cerrno /usr/include/errno.h \
+  /usr/include/bits/errno.h /usr/include/linux/errno.h \
+  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h ../../../common/log/LogLevel.h \
+  ../../../common/log/Logger.h /usr/include/c++/4.3/cstdarg \
+  ../../../common/sys/noncopyable.h ../../../common/log/LogLevel.h \
+  ../../../common/log/LoggerFactory.h /usr/include/c++/4.3/map \
+  /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h \
+  ../../../common/sys/Singleton.h ../../../common/log/Logger.h
 
 ../../../src/storage/FSNameSpace.h:
 
@@ -344,3 +357,51 @@ FSNameSpace.lo: ../../../src/storage/FSNameSpace.cpp \
 /usr/include/c++/4.3/bits/list.tcc:
 
 ../../../src/frame/MUMacros.h:
+
+../../../src/frame/ReturnStatus.h:
+
+../../../src/protocol/MUMacros.h:
+
+../../../common/log/log.h:
+
+/usr/include/c++/4.3/cstring:
+
+/usr/include/string.h:
+
+/usr/include/c++/4.3/cerrno:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/Logger.h:
+
+/usr/include/c++/4.3/cstdarg:
+
+../../../common/sys/noncopyable.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/LoggerFactory.h:
+
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
+../../../common/sys/Singleton.h:
+
+../../../common/log/Logger.h:

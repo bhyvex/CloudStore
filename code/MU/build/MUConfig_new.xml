@@ -59,11 +59,13 @@
 
 
 	<Storage>
-		<ChannelNum>3</ChannelNum>
-		<MainChannelID>0</MainChannelID>
+		<ChannelNum>4</ChannelNum>
+		<!-- now must be last ChannelID -->
+		<MainChannelID>3</MainChannelID>
 		<Channel0_Root>/home/data/Channel0</Channel0_Root>
 		<Channel1_Root>/home/data/Channel1</Channel1_Root>
 		<Channel2_Root>/home/data/Channel2</Channel2_Root>
+		<Channel3_Root>/home/data/Channel3</Channel3_Root>
 	</Storage>
 
 	<User>

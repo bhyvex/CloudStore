@@ -10,7 +10,8 @@ HashMappingStrategy::~HashMappingStrategy()
 
 uint64_t HashMappingStrategy::Mapping(int BucketID)
 {
-	return BucketID % ChannelManager::getInstance()->ChannelSize();
+	//sub the MainChannel
+	return BucketID % (ChannelManager::getInstance()->ChannelSize() - 1);
 }
 
 

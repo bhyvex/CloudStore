@@ -16,6 +16,7 @@ int main()
 {
 	int ret;
 	
+	
 	ret = fs.setRoot(".");
 
 	ret = fs.MkDir("fs_test", S_IRWXU);
@@ -28,42 +29,42 @@ int main()
 		cout <<"fs.MkDir error"<<endl;
 	}
 
-	int fd1 = fs.Open("fs_test/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	Args fd1 = fs.Open("fs_test/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd1< 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	int fd2 = fs.Open("fs_test/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	Args fd2 = fs.Open("fs_test/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd2 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	fs.Close(fd2);
-	int fd3 = fs.Open("fs_test/c.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	fs.Close(&fd2);
+	Args fd3 = fs.Open("fs_test/c.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd3 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	fs.Close(fd3);
-	int fd4 = fs.Open("fs_test/d.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	fs.Close(&fd3);
+	Args fd4 = fs.Open("fs_test/d.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd4 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	fs.Close(fd4);
-	int fd5 = fs.Open("fs_test/aaa/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	fs.Close(&fd4);
+	Args fd5 = fs.Open("fs_test/aaa/a.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd5 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	fs.Close(fd5);
-	int fd6 = fs.Open("fs_test/aaa/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+	fs.Close(&fd5);
+	Args fd6 = fs.Open("fs_test/aaa/b.txt", O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
 	if(fd6 < 0){
 		cout <<"fs.Open error"<<endl;
 	}
-	fs.Close(fd6);
+	fs.Close(&fd6);
 
-	ret = fs.Write(fd1, "hello", 5);
+	ret = fs.Write(&fd1, "hello", 5);
 	if(ret < 0){
 		cout <<"fs.Write error"<<endl;
 	}
 
-	ret = fs.Close(fd1);
+	ret = fs.Close(&fd1);
 	if(ret < 0){
 		cout <<"fs.Close error"<<endl;
 	}
@@ -75,7 +76,7 @@ int main()
 
 	char *buffer[1024];
 	memset(buffer, 0, 1024);
-	ret = fs.Read(fd1, buffer, 6);
+	ret = fs.Read(&fd1, buffer, 6);
 	if(ret < 0){
 		cout <<"fs.Read error"<<endl;
 	}else{
@@ -84,7 +85,7 @@ int main()
 
 	cout <<"1"<<endl;
 
-	ret = fs.Close(fd1);
+	ret = fs.Close(&fd1);
 	if(ret < 0){
 		cout <<"fs.Close error"<<endl;
 	}

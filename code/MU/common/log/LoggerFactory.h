@@ -3,7 +3,7 @@
  *
  *       Filename:  LoggerFactory.h
  *
- *    Description:  æ—¥å¿—å·¥å‚ç±»
+ *    Description:  ÈÕÖ¾¹¤³§Àà
  *
  *        Version:  1.0
  *        Created:  04/24/2011 04:34:00 PM
@@ -27,7 +27,7 @@
 #include "LogLevel.h"
 
 /**
- * @brief æ—¥å¿—å·¥å‚ç±»
+ * @brief ÈÕÖ¾¹¤³§Àà
  */
 class LoggerFactory : public Singleton<LoggerFactory> {
     friend class Singleton<LoggerFactory>;
@@ -35,28 +35,28 @@ class LoggerFactory : public Singleton<LoggerFactory> {
         ~LoggerFactory();
 
         /**
-         * @brief åˆå§‹åŒ–æ—¥å¿—å­ç³»ç»Ÿ
+         * @brief ³õÊ¼»¯ÈÕÖ¾×ÓÏµÍ³
          *
-         * @param level æ—¥å¿—æ˜¾ç¤ºçº§åˆ«
+         * @param level ÈÕÖ¾ÏÔÊ¾¼¶±ğ
          *
          * @return 
          */
         int initialize(LogLevel level);
 
         /**
-         * @brief è·å–æŒ‡å®šLogger
+         * @brief »ñÈ¡Ö¸¶¨Logger
          *
-         * @param loggerName Loggerçš„åç§°
+         * @param loggerName LoggerµÄÃû³Æ
          *
-         * @return æŒ‡å‘Loggerçš„æŒ‡é’ˆ
-         *      - NULL æŒ‡å®šçš„Loggerä¸å­˜åœ¨
+         * @return Ö¸ÏòLoggerµÄÖ¸Õë
+         *      - NULL Ö¸¶¨µÄLogger²»´æÔÚ
          */
         Logger* getLogger(const std::string &loggerName);
 
         /**
-         * @brief è·å–ROOT Loggerï¼ˆROOT Loggeræ€»æ˜¯å­˜åœ¨ï¼‰
+         * @brief »ñÈ¡ROOT Logger£¨ROOT Logger×ÜÊÇ´æÔÚ£©
          *
-         * @return æŒ‡å‘ROOT Loggerçš„æŒ‡é’ˆ
+         * @return Ö¸ÏòROOT LoggerµÄÖ¸Õë
          */
         Logger* getRootLogger();
 

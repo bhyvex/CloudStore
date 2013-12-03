@@ -77,7 +77,26 @@ Channel.lo: ../../../src/storage/Channel.cpp \
   /usr/include/c++/4.3/bits/ostream.tcc /usr/include/c++/4.3/istream \
   /usr/include/c++/4.3/bits/istream.tcc ../../../src/data/FileMeta.h \
   /usr/include/inttypes.h /usr/include/c++/4.3/list \
-  /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc
+  /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc \
+  ../../../src/storage/FSNameSpace.h /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc ../../../src/storage/KVNameSpace.h \
+  /usr/include/sys/statvfs.h /usr/include/bits/statvfs.h \
+  /usr/include/errno.h /usr/include/bits/errno.h \
+  /usr/include/linux/errno.h /usr/include/asm/errno.h \
+  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+  /usr/include/string.h ../../../common/log/log.h \
+  /usr/include/c++/4.3/cstring /usr/include/c++/4.3/cerrno \
+  ../../../common/log/LogLevel.h ../../../common/log/Logger.h \
+  /usr/include/c++/4.3/cstdarg ../../../common/sys/noncopyable.h \
+  ../../../common/log/LogLevel.h ../../../common/log/LoggerFactory.h \
+  /usr/include/c++/4.3/map /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h \
+  ../../../common/sys/Singleton.h ../../../common/log/Logger.h
 
 ../../../src/storage/Channel.h:
 
@@ -324,3 +343,67 @@ Channel.lo: ../../../src/storage/Channel.cpp \
 /usr/include/c++/4.3/bits/stl_list.h:
 
 /usr/include/c++/4.3/bits/list.tcc:
+
+../../../src/storage/FSNameSpace.h:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+../../../src/storage/KVNameSpace.h:
+
+/usr/include/sys/statvfs.h:
+
+/usr/include/bits/statvfs.h:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/string.h:
+
+../../../common/log/log.h:
+
+/usr/include/c++/4.3/cstring:
+
+/usr/include/c++/4.3/cerrno:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/Logger.h:
+
+/usr/include/c++/4.3/cstdarg:
+
+../../../common/sys/noncopyable.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/LoggerFactory.h:
+
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
+../../../common/sys/Singleton.h:
+
+../../../common/log/Logger.h:

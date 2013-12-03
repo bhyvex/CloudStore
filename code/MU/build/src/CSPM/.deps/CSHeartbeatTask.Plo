@@ -188,6 +188,14 @@ CSHeartbeatTask.lo: ../../../src/CSPM/CSHeartbeatTask.cpp \
   ../../../src/protocol/MUMacros.h ../../../src/state/Bucket.h \
   ../../../src/frame/MUWorkItemManager.h \
   ../../../src/state/BucketManager.h ../../../src/state/Bucket.h \
+  ../../../src/storage/ChannelManager.h /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+  ../../../src/storage/Channel.h ../../../src/storage/NameSpace.h \
+  /usr/include/dirent.h /usr/include/bits/dirent.h \
+  ../../../src/storage/NameSpace.h ../../../src/storage/FSNameSpace.h \
   /usr/include/sys/statvfs.h /usr/include/bits/statvfs.h
 
 ../../../src/CSPM/CSHeartbeatTask.h:
@@ -783,6 +791,38 @@ CSHeartbeatTask.lo: ../../../src/CSPM/CSHeartbeatTask.cpp \
 ../../../src/state/BucketManager.h:
 
 ../../../src/state/Bucket.h:
+
+../../../src/storage/ChannelManager.h:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../../../src/storage/Channel.h:
+
+../../../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+../../../src/storage/NameSpace.h:
+
+../../../src/storage/FSNameSpace.h:
 
 /usr/include/sys/statvfs.h:
 

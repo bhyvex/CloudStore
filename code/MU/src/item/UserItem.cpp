@@ -21,6 +21,11 @@
 #include "dao/UserDAO.h"
 #include "dao/LogDAO.h"
 #include "oplog/LogAccessEngine.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
 
 #include "log/log.h"
 
@@ -223,16 +228,19 @@ UserItem::delay()
 ReturnStatus
 UserItem::userExists()
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	
     int rt = 0;
 
     std::string userRootPath = userRoot();
 
-    struct stat st;
-    rt = ::stat(userRootPath.c_str(), &st);
+    FileAttr st;
+    rt = DataNS->Stat(userRootPath.c_str(), &st);
 
     if (0 == rt) {
 
-        if (S_ISDIR(st.st_mode)) {
+        if (st.m_Type == MU_DIRECTORY) {
             return ReturnStatus(MU_SUCCESS);
 
         } else {
@@ -258,8 +266,6 @@ std::string
 UserItem::userRoot()
 {
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
-               PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(m_BucketId) +
                PATH_SEPARATOR_STRING +

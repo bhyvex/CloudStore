@@ -150,10 +150,22 @@ UserItem.lo: ../../../src/item/UserItem.cpp ../../../src/item/UserItem.h \
   ../../../src/frame/MUWorkItemManager.h \
   ../../../src/state/BucketManager.h ../../../src/state/Bucket.h \
   ../../../src/dao/UserDAO.h ../../../src/frame/MUDAO.h \
-  ../../../src/dao/LogDAO.h ../../../src/oplog/LogAccessEngine.h \
-  ../../../src/oplog/LogEvent.h ../../../src/data/FileMeta.h \
+  ../../../src/storage/NameSpace.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  ../../../src/data/FileMeta.h ../../../src/dao/LogDAO.h \
+  ../../../src/oplog/LogAccessEngine.h ../../../src/oplog/LogEvent.h \
   ../../../src/oplog/Connection.h ../../../lib/sqlite3/sqlite3.h \
-  ../../../src/oplog/LogEvent.h
+  ../../../src/oplog/LogEvent.h ../../../src/storage/ChannelManager.h \
+  /usr/include/c++/4.3/vector /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+  ../../../src/storage/Channel.h ../../../src/storage/NameSpace.h \
+  ../../../src/storage/FSNameSpace.h
 
 ../../../src/item/UserItem.h:
 
@@ -643,16 +655,62 @@ UserItem.lo: ../../../src/item/UserItem.cpp ../../../src/item/UserItem.h \
 
 ../../../src/frame/MUDAO.h:
 
+../../../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+../../../src/data/FileMeta.h:
+
 ../../../src/dao/LogDAO.h:
 
 ../../../src/oplog/LogAccessEngine.h:
 
 ../../../src/oplog/LogEvent.h:
 
-../../../src/data/FileMeta.h:
-
 ../../../src/oplog/Connection.h:
 
 ../../../lib/sqlite3/sqlite3.h:
 
 ../../../src/oplog/LogEvent.h:
+
+../../../src/storage/ChannelManager.h:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../../../src/storage/Channel.h:
+
+../../../src/storage/NameSpace.h:
+
+../../../src/storage/FSNameSpace.h:

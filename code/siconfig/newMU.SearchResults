@@ -1,18 +1,11 @@
----- getBucketIdByUserId Matches (17 in 2 files) ----
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getUserInfo.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(createUser.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delUser.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(putDir.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delDir.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getDir.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(statDir.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getDir2.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(movDir.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(putFile.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(delFile.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getFile.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(movFile.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(getUserLog.uid()));
-ClientTask.cpp (j:\home\cloudstore\code\mu\src\clientpm):        RuleManager::getInstance()->getBucketIdByUserId(userId);
-RuleManager.h (j:\home\cloudstore\code\mu\src\state):    inline uint64_t getBucketIdByUserId(uint64_t userId);
-RuleManager.h (j:\home\cloudstore\code\mu\src\state):RuleManager::getBucketIdByUserId(uint64_t userId)
+---- MUConfiguration::getInstance()->m_MainChannelID Matches (10 in 3 files) ----
+BucketDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+BucketDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+LogAccessEngine.cpp (mu\src\oplog):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+LogAccessEngine.cpp (mu\src\oplog):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):	Channel* pChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):    Channel* pChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):    Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);
+UserDAO.cpp (mu\src\dao):	Channel* pInfoChannel = ChannelManager::getInstance()->Mapping(MUConfiguration::getInstance()->m_MainChannelID);

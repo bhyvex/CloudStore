@@ -16,6 +16,16 @@
 #include "frame/MUConfiguration.h"
 #include "frame/MUMacros.h"
 #include "zip/Zip.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
+
+
+
 
 #include "log/log.h"
 #include "util/util.h"
@@ -145,39 +155,38 @@ BucketDAO::rmdirRecursive(const std::string &path)
 std::string
 BucketDAO::bucketRootPath(uint64_t bucketId)
 {
-    return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
-               PATH_SEPARATOR_STRING +
-               BUCKET_NAME_PREFIX +
-               util::conv::conv<std::string, uint64_t>(bucketId)
-           );
+	string BucketRoot = BUCKET_NAME_PREFIX +
+               	util::conv::conv<std::string, uint64_t>(bucketId);
+	return BucketRoot;
 }
+
 
 ReturnStatus
 BucketDAO::createMigrationTmpFile(uint64_t bucketId, int *pFd)
 {
     assert(pFd);
 
-    std::string dataRoot = MUConfiguration::getInstance()->m_FileSystemRoot;
+    Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
-    std::string tmpFileName =
-        dataRoot + PATH_SEPARATOR_STRING
-        + BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
+
+     std::string tmpFileName = BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
         + util::conv::conv<std::string, uint64_t>(bucketId)
         //+ ".tar.gz";
         + ".zip";
 
     int rt = 0;
+    Args fd;
 
-    rt = ::open(tmpFileName.c_str(), O_WRONLY | O_TRUNC | O_CREAT,
+    fd = InfoNS->Open(tmpFileName.c_str(), O_WRONLY | O_TRUNC | O_CREAT,
                 S_IRUSR | S_IWUSR);
 
-    if (-1 == rt) {
+    if (false == fd.valid) {
         DEBUG_LOG("open() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    *pFd = rt;
+    *pFd = fd.arg2;
 
     return ReturnStatus(MU_SUCCESS);
 }
@@ -187,25 +196,26 @@ BucketDAO::openMigrationTmpFile(uint64_t bucketId, int *pFd)
 {
     assert(pFd);
 
-    std::string dataRoot = MUConfiguration::getInstance()->m_FileSystemRoot;
+    Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
-    std::string tmpFileName =
-        dataRoot + PATH_SEPARATOR_STRING
-        + BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
+    std::string tmpFileName = BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
         + util::conv::conv<std::string, uint64_t>(bucketId)
         //+ ".tar.gz";
         + ".zip";
 
     int rt = 0;
 
-    rt = ::open(tmpFileName.c_str(), O_RDONLY);
+    Args fd;
 
-    if (-1 == rt) {
+    fd = InfoNS->Open(tmpFileName.c_str(), O_RDONLY);
+
+    if (false == fd.valid) {
         DEBUG_LOG("open() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    *pFd = rt;
+    *pFd = fd.arg2;
 
     return ReturnStatus(MU_SUCCESS);
 }
@@ -213,20 +223,19 @@ BucketDAO::openMigrationTmpFile(uint64_t bucketId, int *pFd)
 ReturnStatus
 BucketDAO::deleteMigrationTmpFile(uint64_t bucketId)
 {
-    std::string dataRoot = MUConfiguration::getInstance()->m_FileSystemRoot;
+    Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
-    std::string tmpFileName =
-        dataRoot + PATH_SEPARATOR_STRING
-        + BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
+    std::string tmpFileName = BUCKET_MIGRATION_TMP_FILE_NAME_PREFIX
         + util::conv::conv<std::string, uint64_t>(bucketId)
         //+ ".tar.gz";
         + ".zip";
 
     int rt = 0;
 
-    rt = ::unlink(tmpFileName.c_str());
+    rt = InfoNS->Unlink(tmpFileName.c_str());
 
-    if (-1 == rt) {
+    if (rt < 0) {
         DEBUG_LOG("unlink() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -416,12 +425,24 @@ BucketDAO::getAllUsersInBucket(uint64_t bucketId,
 ReturnStatus
 BucketDAO::createBucket(uint64_t bucketId)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     int rt = 0;
 
+	//bucket root path
     std::string bucketRoot = bucketRootPath(bucketId);
+    
+    rt = DataNS->MkDir(bucketRoot.c_str(), S_IRWXU);
+    if (-1 == rt) {
+        DEBUG_LOG("mkdir() error, %s.", strerror(errno));
+        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    }
 
-    rt = ::mkdir(bucketRoot.c_str(), S_IRWXU);
-
+	//bucket log path
+    rt = InfoNS->MkDir(bucketRoot.c_str(), S_IRWXU);
     if (-1 == rt) {
         DEBUG_LOG("mkdir() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -433,12 +454,16 @@ BucketDAO::createBucket(uint64_t bucketId)
 ReturnStatus
 BucketDAO::createBucketIfNotExist(uint64_t bucketId)
 {
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
+	
     std::string bucketRoot = bucketRootPath(bucketId);
 
     int rt = 0;
-    struct stat st;
 
-    rt = ::stat(bucketRoot.c_str(), &st);
+	FileAttr st;
+    rt = DataNS->Stat(bucketRoot.c_str(), &st);
 
     if (-1 == rt) {
         return createBucket(bucketId);
@@ -498,8 +523,11 @@ BucketDAO::userRootPath(uint64_t bucketId, uint64_t userId)
 std::string
 BucketDAO::logPath(uint64_t bucketId)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
+               InfoNS->m_Root +
                PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(bucketId) +

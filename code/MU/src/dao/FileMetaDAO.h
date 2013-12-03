@@ -17,13 +17,20 @@
 #include "data/FileMeta.h"
 
 #include <string>
+#include <inttypes.h>
 
+
+
+class Args;
 class FileMetaDAO : public MUDAO
 {
 public:
     virtual ~FileMetaDAO();
 
     FileMetaDAO();
+
+    bool setBucketID(uint64_t Id);
+    bool setUserID(uint64_t Id);
 
     ReturnStatus putDir(const std::string &path);
 
@@ -145,7 +152,7 @@ protected:
      *
      * @return
      */
-    ReturnStatus writeFileMeta(int fd, const FileMeta &meta);
+    ReturnStatus writeFileMeta(Args *fd, const FileMeta &meta);
 
     /**
      * @brief Read file metadata from specified file.
@@ -155,7 +162,10 @@ protected:
      *
      * @return
      */
-    ReturnStatus readFileMeta(int fd, FileMeta *pMeta);
+    ReturnStatus readFileMeta(Args *fd, FileMeta *pMeta);
+
+	uint64_t m_BucketId; 
+	uint64_t m_UserId;
 
 };
 

@@ -21,3 +21,5 @@ bool NameSpace::setRoot(string path)
 	}
 }
 
+
+

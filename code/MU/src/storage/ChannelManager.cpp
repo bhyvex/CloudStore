@@ -32,6 +32,8 @@ bool ChannelManager::createChannel(int ChannelID, string RootPath)
 		pChannel = new Channel();
 		pChannel->setID(ChannelID);
 		pChannel->setRoot(RootPath);
+		pChannel->setDataNS(FS);
+		pChannel->setSizeInMB();
 		
 		m_ChannelVec[ChannelID] = pChannel;
 		//m_ChannelVec.shrink_to_fit(); //need C++11

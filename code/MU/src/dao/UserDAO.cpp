@@ -15,6 +15,11 @@
 #include "frame/MUConfiguration.h"
 #include "frame/MUMacros.h"
 #include "data/UserInfo.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/FSNameSpace.h"
+
+
 
 #include "log/log.h"
 #include "util/util.h"
@@ -42,15 +47,19 @@ UserDAO::UserDAO()
 std::string
 UserDAO::absUserRootPath(uint64_t bucketId, uint64_t userId)
 {
-    return (MUConfiguration::getInstance()->m_FileSystemRoot +
-            PATH_SEPARATOR_STRING +
-            BUCKET_NAME_PREFIX +
-            util::conv::conv<std::string, uint64_t>(bucketId) +
-            PATH_SEPARATOR_STRING +
-            USER_NAME_PREFIX +
-            util::conv::conv<std::string, uint64_t>(userId));
+	std::string pathname = 
+			/* pChannel->m_Root +
+			PATH_SEPARATOR_STRING +
+			*/
+			BUCKET_NAME_PREFIX +
+			util::conv::conv<std::string, uint64_t>(bucketId) +
+			PATH_SEPARATOR_STRING +
+			USER_NAME_PREFIX +
+			util::conv::conv<std::string, uint64_t>(userId);
 
+	return pathname;
 }
+
 
 ReturnStatus
 UserDAO::createUser(uint64_t bucketId,
@@ -61,8 +70,25 @@ UserDAO::createUser(uint64_t bucketId,
 
     std::string userRoot = absUserRootPath(bucketId, userId);
 
-    rt = ::mkdir(userRoot.c_str(), S_IRWXU);
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
+	rt = DataNS->MkDir(userRoot.c_str(), S_IRWXU);
+    if (-1 == rt) {
+        error = errno;
+        DEBUG_LOG("path %s, mkdir() error, %s.",
+                  userRoot.c_str(), strerror(errno));
+
+        if (EEXIST == error) {
+            return ReturnStatus(MU_FAILED, USER_EXIST);
+        }
+
+        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    }
+
+    rt = InfoNS->MkDir(userRoot.c_str(), S_IRWXU);
     if (-1 == rt) {
         error = errno;
         DEBUG_LOG("path %s, mkdir() error, %s.",
@@ -78,15 +104,16 @@ UserDAO::createUser(uint64_t bucketId,
     std::string infoFile = userRoot + PATH_SEPARATOR_STRING
                            + USER_INFO_FILE_NAME;
 
-    rt = ::open(infoFile.c_str(), O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+	Args fd_;
+    fd_ = InfoNS->Open(infoFile.c_str(), O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
 
-    if (-1 == rt) {
+    if (false == fd_.valid) {
         DEBUG_LOG("path %s, open() error, %s.",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    int fd = rt;
+    //int fd = fd_.arg2;
 
     struct UserInfo info;
 
@@ -95,14 +122,14 @@ UserDAO::createUser(uint64_t bucketId,
 
     ReturnStatus rs;
 
-    rs = writeUserInfo(fd, info);
+    rs = writeUserInfo(&fd_, info);
 
     if (!rs.success()) {
         DEBUG_LOG("bucket id %llu, user id %llu, "
                   "writeUserInfo() error", bucketId, userId);
     }
 
-    ::close(fd);
+    InfoNS->Close(&fd_);
 
     return rs;
 }
@@ -114,8 +141,7 @@ UserDAO::deleteUser(uint64_t bucketId, uint64_t userId)
 
     std::string userRoot = absUserRootPath(bucketId, userId);
 
-    rs = rmdirRecursive(userRoot);
-
+    rs = rmUserRecursive(bucketId, userId);
     if (!rs.success()) {
         DEBUG_LOG("path %s, rmdirRecursive() error", userRoot.c_str());
     }
@@ -129,27 +155,30 @@ UserDAO::readUserInfo(uint64_t bucketId,
 {
     assert(pInfo);
 
-    int rt = 0;
+    Args fd;
 
     std::string userRoot = absUserRootPath(bucketId, userId);
     std::string infoFile = userRoot + PATH_SEPARATOR_STRING
                            + USER_INFO_FILE_NAME;
 
-    rt = ::open(infoFile.c_str(), O_RDONLY);
+	Channel* pChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *FSNS = pChannel->m_DataNS;
+	
+    fd = FSNS->Open(infoFile.c_str(), O_RDONLY);
 
-    if (-1 == rt) {
+    if (false == fd.valid) {
         DEBUG_LOG("path %s, open() error, %s,",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    int fd = rt;
+    //int fd = rt;
 
     ReturnStatus rs;
 
-    rs = readUserInfo(fd, pInfo);
+    rs = readUserInfo(&fd, pInfo);
 
-    ::close(fd);
+    FSNS->Close(&fd);
 
     return rs;
 }
@@ -158,47 +187,54 @@ ReturnStatus
 UserDAO::writeUserInfo(uint64_t bucketId,
                        uint64_t userId, const UserInfo &info)
 {
-    int rt = 0;
+    Args fd;
 
     std::string userRoot = absUserRootPath(bucketId, userId);
     std::string infoFile = userRoot + PATH_SEPARATOR_STRING
                            + USER_INFO_FILE_NAME;
 
-    rt = ::open(infoFile.c_str(), O_WRONLY);
+    Channel* pChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *FSNS = pChannel->m_DataNS;
 
-    if (-1 == rt) {
+    fd = FSNS->Open(infoFile.c_str(), O_WRONLY);
+
+    if (false == fd.valid) {
         DEBUG_LOG("path %s, open() error, %s,",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    int fd = rt;
+    //int fd = rt;
 
     ReturnStatus rs;
 
-    rs = writeUserInfo(fd, info);
+    rs = writeUserInfo(&fd, info);
 
-    ::close(fd);
+    FSNS->Close(&fd);
 
     return rs;
 
 }
 
 ReturnStatus
-UserDAO::readUserInfo(int fd, UserInfo *pInfo)
+UserDAO::readUserInfo(Args* fd, UserInfo *pInfo)
 {
     assert(pInfo);
 
+    Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+
     int rt = 0;
 
-    rt = ::lseek(fd, 0, SEEK_SET);
+
+    rt = InfoNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
         DEBUG_LOG("lseek error(), %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    rt = util::io::readn(fd, pInfo, sizeof(*pInfo));
+    rt = InfoNS->readn(fd, pInfo, sizeof(*pInfo));
 
     if (sizeof(*pInfo) != rt) {
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -208,18 +244,21 @@ UserDAO::readUserInfo(int fd, UserInfo *pInfo)
 }
 
 ReturnStatus
-UserDAO::writeUserInfo(int fd, const UserInfo &info)
+UserDAO::writeUserInfo(Args* fd, const UserInfo &info)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     int rt = 0;
 
-    rt = ::lseek(fd, 0, SEEK_SET);
+    rt = InfoNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
         DEBUG_LOG("lseek error(), %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
-    rt = util::io::writen(fd, &info, sizeof(info));
+    rt = InfoNS->writen(fd, &info, sizeof(info));
 
     if (sizeof(info) != rt) {
         DEBUG_LOG("writen() failed, fd %d", fd);
@@ -230,73 +269,26 @@ UserDAO::writeUserInfo(int fd, const UserInfo &info)
 }
 
 
-ReturnStatus
-UserDAO::rmdirRecursive(const std::string &path)
+ReturnStatus 
+UserDAO::rmUserRecursive(uint64_t bucketId, uint64_t userId)
 {
-    int rt = 0;
-    ReturnStatus rs;
-    std::string entryName;
-    std::string npath;
+	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
-    DIR *pDir = ::opendir(path.c_str());
+	std::string userRoot = absUserRootPath(bucketId, userId);
 
-    if (NULL == pDir) {
-        DEBUG_LOG("path %s, opendir() error, %s.",
-                  path.c_str(), strerror(errno));
+	int ret;
 
-        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-    }
+	ReturnStatus rs;
+	ret = DataNS->RmdirRecursive(userRoot.c_str());
+	ret += InfoNS->RmdirRecursive(userRoot.c_str());
 
-    // delete its children
-
-    struct dirent *pEnt = NULL;
-
-    while (NULL != (pEnt = ::readdir(pDir))) {
-        entryName = pEnt->d_name;
-
-        // omit "." and ".."
-        if (entryName == DENTRY_CURRENT_DIR
-            || entryName == DENTRY_PARENT_DIR) {
-            //|| entryName == USER_INFO_FILE_NAME) {
-            continue;
-        }
-
-        npath = path + PATH_SEPARATOR_STRING + entryName;
-
-        if (DT_DIR == pEnt->d_type) {
-            // directory, call myself to delete it
-            rs = rmdirRecursive(npath);
-
-            if (!rs.success()) {
-                DEBUG_LOG("path %s, rmdirRecursive() error", npath.c_str());
-                return rs;
-            }
-
-        } else {
-            // delete it directly
-            rt = ::unlink(npath.c_str());
-
-            if (-1 == rt) {
-                DEBUG_LOG("path %s, unlink() error, %s.",
-                          npath.c_str(), strerror(errno));
-                return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-            }
-        }
-    }
-
-    ::closedir(pDir);
-
-    // delete path
-
-    rt = ::rmdir(path.c_str());
-
-    if (-1 == rt) {
-        DEBUG_LOG("path %s, rmdir() error, %s.",
-                  path.c_str(), strerror(errno));
-        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-    }
-
-    return ReturnStatus(MU_SUCCESS);
+	if(ret != 0){
+		return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+	}
+	return ReturnStatus(MU_SUCCESS);
 }
 
 

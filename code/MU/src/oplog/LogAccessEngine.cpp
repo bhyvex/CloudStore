@@ -21,6 +21,13 @@
 #include "protocol/protocol.h"
 #include "util/util.h"
 #include "log/log.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+#include "storage/NameSpace.h"
+#include "storage/FSNameSpace.h"
+
+#include "protocol/MUMacros.h"
+
 
 #include <stdio.h>
 #include <time.h>
@@ -155,8 +162,11 @@ LogAccessEngine::createConnection(
 std::string
 LogAccessEngine::logPath(uint64_t bucketId)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
+               InfoNS->m_Root+
                PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(bucketId) +
@@ -597,8 +607,11 @@ LogAccessEngine::readUserLogFromCurrentLog(
 std::string
 LogAccessEngine::bucketRootPath(uint64_t bucketId)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     return (
-               MUConfiguration::getInstance()->m_FileSystemRoot +
+               InfoNS->m_Root +
                PATH_SEPARATOR_STRING +
                BUCKET_NAME_PREFIX +
                util::conv::conv<std::string, uint64_t>(bucketId)
@@ -608,18 +621,20 @@ LogAccessEngine::bucketRootPath(uint64_t bucketId)
 bool
 LogAccessEngine::isfile(std::string &path)
 {
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
+	
     int rt = 0;
+    FileAttr st;
 
-    struct stat st;
-
-    rt = ::stat(path.c_str(), &st);
+    rt = InfoNS->Stat(path.c_str(), &st);
 
     if (-1 == rt) {
         DEBUG_LOG("stat() error, %s.", strerror(errno));
         return false;
     }
 
-    if (S_ISREG(st.st_mode)) {
+    if (MU_REGULAR_FILE == st.m_Type) {
         return true;
     }
 

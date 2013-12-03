@@ -101,7 +101,21 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
   /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
   ../../../common/util/os_path.h ../../../common/util/TimeCounter.h \
   ../../../common/sys/ThreadPool.h ../../../common/sys/noncopyable.h \
-  ../../../src/frame/MUMacros.h
+  ../../../src/frame/MUMacros.h ../../../src/storage/ChannelManager.h \
+  /usr/include/c++/4.3/vector /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+  ../../../src/storage/Channel.h ../../../src/storage/NameSpace.h \
+  /usr/include/dirent.h /usr/include/bits/dirent.h \
+  /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
+  /usr/include/linux/limits.h ../../../src/data/FileMeta.h \
+  ../../../src/storage/NameSpace.h ../../../src/storage/FSNameSpace.h
 
 ../../../src/dao/LogFileDAO.h:
 
@@ -426,3 +440,55 @@ LogFileDAO.lo: ../../../src/dao/LogFileDAO.cpp \
 ../../../common/sys/noncopyable.h:
 
 ../../../src/frame/MUMacros.h:
+
+../../../src/storage/ChannelManager.h:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../../../src/storage/Channel.h:
+
+../../../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+../../../src/data/FileMeta.h:
+
+../../../src/storage/NameSpace.h:
+
+../../../src/storage/FSNameSpace.h:

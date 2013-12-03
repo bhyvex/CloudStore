@@ -13,22 +13,24 @@
 
 using namespace std;
 
-enum FileType
-{
-	DIR_,
-	FILE_
-};
 
 struct Args
 {
 	void *arg1;
-	void *arg2;
+	int arg2;
+	bool valid;
 };
 
 struct Dirent
 {
 	string filename;
-	enum FileType filetype;
+	uint32_t filetype;
+};
+
+enum NameSpaceType
+{
+	FS,
+	KV
 };
 
 class NameSpace 
@@ -52,11 +54,14 @@ public:
 	  *		@path == "/bucket0/user1" is wrong.
 	  */
 	//file
-	virtual int Open(const char *pathname, int flags) = 0;
-	virtual int Open(const char *pathname, int flags, mode_t mode) = 0;
-	virtual int Close(int fd) = 0;
-	virtual int Read(int fd, void *buf, size_t count) = 0;
-	virtual int Write(int fd, const void *buf, size_t count) = 0;
+	virtual Args Open(const char *pathname, int flags) = 0;
+	virtual Args Open(const char *pathname, int flags, mode_t mode) = 0;
+	virtual int Close(Args *args) = 0;
+	virtual int Read(Args *args, void *buf, size_t count) = 0;
+	virtual int Write(Args *args, const void *buf, size_t count) = 0;
+	virtual off_t Lseek(Args *args, off_t offset, int whence) = 0;
+	virtual ssize_t readn(Args *args, void *vptr, size_t n) = 0;
+	virtual ssize_t writen(Args *args, const void *vptr, size_t n) = 0;
 
 	//dir
 	virtual int MkDir(const char *pathname, mode_t mode) = 0;
@@ -71,6 +76,7 @@ public:
 	virtual int Move(const char *oldpath, const char *newpath) = 0;
 	virtual int Link(const char *oldpath, const char *newpath) = 0;
 	virtual int Unlink(const char *pathname) = 0;
+	virtual int RmdirRecursive(const char *pathname) = 0;
 
 
 	
