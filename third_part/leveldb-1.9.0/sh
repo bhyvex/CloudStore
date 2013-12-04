@@ -1,2 +1,0 @@
-g++ -pg -c db_bench_flashcache.cpp -Iinclude
-g++ -pg  -g2 -O0 -Iinclude db_bench_flashcache.o libleveldb.a -o mybench -lpthread

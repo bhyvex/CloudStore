@@ -1,9 +1,11 @@
 #include "SplitPathStrategy.h"
 #include "frame/MUMacros.h"
 #include "Key.h"
+#include "LevelDBEngine.h"
 
 SplitPathStrategy::SplitPathStrategy()
 {
+	m_StoreEngine = new LevelDBEngine();
 }
 
 SplitPathStrategy::~SplitPathStrategy()
@@ -16,6 +18,7 @@ SplitPathStrategy::~SplitPathStrategy()
   */
 int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 {
+	bool ret = false;
 	size_t pos;
 
 	//get bucket string
@@ -55,11 +58,16 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	string value(buf, n);
 
 	/* insert to db */
-	//..
+	ret = m_StoreEngine->Put(key, value);
+	if(ret == false){
+	}
+
+	return 0;
 }
 
 int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 {
+	bool ret = false;
 	size_t pos;
 
 	//get bucket string
@@ -96,11 +104,20 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	string key = Key::serialize(&keyinfo);
 
 	/* get from db */
-	//..
+	string value;
+	ret = m_StoreEngine->Get(key, value);
+	if(ret == false){
+	}
+
+	memcpy(buf, value.c_str(), value.size());
+	*n = value.size();
+
+	return 0;
 }
 
 int SplitPathStrategy::DeleteEntry(string pathname)
 {
+	bool ret = false;
 	size_t pos;
 
 	//get bucket string
@@ -137,7 +154,11 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 	string key = Key::serialize(&keyinfo);
 
 	/* delete from db */
-	//..
+	ret = m_StoreEngine->Delete(key);
+	if(ret == false){
+	}
+
+	return 0;
 }
 
 string SplitPathStrategy::FindEntryID(string pathname)

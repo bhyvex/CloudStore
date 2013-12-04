@@ -4,6 +4,7 @@
 
 BuildStrategy::BuildStrategy()
 {
+	m_StoreEngine = NULL;
 }
 
 BuildStrategy::~BuildStrategy()

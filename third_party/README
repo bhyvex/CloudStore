@@ -1,0 +1,14 @@
+install snappy first so that leveldb could use snappy
+
+
+================ snappy ================
+1 ./autogen.sh
+2 ./configure
+3 make
+4 make install
+
+
+============= leveldb =============
+1 make
+2 ./install install
+

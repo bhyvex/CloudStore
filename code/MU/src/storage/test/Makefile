@@ -5,7 +5,7 @@ leveldb:
 	g++ -pg -g2 -O0  leveldb_test.o \
 			../../../build/src/storage/StoreEngine.o \
 			../../../build/src/storage/LevelDBEngine.o \
-			../../../../../third_part/leveldb-1.9.0/libleveldb.a \
+			../../../../../third_party/leveldb-1.9.0/libleveldb.a \
 		-o leveldb_test -lpthread -lsnappy
 
 
