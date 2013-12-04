@@ -4,8 +4,7 @@
 
 KVNameSpace::KVNameSpace()
 {
-	m_StoreEngine = LevelDBEngine();
-	m_BuildStrategy = SplitPathStrategy();
+	m_BuildStrategy = new SplitPathStrategy();
 }
 
 KVNameSpace::~KVNameSpace()
@@ -16,14 +15,6 @@ KVNameSpace::~KVNameSpace()
 Args KVNameSpace::Open(const char *pathname, int flags)
 {
 	Args args;
-	args.valid = false;
-	string path = m_Root + PATH_SEPARATOR_STRING + pathname;
-	
-	int fd = ::open(path.c_str(), flags);
-	args.arg2 = fd;
-	if(fd >= 0){
-		args.valid = true;
-	}
 
 	return args;
 

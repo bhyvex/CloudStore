@@ -3,6 +3,8 @@
 
 #include "NameSpace.h"
 
+class BuildStrategy;
+
 class KVNameSpace : public NameSpace
 {
 public:
@@ -36,7 +38,6 @@ public:
 	virtual int RmdirRecursive(const char *pathname);
 
 private:
-	StoreEngine *m_StoreEngine;
 	BuildStrategy *m_BuildStrategy;
 
 };

@@ -77,7 +77,17 @@ KVNameSpace.lo: ../../../src/storage/KVNameSpace.cpp \
   /usr/include/c++/4.3/bits/ostream.tcc /usr/include/c++/4.3/istream \
   /usr/include/c++/4.3/bits/istream.tcc ../../../src/data/FileMeta.h \
   /usr/include/inttypes.h /usr/include/c++/4.3/list \
-  /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc
+  /usr/include/c++/4.3/bits/stl_list.h /usr/include/c++/4.3/bits/list.tcc \
+  ../../../src/storage/LevelDBEngine.h ../../../src/storage/StoreEngine.h \
+  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+  /usr/include/bits/waitstatus.h /usr/include/alloca.h \
+  /usr/include/leveldb/db.h /usr/include/leveldb/iterator.h \
+  /usr/include/leveldb/slice.h /usr/include/assert.h \
+  /usr/include/string.h /usr/include/leveldb/status.h \
+  /usr/include/leveldb/options.h /usr/include/leveldb/write_batch.h \
+  /usr/include/leveldb/comparator.h \
+  ../../../src/storage/SplitPathStrategy.h \
+  ../../../src/storage/BuildStrategy.h
 
 ../../../src/storage/KVNameSpace.h:
 
@@ -324,3 +334,37 @@ KVNameSpace.lo: ../../../src/storage/KVNameSpace.cpp \
 /usr/include/c++/4.3/bits/stl_list.h:
 
 /usr/include/c++/4.3/bits/list.tcc:
+
+../../../src/storage/LevelDBEngine.h:
+
+../../../src/storage/StoreEngine.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/alloca.h:
+
+/usr/include/leveldb/db.h:
+
+/usr/include/leveldb/iterator.h:
+
+/usr/include/leveldb/slice.h:
+
+/usr/include/assert.h:
+
+/usr/include/string.h:
+
+/usr/include/leveldb/status.h:
+
+/usr/include/leveldb/options.h:
+
+/usr/include/leveldb/write_batch.h:
+
+/usr/include/leveldb/comparator.h:
+
+../../../src/storage/SplitPathStrategy.h:
+
+../../../src/storage/BuildStrategy.h:

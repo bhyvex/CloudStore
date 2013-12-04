@@ -12,7 +12,8 @@ libstorage_la_SOURCES = Channel.cpp  \
 						SplitPathStrategy.cpp \
 						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
-						LevelDBEngine.cpp 
+						LevelDBEngine.cpp \
+						Key.cpp
 						
 
 INCLUDES = $(GLOBAL_INCLUDES)  \

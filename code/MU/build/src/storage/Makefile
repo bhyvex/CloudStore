@@ -47,7 +47,7 @@ am_libstorage_la_OBJECTS = Channel.lo ChannelManager.lo \
 	ChannelMappingStrategy.lo HashMappingStrategy.lo NameSpace.lo \
 	FSNameSpace.lo KVNameSpace.lo BuildStrategy.lo \
 	SplitPathStrategy.lo FullPathStrategy.lo StoreEngine.lo \
-	LevelDBEngine.lo
+	LevelDBEngine.lo Key.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -195,7 +195,8 @@ libstorage_la_SOURCES = Channel.cpp  \
 						SplitPathStrategy.cpp \
 						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
-						LevelDBEngine.cpp 
+						LevelDBEngine.cpp \
+						Key.cpp
 
 INCLUDES = $(GLOBAL_INCLUDES)  \
 		   -I$(top_srcdir)/common  \
@@ -260,6 +261,7 @@ include ./$(DEPDIR)/FSNameSpace.Plo
 include ./$(DEPDIR)/FullPathStrategy.Plo
 include ./$(DEPDIR)/HashMappingStrategy.Plo
 include ./$(DEPDIR)/KVNameSpace.Plo
+include ./$(DEPDIR)/Key.Plo
 include ./$(DEPDIR)/LevelDBEngine.Plo
 include ./$(DEPDIR)/NameSpace.Plo
 include ./$(DEPDIR)/SplitPathStrategy.Plo

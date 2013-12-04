@@ -1,4 +1,4 @@
-all: kvnamespace namespace leveldb
+all: string kvnamespace namespace leveldb  
 
 leveldb:
 	g++ -pg -c leveldb_test.cpp
@@ -26,5 +26,9 @@ kvnamespace:
 		-o kvnamespace_test -I../../../src/
 
 
+string:
+	g++ -pg  string.cpp -o string
+
+
 clean:
-	rm gmon.out *.o namespace_test kvnamespace_test leveldb_test leveldbDir fs_test -rf
+	rm gmon.out *.o string namespace_test kvnamespace_test leveldb_test leveldbDir fs_test -rf

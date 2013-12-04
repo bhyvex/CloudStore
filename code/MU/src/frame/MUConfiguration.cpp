@@ -232,11 +232,13 @@ MUConfiguration::configWithXML(const std::string &confFileName)
 	m_ChannelNum = util::conv::conv<int, std::string>(val);
 	std::cout <<"/MU/Storage/ChannelNum = "<< m_ChannelNum <<std::endl;
 
-	rt = x.getNodeValueByXPath("/MU/Storage/MainChannelID", &val);
-	if (-1 == rt) {
-        return -1;
-    }
-	m_MainChannelID = util::conv::conv<int, std::string>(val);
+	//rt = x.getNodeValueByXPath("/MU/Storage/MainChannelID", &val);
+	//if (-1 == rt) {
+    //    return -1;
+    //}
+
+    //last Channel is the MainChannel
+	m_MainChannelID = m_ChannelNum - 1;
 	std::cout <<"/MU/Storage/MainChannelID = "<< m_MainChannelID <<std::endl;
 
 	for(int i = 0; i < m_ChannelNum; i ++){
