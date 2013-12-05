@@ -3,6 +3,8 @@
 #include "Key.h"
 #include "LevelDBEngine.h"
 
+#define ROOT_FILEID "0"
+
 SplitPathStrategy::SplitPathStrategy()
 {
 	m_StoreEngine = new LevelDBEngine();
@@ -161,11 +163,22 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 	return 0;
 }
 
+
+/* 
+  * @pathname = "home/lpc"
+  */
 string SplitPathStrategy::FindEntryID(string pathname)
 {
 	/* init */
+	if(pathname == string("")){//null string
+		return ROOT_FILEID
+	}
 
 	/* traverse the dir from pathname */
+	while(pathname){
+		
+	}
+	
 
 	/* traverse end, then find the final dir */
 

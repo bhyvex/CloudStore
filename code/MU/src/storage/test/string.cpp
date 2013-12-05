@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	string pathname = "bucket1/user1/a.txt";
+	string pathname = "bucket1/user1/fdasf/asdfasdf/a.txt";
 	cout <<"now pathname="<<pathname<<endl;
 
 	size_t pos;
