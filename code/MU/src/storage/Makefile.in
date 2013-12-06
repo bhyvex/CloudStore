@@ -47,7 +47,7 @@ am_libstorage_la_OBJECTS = Channel.lo ChannelManager.lo \
 	ChannelMappingStrategy.lo HashMappingStrategy.lo NameSpace.lo \
 	FSNameSpace.lo KVNameSpace.lo BuildStrategy.lo \
 	SplitPathStrategy.lo FullPathStrategy.lo StoreEngine.lo \
-	LevelDBEngine.lo Key.lo
+	LevelDBEngine.lo Key.lo Value.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -196,7 +196,8 @@ libstorage_la_SOURCES = Channel.cpp  \
 						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp \
-						Key.cpp
+						Key.cpp \
+						Value.cpp
 
 INCLUDES = $(GLOBAL_INCLUDES)  \
 		   -I$(top_srcdir)/common  \
@@ -266,6 +267,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/NameSpace.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SplitPathStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StoreEngine.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Value.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

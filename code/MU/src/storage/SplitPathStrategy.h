@@ -18,7 +18,7 @@ public:
 	virtual int PutEntry(string pathname, const char* buf, int n);
 	virtual int GetEntry(string pathname, char *buf, int *n);
 	virtual int DeleteEntry(string pathname);
-	virtual string FindEntryID(string pathname, string userID);
+	virtual bool FindEntryID(string pathname, string userID, string &fid);
 	
 };
 

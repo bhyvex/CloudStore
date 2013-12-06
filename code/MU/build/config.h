@@ -44,6 +44,9 @@
 /* Define to 1 if you have the `dl' library (-ldl). */
 #define HAVE_LIBDL 1
 
+/* Define to 1 if you have the `leveldb' library (-lleveldb). */
+#define HAVE_LIBLEVELDB 1
+
 /* Define to 1 if you have the `protobuf' library (-lprotobuf). */
 #define HAVE_LIBPROTOBUF 1
 
@@ -52,6 +55,9 @@
 
 /* Define to 1 if you have the `rt' library (-lrt). */
 #define HAVE_LIBRT 1
+
+/* Define to 1 if you have the `snappy' library (-lsnappy). */
+#define HAVE_LIBSNAPPY 1
 
 /* Define to 1 if you have the `xml2' library (-lxml2). */
 #define HAVE_LIBXML2 1

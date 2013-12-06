@@ -1,6 +1,6 @@
 #include "Key.h"
 
-#define KEY_SEPARATOR "/"
+
 
 string Key::serialize(MUKeyInfo *keyinfo)
 {

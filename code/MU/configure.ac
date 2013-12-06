@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE(mu, 3.0)
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
-#AC_PROG_RANLIB
+AC_PROG_RANLIB
 AC_PROG_LIBTOOL
 
 # enable debug or not
@@ -39,6 +39,10 @@ AC_CHECK_LIB([rt], [clock_gettime], [], [echo "rt not found" && exit 1])
 # FIXME: Replace `main' with a function in `-lxml2':
 AC_CHECK_LIB([xml2], [xmlNewDoc], [], [echo "libxml2 not found" && exit 1])
 AC_CHECK_LIB([zip], [zip_open], [], [echo "libzip not found" && exit 1])
+
+AC_CHECK_LIB([snappy], [_ZN6snappy11RawCompressEPKcmPcPm],[],[echo "snappy not found" && exit 1])
+AC_CHECK_LIB([leveldb], [leveldb_open], [], [AC_MSG_FAILURE([libleveldb not found])], [-lsnappy -lpthread])
+
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h inttypes.h limits.h malloc.h netinet/in.h stddef.h stdint.h stdlib.h string.h sys/file.h sys/ioctl.h sys/mount.h sys/param.h sys/socket.h sys/statvfs.h sys/time.h unistd.h utime.h])

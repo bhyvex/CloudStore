@@ -187,8 +187,10 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 	string dir;
 	string postfix;
 	string pid = ROOT_FILEID;
+	string key;
 	string value;
 	int ret;
+	MUKeyInfo keyinfo;
 	MUValueInfo valueinfo;
 	
 	if(pathname == string("")){//null string
@@ -201,11 +203,11 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 		dir = postfix.substr(0, pos);
 		postfix = postfix.substr(pos+1);
 		
-		MUKeyInfo keyinfo;
+
 		keyinfo.userID = userID;
 		keyinfo.PID = pid;
 		keyinfo.FileName = dir;
-		string key = Key::serialize(&keyinfo);
+		key = Key::serialize(&keyinfo);
 		ret = m_StoreEngine->Get(key, value);
 		if(ret == false){
 			return false;
@@ -216,7 +218,19 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 
 	}
 
-	if(pid < string(ROOT_FILEID){
+	//traverse to the end
+	keyinfo.userID = userID;
+	keyinfo.PID = pid;
+	keyinfo.FileName = postfix;
+	key = Key::serialize(&keyinfo);
+	ret = m_StoreEngine->Get(key, value);
+	if(ret == false){
+		return false;
+	}
+	valueinfo = Value::deserialize(value);
+	pid = valueinfo.fid;
+	
+	if(pid < string(ROOT_FILEID)){
 		return false;
 	}else{
 		return true;

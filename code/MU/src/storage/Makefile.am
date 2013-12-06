@@ -13,7 +13,8 @@ libstorage_la_SOURCES = Channel.cpp  \
 						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp \
-						Key.cpp
+						Key.cpp \
+						Value.cpp
 						
 
 INCLUDES = $(GLOBAL_INCLUDES)  \

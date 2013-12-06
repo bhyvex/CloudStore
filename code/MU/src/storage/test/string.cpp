@@ -78,6 +78,41 @@ int main(int argc, char **argv)
 	}else if(str1 < str2){
 		cout <<"str1 < str2"<<endl;
 	}
+
+
+
+	cout <<"--------------------------"<<endl;
+
+	pathname = "home/lpc/a/abx";
+	cout <<"now pathname="<<pathname<<endl;
+	string dir;
+	string postfix;
+	string pid = "0";
+	string value;
+	int ret;
+	string fid;
+	
+	if(pathname == string("")){//null string
+		fid = pid;
+	}
+
+	/* traverse the dir from pathname */
+	postfix = pathname;
+	while((pos = postfix.find_first_of(PATH_SEPARATOR_STRING)) != string::npos){
+		dir = postfix.substr(0, pos);
+		postfix = postfix.substr(pos+1);
+		
+		string key = userID + PATH_SEPARATOR_STRING + pid +PATH_SEPARATOR_STRING +dir;
+		cout <<"key="<<key<<endl;
+
+		//get value by key
+		//update pid by value
+
+	}
+
+	dir = postfix;
+	key = userID + PATH_SEPARATOR_STRING + pid +PATH_SEPARATOR_STRING +dir;
+	cout <<"key="<<key<<endl;
 	
 
 }

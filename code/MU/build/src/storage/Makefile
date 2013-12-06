@@ -47,7 +47,7 @@ am_libstorage_la_OBJECTS = Channel.lo ChannelManager.lo \
 	ChannelMappingStrategy.lo HashMappingStrategy.lo NameSpace.lo \
 	FSNameSpace.lo KVNameSpace.lo BuildStrategy.lo \
 	SplitPathStrategy.lo FullPathStrategy.lo StoreEngine.lo \
-	LevelDBEngine.lo Key.lo
+	LevelDBEngine.lo Key.lo Value.lo
 libstorage_la_OBJECTS = $(am_libstorage_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -102,7 +102,7 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/x86_64-suse-linux/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lzip -lxml2 -lrt -lpthread -lprotobuf -ldl 
+LIBS = -lleveldb -lsnappy -lzip -lxml2 -lrt -lpthread -lprotobuf -ldl 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
@@ -196,7 +196,8 @@ libstorage_la_SOURCES = Channel.cpp  \
 						FullPathStrategy.cpp \
 						StoreEngine.cpp  \
 						LevelDBEngine.cpp \
-						Key.cpp
+						Key.cpp \
+						Value.cpp
 
 INCLUDES = $(GLOBAL_INCLUDES)  \
 		   -I$(top_srcdir)/common  \
@@ -266,6 +267,7 @@ include ./$(DEPDIR)/LevelDBEngine.Plo
 include ./$(DEPDIR)/NameSpace.Plo
 include ./$(DEPDIR)/SplitPathStrategy.Plo
 include ./$(DEPDIR)/StoreEngine.Plo
+include ./$(DEPDIR)/Value.Plo
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
