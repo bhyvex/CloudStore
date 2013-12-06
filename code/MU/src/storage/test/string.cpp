@@ -68,6 +68,17 @@ int main(int argc, char **argv)
 	string FileName2 = key;
 	cout <<"FileName="<<FileName2<<endl;
 
+	
+	cout <<"--------------------------"<<endl;
+
+	string str1 = "0";
+	string str2 = "0";
+	if(str1 >= str2){
+		cout <<"str1 >= str2"<<endl;
+	}else if(str1 < str2){
+		cout <<"str1 < str2"<<endl;
+	}
+	
 
 }
 

@@ -1,6 +1,7 @@
 #include "SplitPathStrategy.h"
 #include "frame/MUMacros.h"
 #include "Key.h"
+#include "Value.h"
 #include "LevelDBEngine.h"
 
 #define ROOT_FILEID "0"
@@ -46,7 +47,11 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 		FileName = pathname.substr(pos+1);
 	}
 
-	string p_fid = FindEntryID(ParentDir);
+	string p_fid;
+	ret = FindEntryID(ParentDir, userID, p_fid);
+	if(ret == false){
+		return -1;
+	}
 	
 
 	/* make the key */
@@ -95,7 +100,11 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 		FileName = pathname.substr(pos+1);
 	}
 
-	string p_fid = FindEntryID(ParentDir);
+	string p_fid;
+	ret = FindEntryID(ParentDir, userID, p_fid);
+	if(ret == false){
+		return -1;
+	}
 	
 
 	/* make the key */
@@ -145,7 +154,11 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 		FileName = pathname.substr(pos+1);
 	}
 
-	string p_fid = FindEntryID(ParentDir);
+	string p_fid;
+	ret = FindEntryID(ParentDir, userID, p_fid);
+	if(ret == false){
+		return -1;
+	}
 	
 
 	/* make the key */
@@ -167,21 +180,47 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 /* 
   * @pathname = "home/lpc"
   */
-string SplitPathStrategy::FindEntryID(string pathname)
+bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 {
 	/* init */
+	size_t pos;
+	string dir;
+	string postfix;
+	string pid = ROOT_FILEID;
+	string value;
+	int ret;
+	MUValueInfo valueinfo;
+	
 	if(pathname == string("")){//null string
-		return ROOT_FILEID
+		fid = pid;
 	}
 
 	/* traverse the dir from pathname */
-	while(pathname){
+	postfix = pathname;
+	while((pos = postfix.find_first_of(PATH_SEPARATOR_STRING)) != string::npos){
+		dir = postfix.substr(0, pos);
+		postfix = postfix.substr(pos+1);
 		
+		MUKeyInfo keyinfo;
+		keyinfo.userID = userID;
+		keyinfo.PID = pid;
+		keyinfo.FileName = dir;
+		string key = Key::serialize(&keyinfo);
+		ret = m_StoreEngine->Get(key, value);
+		if(ret == false){
+			return false;
+		}
+
+		valueinfo = Value::deserialize(value);
+		pid = valueinfo.fid;
+
+	}
+
+	if(pid < string(ROOT_FILEID){
+		return false;
+	}else{
+		return true;
 	}
 	
-
-	/* traverse end, then find the final dir */
-
-	return "";
 	
 }

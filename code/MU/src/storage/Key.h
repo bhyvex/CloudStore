@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+#define KEY_SEPARATOR "/"
+
+
 struct MUKeyInfo
 {
 	string userID;
