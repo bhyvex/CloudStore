@@ -80,8 +80,8 @@ SplitPathStrategy.lo: ../../../src/storage/SplitPathStrategy.cpp \
   /usr/include/assert.h /usr/include/string.h \
   /usr/include/leveldb/status.h /usr/include/leveldb/options.h \
   /usr/include/leveldb/write_batch.h /usr/include/leveldb/comparator.h \
-  ../../../src/storage/LevelDBEngine.h /usr/include/inttypes.h \
-  ../../../src/frame/MUMacros.h ../../../src/storage/Key.h \
+  ../../../src/storage/LevelDBEngine.h ../../../src/storage/Key.h \
+  /usr/include/inttypes.h ../../../src/frame/MUMacros.h \
   ../../../src/storage/Value.h ../../../common/util/util.h \
   ../../../common/util/conv.h /usr/include/c++/4.3/sstream \
   /usr/include/c++/4.3/bits/sstream.tcc ../../../common/util/io.h \
@@ -336,11 +336,11 @@ SplitPathStrategy.lo: ../../../src/storage/SplitPathStrategy.cpp \
 
 ../../../src/storage/LevelDBEngine.h:
 
+../../../src/storage/Key.h:
+
 /usr/include/inttypes.h:
 
 ../../../src/frame/MUMacros.h:
-
-../../../src/storage/Key.h:
 
 ../../../src/storage/Value.h:
 

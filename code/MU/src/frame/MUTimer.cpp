@@ -54,7 +54,7 @@ MUTimer::expirationCallback(uint64_t times)
     rt = m_pTask->next(this, times);
 
     if (-1 == rt) {
-        DEBUG_LOG("m_pTask->next() error");
+        ERROR_LOG("m_pTask->next() error");
     }
 
     return 0;

@@ -25,6 +25,7 @@ public:
 	virtual RangeStruct DirOpen(string pathname) = 0;
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv) = 0;
 
+	uint64_t m_Fid;//gcc atomic sync
 	StoreEngine *m_StoreEngine;
 	string m_Root;
 };

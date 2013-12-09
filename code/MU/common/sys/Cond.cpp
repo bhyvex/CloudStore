@@ -28,17 +28,17 @@ Cond::Cond(const Mutex &mutex) :
     int rt = pthread_condattr_init(&attr);
 
     if( 0 != rt ) {
-        DEBUG_LOG("Syscall Error: pthread_condattr_init.");
+        ERROR_LOG("Syscall Error: pthread_condattr_init.");
     }
     
     rt =  pthread_cond_init(&m_Cond, &attr);
     if( 0 != rt ) {
-        DEBUG_LOG("Syscall Error: pthread_cond_init.");
+        ERROR_LOG("Syscall Error: pthread_cond_init.");
     }
 
     rt = pthread_condattr_destroy(&attr);
     if( 0 != rt ) {
-        DEBUG_LOG("Syscall Error: pthread_condattr_destroy.");
+        ERROR_LOG("Syscall Error: pthread_condattr_destroy.");
     }
 }
 
@@ -49,14 +49,14 @@ Cond::~Cond() {
 void Cond::notify() const {
     const int rt = pthread_cond_signal(&m_Cond);
     if ( 0 != rt ) {
-        DEBUG_LOG("Syscall Error: pthread_cond_signal.");
+        ERROR_LOG("Syscall Error: pthread_cond_signal.");
     }
 }
 
 void Cond::notifyAll() const {
     const int rt = pthread_cond_broadcast(&m_Cond);
     if( 0 != rt ) {
-        DEBUG_LOG("Syscall Error: pthread_cond_broadcast.");
+        ERROR_LOG("Syscall Error: pthread_cond_broadcast.");
     }
 }
 
@@ -64,7 +64,7 @@ bool Cond::wait() const {
     int rt = pthread_cond_wait(&m_Cond, m_Mutex.getPthreadMutex());
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_cond_wait.");
+        ERROR_LOG("Syscall Error: pthread_cond_wait.");
         return false;
     }
 
@@ -73,7 +73,7 @@ bool Cond::wait() const {
 
 bool Cond::timedWait(const Time &timeout) const {
     if(timeout < Time::microSeconds(0)) {
-        DEBUG_LOG("Cond::timedWait: Invalid timeout argument.");
+        ERROR_LOG("Cond::timedWait: Invalid timeout argument.");
         return false;
     }
 
@@ -89,7 +89,7 @@ bool Cond::timedWait(const Time &timeout) const {
 
     if(rc != 0) {
         if(rc != ETIMEDOUT) {
-            DEBUG_LOG("Syscall Error: pthread_cond_timedwait.");
+            ERROR_LOG("Syscall Error: pthread_cond_timedwait.");
             return false;
         }
     }

@@ -34,7 +34,7 @@ EventHandlerThread(ThreadPool *pool) :
     m_pThreadPool(pool)
 {
     if (NULL == pool) {
-        DEBUG_LOG("NULL pointer argument.");
+        ERROR_LOG("NULL pointer argument.");
     }
 }
 
@@ -52,7 +52,7 @@ run()
 
         if (-1 == rt) {
             if (EINTR != errno) {
-                DEBUG_LOG("Syscall Error: read. %s", strerror(errno));
+                ERROR_LOG("Syscall Error: read. %s", strerror(errno));
             }
         }
 
@@ -89,7 +89,7 @@ int ThreadPool::postRequest(ThreadPoolWorkItem *pWorkItem)
 
     if (sizeof(void *) != rt) {
         if (EAGAIN != errno) {
-            DEBUG_LOG("writen error");
+            ERROR_LOG("writen error");
         }
 
         return errno;
@@ -106,7 +106,7 @@ int ThreadPool::start()
     int rt = pipe(fd);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pipe. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: pipe. %s", strerror(errno));
         return -1;
 
     } else {
@@ -125,7 +125,7 @@ int ThreadPool::start()
         rt = (*it)->start();
 
         if (-1 == rt) {
-            DEBUG_LOG("Error occurred whilst starting a thread.");
+            ERROR_LOG("Error occurred whilst starting a thread.");
             return -1;
         }
     }

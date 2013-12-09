@@ -31,7 +31,7 @@
 ssize_t util::io::readn(int fd, void *vptr, size_t n)
 {
     if (NULL == vptr) {
-        DEBUG_LOG("NULL pointer.");
+        ERROR_LOG("NULL pointer.");
         return -1;
     }
 
@@ -50,7 +50,7 @@ ssize_t util::io::readn(int fd, void *vptr, size_t n)
                 continue;
 
             } else {
-                DEBUG_LOG("Syscall Error: read. errno %d, %s.",
+                ERROR_LOG("Syscall Error: read. errno %d, %s.",
                           errno, strerror(errno));
                 return -1;
             }
@@ -69,7 +69,7 @@ ssize_t util::io::readn(int fd, void *vptr, size_t n)
 ssize_t util::io::writen(int fd, const void *vptr, size_t n)
 {
     if (NULL == vptr) {
-        DEBUG_LOG("NULL pointer.");
+        ERROR_LOG("NULL pointer.");
         return -1;
     }
 
@@ -89,7 +89,7 @@ ssize_t util::io::writen(int fd, const void *vptr, size_t n)
 
             } else {
                 if (EAGAIN != errno) {
-                    DEBUG_LOG("Syscall Error: write. errno %d, %s",
+                    ERROR_LOG("Syscall Error: write. errno %d, %s",
                               errno, strerror(errno));
                 }
 
@@ -113,14 +113,14 @@ util::io::setNonblock(int fd)
     int val;
 
     if ((val = fcntl(fd, F_GETFL, 0)) < 0) {
-        DEBUG_LOG("Syscall Error: fcntl. %s.", strerror(errno));
+        ERROR_LOG("Syscall Error: fcntl. %s.", strerror(errno));
         return val;
     }
 
     val |= O_NONBLOCK;
 
     if (fcntl(fd, F_SETFL, val) < 0) {
-        DEBUG_LOG("Syscall Error: fcntl. %s.", strerror(errno));
+        ERROR_LOG("Syscall Error: fcntl. %s.", strerror(errno));
         return -1;
     }
 

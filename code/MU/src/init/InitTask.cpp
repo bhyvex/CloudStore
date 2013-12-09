@@ -87,7 +87,7 @@ InitTask::next(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected task state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected task state %" PRIi32, m_CurrentState);
 
             assert(0);
 
@@ -123,7 +123,7 @@ InitTask::next(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpected task state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected task state %" PRIi32, m_CurrentState);
 
             assert(0);
 
@@ -175,7 +175,7 @@ InitTask::next(MUTask *pTask)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected state %" PRIi32, m_CurrentState);
 
             assert(0);
 
@@ -234,7 +234,7 @@ InitTask::start()
 
     default: {
             // should not reach here
-            DEBUG_LOG("unexpected state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected state %" PRIi32, m_CurrentState);
 
             assert(0);
 
@@ -270,7 +270,7 @@ InitTask::connectToRS()
     rt = m_pRSAgent->init();
 
     if (-1 == rt) {
-        DEBUG_LOG("init rs agent failed.");
+        ERROR_LOG("init rs agent failed.");
 
         m_pRSAgent->setTask(NULL);
         delete m_pRSAgent;
@@ -282,7 +282,7 @@ InitTask::connectToRS()
     rt = m_pRSAgent->connect(rsAddr);
 
     if (-1 == rt) {
-        DEBUG_LOG("connect to rs failed.");
+        ERROR_LOG("connect to rs failed.");
 
         m_pRSAgent->setTask(NULL);
         delete m_pRSAgent;
@@ -319,7 +319,7 @@ InitTask::getRule()
     std::string data;
 
     if (!req.SerializeToString(&data)) {
-        DEBUG_LOG("protobuf serialize failed.");
+        ERROR_LOG("protobuf serialize failed.");
         return -1;
     }
 
@@ -347,7 +347,7 @@ InitTask::getRule(const InReq &req)
     cstore::pb_MSG_SYS_RS_UPDATE_ALL_MU_HASH_ACK ack;
 
     if (!ack.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse failed.");
+        ERROR_LOG("protobuf parse failed.");
         return -1;
     }
 
@@ -362,7 +362,7 @@ InitTask::getRule(const InReq &req)
     rt = ::inet_pton(AF_INET, localIP.c_str(), &localAddr);
 
     if (-1 == rt) {
-        DEBUG_LOG("inet_pton() error, %s", strerror(errno));
+        ERROR_LOG("inet_pton() error, %s", strerror(errno));
         return -1;
     }
 
@@ -370,21 +370,21 @@ InitTask::getRule(const InReq &req)
 
     cstore::Hash_Version hash = ack.hash_version();
 
-    DEBUG_LOG("local ip %" PRIu32, localAddr.s_addr);
+    ERROR_LOG("local ip %" PRIu32, localAddr.s_addr);
 
     for (int i = 0; i < hash.map_list().size(); ++i) {
         cstore::Map_Item item  = hash.map_list(i);
 
-        DEBUG_LOG("in rule bucket %" PRIi32, i);
+        ERROR_LOG("in rule bucket %" PRIi32, i);
 
         for (int j = 0; j < item.module_ip().size(); ++j) {
             ip = item.module_ip(j);
 
-            DEBUG_LOG("ip %" PRIi32 " %" PRIu32, j, ip);
+            ERROR_LOG("ip %" PRIi32 " %" PRIu32, j, ip);
 
             if (ip == localAddr.s_addr) {
                 m_BucketList.push_back(i);
-                DEBUG_LOG("get bucket %" PRIi32, i);
+                ERROR_LOG("get bucket %" PRIi32, i);
                 break;
             }
         }
@@ -426,7 +426,7 @@ InitTask::dispatch(MUWorkItem *pItem)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected item type %" PRIi32, pItem->getItemType());
+            ERROR_LOG("unexpected item type %" PRIi32, pItem->getItemType());
 
             assert(0);
 
@@ -450,7 +450,7 @@ InitTask::dispatchInitItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpected work type %" PRIi32, pItem->getWorkType());
+            ERROR_LOG("unexpected work type %" PRIi32, pItem->getWorkType());
 
             return -1;
             break;

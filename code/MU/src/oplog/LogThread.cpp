@@ -116,7 +116,7 @@ LogThread::doRequest(LogThreadRequest *pReq)
         }
 
     default: {
-            DEBUG_LOG("unknown log request type %d.", pReq->m_OpType);
+            ERROR_LOG("unknown log request type %d.", pReq->m_OpType);
             break;
         }
 

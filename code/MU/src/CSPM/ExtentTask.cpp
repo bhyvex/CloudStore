@@ -80,7 +80,7 @@ ExtentTask::start()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer failed");
+        ERROR_LOG("create timer failed");
         return -1;
     }
 
@@ -89,7 +89,7 @@ ExtentTask::start()
              REQUEST_QUEUE_CHECK_PERIOD);
 
     if (-1 == rt) {
-        DEBUG_LOG("set time of timer failed");
+        ERROR_LOG("set time of timer failed");
         return -1;
     }
 
@@ -261,7 +261,7 @@ ExtentTask::dispatch(MUWorkItem *pItem)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected item type %" PRIi32, pItem->getItemType());
+            ERROR_LOG("unexpected item type %" PRIi32, pItem->getItemType());
             assert(0);
 
             return -1;
@@ -283,7 +283,7 @@ ExtentTask::dispatchExtentItem(MUWorkItem *pItem)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected work type %" PRIi32, pItem->getWorkType());
+            ERROR_LOG("unexpected work type %" PRIi32, pItem->getWorkType());
             assert(0);
 
             return -1;
@@ -317,7 +317,7 @@ ExtentTask::next(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpected task state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected task state %" PRIi32, m_CurrentState);
 
             delete pItem;
             pItem = NULL;
@@ -496,7 +496,7 @@ ExtentTask::next(MUTimer *pTimer, uint64_t times)
 
     default: {
             // should not reach here
-            DEBUG_LOG("have prepared, no timer should open");
+            ERROR_LOG("have prepared, no timer should open");
 
             m_CurrentState = TASK_ERROR;
 

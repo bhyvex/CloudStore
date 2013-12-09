@@ -27,7 +27,7 @@
 StopBucketTask::~StopBucketTask()
 {
     if (TASK_FINISH != m_CurrentState) {
-        DEBUG_LOG("stop bucket %llu failed", m_BucketId);
+        ERROR_LOG("stop bucket %llu failed", m_BucketId);
     }
 
     if (NULL != m_pTimer) {
@@ -48,7 +48,7 @@ StopBucketTask::destroy(MUTimer *pChannel)
 {
     m_pTimer = NULL;
 
-    DEBUG_LOG("stop bucket task, timer error");
+    ERROR_LOG("stop bucket task, timer error");
     recycle();
 }
 
@@ -67,7 +67,7 @@ StopBucketTask::start()
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected state %d", m_CurrentState);
+            ERROR_LOG("unexpected state %d", m_CurrentState);
             assert(0);
 
             return -1;
@@ -87,7 +87,7 @@ StopBucketTask::registerTimer()
     Bucket *pBucket = BucketManager::getInstance()->get(m_BucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket");
+        ERROR_LOG("no such bucket");
         return -1;
     }
 
@@ -100,7 +100,7 @@ StopBucketTask::registerTimer()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer failed");
+        ERROR_LOG("create timer failed");
         return -1;
     }
 
@@ -122,7 +122,7 @@ StopBucketTask::next(MUTimer *pChannel, uint64_t times)
             rt = checkRequestQueue();
 
             if (-1 == rt) {
-                DEBUG_LOG("checkRequestQueue() error");
+                ERROR_LOG("checkRequestQueue() error");
                 recycle();
                 return -1;
             }
@@ -131,12 +131,12 @@ StopBucketTask::next(MUTimer *pChannel, uint64_t times)
         }
 
     case TASK_FINISH: {
-            DEBUG_LOG("task already finished, no timer should open");
+            ERROR_LOG("task already finished, no timer should open");
             break;
         }
 
     default: {
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             break;
         }

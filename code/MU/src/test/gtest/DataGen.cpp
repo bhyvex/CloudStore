@@ -42,7 +42,7 @@ DataGen::clean()
     rt = ::system(cmd.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("clean data failed");
+        ERROR_LOG("clean data failed");
         return -1;
     }
 
@@ -452,7 +452,7 @@ DataGen::readUserInfo(UserInfo *pInfo)
     rt = ::open(path.c_str(), O_RDONLY);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s",
+        ERROR_LOG("path %s, open() error, %s",
                   path.c_str(), strerror(errno));
         return -1;
     }
@@ -463,10 +463,10 @@ DataGen::readUserInfo(UserInfo *pInfo)
 
     if (sizeof(UserInfo) != rt) {
         if (-1 == rt) {
-            DEBUG_LOG("path %s, read() error, %s", path.c_str(), strerror(errno));
+            ERROR_LOG("path %s, read() error, %s", path.c_str(), strerror(errno));
 
         } else {
-            DEBUG_LOG("path %s, read user info, expected %d bytes, "
+            ERROR_LOG("path %s, read user info, expected %d bytes, "
                       "but read %d bytes", path.c_str(), sizeof(UserInfo), rt);
         }
 
@@ -489,7 +489,7 @@ DataGen::writeUserInfo(const UserInfo &info)
     rt = ::open(path.c_str(), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s",
+        ERROR_LOG("path %s, open() error, %s",
                   path.c_str(), strerror(errno));
         return -1;
     }
@@ -500,11 +500,11 @@ DataGen::writeUserInfo(const UserInfo &info)
 
     if (sizeof(UserInfo) != rt) {
         if (-1 == rt) {
-            DEBUG_LOG("path %s, write() error, %s",
+            ERROR_LOG("path %s, write() error, %s",
                       path.c_str(), strerror(errno));
 
         } else {
-            DEBUG_LOG("path %s, write user info, expected %d bytes, "
+            ERROR_LOG("path %s, write user info, expected %d bytes, "
                       "but write %d bytes", path.c_str(), sizeof(UserInfo), rt);
         }
 
@@ -526,7 +526,7 @@ DataGen::createUser()
     rt = ::mkdir(_userRoot.c_str(), S_IRWXU);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, mkdir() error, %s",
+        ERROR_LOG("path %s, mkdir() error, %s",
                   _userRoot.c_str(), strerror(errno));
         return -1;
     }
@@ -538,7 +538,7 @@ DataGen::createUser()
     rt = writeUserInfo(info);
 
     if (-1 == rt) {
-        DEBUG_LOG("write user info failed");
+        ERROR_LOG("write user info failed");
         return -1;
     }
 
@@ -555,7 +555,7 @@ DataGen::createDir(const std::string &path)
     rt = ::mkdir(rpath.c_str(), S_IRWXU);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, mkdir() error, %s",
+        ERROR_LOG("path %s, mkdir() error, %s",
                   rpath.c_str(), strerror(errno));
         return -1;
     }
@@ -573,7 +573,7 @@ DataGen::createFile(const std::string &path)
     rt = ::open(rpath.c_str(), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s",
+        ERROR_LOG("path %s, open() error, %s",
                   rpath.c_str(), strerror(errno));
         return -1;
     }
@@ -591,7 +591,7 @@ DataGen::createFile(const std::string &path)
     rt = ::write(fd, &attr, sizeof(FileAttr));
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -604,7 +604,7 @@ DataGen::createFile(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -615,7 +615,7 @@ DataGen::createFile(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -626,7 +626,7 @@ DataGen::createFile(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;

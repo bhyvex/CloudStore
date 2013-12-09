@@ -91,7 +91,7 @@ bool LevelDBEngine::Range(string start, string limit)//range [start,limit)
 RangeStruct LevelDBEngine::RangeOpen(string start, string limit)
 {
 	leveldb::Iterator* it = m_Db->NewIterator(leveldb::ReadOptions());
-	it->Seek(start);
+	//it->Seek(start);
 	
 
 	RangeStruct rs;
@@ -106,7 +106,8 @@ bool LevelDBEngine::Next(RangeStruct *rs, KeyValuePair *kv)
 {
 	leveldb::Iterator* it = (leveldb::Iterator*)(rs->iterator);
 
-	if(it->Valid() && it->key().ToString() < rs->limit){
+	//if(it->Valid() && it->key().ToString() < rs->limit){
+	if(it->Valid()){
 		kv->key = it->key().ToString();
 		kv->value = it->value().ToString();
 	}else{

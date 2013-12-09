@@ -204,7 +204,7 @@ LogAccessEngine::hasModel(Connection *pConn)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return false;
     }
 
@@ -225,21 +225,21 @@ LogAccessEngine::createModel(Connection *pConn)
     rt = createTable(pConn);
 
     if (-1 == rt) {
-        DEBUG_LOG("create tables failed");
+        ERROR_LOG("create tables failed");
         return -1;
     }
 
     rt = createIndex(pConn);
 
     if (-1 == rt) {
-        DEBUG_LOG("create indexes failed");
+        ERROR_LOG("create indexes failed");
         return -1;
     }
 
     rt = createTrigger(pConn);
 
     if (-1 == rt) {
-        DEBUG_LOG("create triggers failed");
+        ERROR_LOG("create triggers failed");
         return -1;
     }
 
@@ -267,14 +267,14 @@ LogAccessEngine::createTable(Connection *pConn)
         rt = pStmt->prepare(sql);
 
         if (-1 == rt) {
-            DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+            ERROR_LOG("prepare statement failed, %s", sql.c_str());
             return -1;
         }
 
         rt = pStmt->execute();
 
         if (-1 == rt) {
-            DEBUG_LOG("create log table failed");
+            ERROR_LOG("create log table failed");
             return -1;
         }
 
@@ -294,14 +294,14 @@ LogAccessEngine::createTable(Connection *pConn)
         rt = pStmt->prepare(sql);
 
         if (-1 == rt) {
-            DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+            ERROR_LOG("prepare statement failed, %s", sql.c_str());
             return -1;
         }
 
         rt = pStmt->execute();
 
         if (-1 == rt) {
-            DEBUG_LOG("create user table failed");
+            ERROR_LOG("create user table failed");
             return -1;
         }
 
@@ -326,14 +326,14 @@ LogAccessEngine::createIndex(Connection *pConn)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return -1;
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("create index failed");
+        ERROR_LOG("create index failed");
         return -1;
     }
 
@@ -360,14 +360,14 @@ LogAccessEngine::createTrigger(Connection *pConn)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return -1;
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("create trigger failed");
+        ERROR_LOG("create trigger failed");
         return -1;
     }
 
@@ -416,7 +416,7 @@ LogAccessEngine::rotate(
         rt = ::rename(src.c_str(), dest.c_str());
 
         if (-1 == rt) {
-            DEBUG_LOG("rename() error, %s.", strerror(errno));
+            ERROR_LOG("rename() error, %s.", strerror(errno));
             return -1;
         }
     }
@@ -433,7 +433,7 @@ LogAccessEngine::rotate(
             rt = ::rename(src.c_str(), dest.c_str());
 
             if (-1 == rt) {
-                DEBUG_LOG("rename() error, %s.", strerror(errno));
+                ERROR_LOG("rename() error, %s.", strerror(errno));
                 return -1;
             }
         }
@@ -448,7 +448,7 @@ LogAccessEngine::rotate(
     rt = ::rename(src.c_str(), dest.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("rename() error, %s.", strerror(errno));
+        ERROR_LOG("rename() error, %s.", strerror(errno));
         return -1;
     }
 
@@ -490,7 +490,7 @@ LogAccessEngine::readUserLogFromCurrentLog(
     Connection *pConn = getConnection(bucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -509,21 +509,21 @@ LogAccessEngine::readUserLogFromCurrentLog(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(1, seq);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 1);
+        ERROR_LOG("bind error, column index %d", 1);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(2, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 2);
+        ERROR_LOG("bind error, column index %d", 2);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -566,7 +566,7 @@ LogAccessEngine::readUserLogFromCurrentLog(
     }
 
     if (-1 == rt) {
-        DEBUG_LOG("step error");
+        ERROR_LOG("step error");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -579,7 +579,7 @@ LogAccessEngine::readUserLogFromCurrentLog(
         rs = queryCurrentUserLogSeqNr(bucketId, userId, &seqNr);
 
         if (!rs.success()) {
-            DEBUG_LOG("query current user log seq nr failed, "
+            ERROR_LOG("query current user log seq nr failed, "
                       "bucket %" PRIu64 ", user %" PRIu64,
                       bucketId, userId);
             return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -594,7 +594,7 @@ LogAccessEngine::readUserLogFromCurrentLog(
         // but some new operations have been done,
         // this may be caused by log rotation
 
-        //DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64
+        //ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64
         //", seq nr %" PRIu64 ", "
         //"log seq outdated", bucketId, userId, seq);
         return ReturnStatus(MU_FAILED, LOG_SEQ_OUTDATED);
@@ -630,7 +630,7 @@ LogAccessEngine::isfile(std::string &path)
     rt = InfoNS->Stat(path.c_str(), &st);
 
     if (-1 == rt) {
-        DEBUG_LOG("stat() error, %s.", strerror(errno));
+        DEBUG_LOG("path %s stat() error, %s.", path.c_str(), strerror(errno));
         return false;
     }
 
@@ -653,7 +653,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNr(
     Connection *pConn = getConnection(bucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -670,7 +670,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNr(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -678,7 +678,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNr(
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -748,7 +748,7 @@ LogAccessEngine::queryCurrentUserLogSeqNr(
     //Connection *pConn = createConnection(bucketId, false, false);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %ld.",
+        ERROR_LOG("Cannot get database connection, bucket id %ld.",
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -766,7 +766,7 @@ LogAccessEngine::queryCurrentUserLogSeqNr(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -774,14 +774,14 @@ LogAccessEngine::queryCurrentUserLogSeqNr(
     rt = pStmt->bindInt64(1, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind parameter failed, index 1");
+        ERROR_LOG("bind parameter failed, index 1");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -809,7 +809,7 @@ LogAccessEngine::createUser(uint64_t bucketId, uint64_t userId)
     Connection *pConn = getConnection(bucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
         return -1;
     }
@@ -826,35 +826,35 @@ LogAccessEngine::createUser(uint64_t bucketId, uint64_t userId)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return -1;
     }
 
     rt = pStmt->bindInt64(1, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind parameter failed, index 1");
+        ERROR_LOG("bind parameter failed, index 1");
         return -1;
     }
 
     rt = pStmt->bindInt64(2, 0);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind parameter failed, index 2");
+        ERROR_LOG("bind parameter failed, index 2");
         return -1;
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
         return -1;
     }
 
     //rt = flushLocked(bucketId);
 
     //if (-1 == rt) {
-        //DEBUG_LOG("flush logs failed when create user %" PRIu64, userId);
+        //ERROR_LOG("flush logs failed when create user %" PRIu64, userId);
         //return -1;
     //}
 
@@ -872,7 +872,7 @@ LogAccessEngine::deleteUser(uint64_t bucketId, uint64_t userId)
     Connection *pConn = getConnection(bucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %ld.",
+        ERROR_LOG("Cannot get database connection, bucket id %ld.",
                   bucketId);
         return -1;
     }
@@ -889,21 +889,21 @@ LogAccessEngine::deleteUser(uint64_t bucketId, uint64_t userId)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return -1;
     }
 
     rt = pStmt->bindInt64(1, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind parameter failed, index 1");
+        ERROR_LOG("bind parameter failed, index 1");
         return -1;
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed");
+        ERROR_LOG("execute prepared sql failed");
         return -1;
     }
 
@@ -924,7 +924,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNrFromUserTable(
     Connection *pConn = getConnection(bucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -941,7 +941,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNrFromUserTable(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -949,7 +949,7 @@ LogAccessEngine::queryCurrentBucketLogSeqNrFromUserTable(
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -1029,7 +1029,7 @@ LogAccessEngine::copyUserTable(
     Connection *pDestConn = getConnection(bucketId);
 
     if (NULL == pDestConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
         return -1;
     }
@@ -1037,7 +1037,7 @@ LogAccessEngine::copyUserTable(
     Connection *pSrcConn = createConnectionToArchivedLog(bucketId, 1);
 
     if (NULL == pSrcConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
         return -1;
     }
@@ -1057,14 +1057,14 @@ LogAccessEngine::copyUserTable(
     rt = pDestStmt->prepare(destSql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare sql failed, %s", destSql.c_str());
+        ERROR_LOG("prepare sql failed, %s", destSql.c_str());
         return -1;
     }
 
     rt = pSrcStmt->prepare(srcSql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare sql failed, %s", srcSql.c_str());
+        ERROR_LOG("prepare sql failed, %s", srcSql.c_str());
         return -1;
     }
 
@@ -1085,34 +1085,34 @@ LogAccessEngine::copyUserTable(
         nrt = pDestStmt->bindInt64(1, uid);
 
         if (-1 == rt) {
-            DEBUG_LOG("bind parameter failed, index 1");
+            ERROR_LOG("bind parameter failed, index 1");
             return -1;
         }
 
         nrt = pDestStmt->bindInt64(2, seq);
 
         if (-1 == rt) {
-            DEBUG_LOG("bind parameter failed, index 2");
+            ERROR_LOG("bind parameter failed, index 2");
             return -1;
         }
 
         nrt = pDestStmt->execute();
 
         if (-1 == rt) {
-            DEBUG_LOG("execute prepared sql failed");
+            ERROR_LOG("execute prepared sql failed");
             return -1;
         }
 
         nrt = pDestStmt->clean();
 
         if (-1 == rt) {
-            DEBUG_LOG("clean statement failed");
+            ERROR_LOG("clean statement failed");
             return -1;
         }
     }
 
     if (-1 == rt) {
-        DEBUG_LOG("step error");
+        ERROR_LOG("step error");
         return -1;
     }
 
@@ -1145,7 +1145,7 @@ LogAccessEngine::readUserLogFromArchivedLog(
 
     if (!isfile(logFile)) {
         // log file not exists
-        DEBUG_LOG("check log file %s failed", logFile.c_str());
+        ERROR_LOG("check log file %s failed", logFile.c_str());
         //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         return ReturnStatus(MU_FAILED, LOG_SEQ_OUTDATED);
     }
@@ -1153,7 +1153,7 @@ LogAccessEngine::readUserLogFromArchivedLog(
     Connection *pConn = createConnectionToArchivedLog(bucketId, logIdx);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -1172,21 +1172,21 @@ LogAccessEngine::readUserLogFromArchivedLog(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(1, seq);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 1);
+        ERROR_LOG("bind error, column index %d", 1);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(2, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 2);
+        ERROR_LOG("bind error, column index %d", 2);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -1211,7 +1211,7 @@ LogAccessEngine::readUserLogFromArchivedLog(
     }
 
     if (-1 == rt) {
-        DEBUG_LOG("step error");
+        ERROR_LOG("step error");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -1362,14 +1362,14 @@ LogAccessEngine::userLogExistInArchiveLog(
 
     if (!isfile(logFile)) {
         // log file not exists
-        DEBUG_LOG("check log file %s failed", logFile.c_str());
+        ERROR_LOG("check log file %s failed", logFile.c_str());
         return ReturnStatus(MU_FAILED, LOG_SEQ_OUTDATED);
     }
 
     Connection *pConn = createConnectionToArchivedLog(bucketId, logIdx);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -1387,28 +1387,28 @@ LogAccessEngine::userLogExistInArchiveLog(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(1, seq);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 1);
+        ERROR_LOG("bind error, column index %d", 1);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->bindInt64(2, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 2);
+        ERROR_LOG("bind error, column index %d", 2);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->step();
 
     if (-1 == rt) {
-        DEBUG_LOG("step error");
+        ERROR_LOG("step error");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -1431,7 +1431,7 @@ LogAccessEngine::userLogExistInArchiveLog(
                  bucketId, userId, logIdx, &seqNr);
 
         if (!rs.success()) {
-            DEBUG_LOG("query max user log seq nr "
+            ERROR_LOG("query max user log seq nr "
                       "from archived log file %" PRIi32
                       " failed, bucket %" PRIu64 " user %" PRIu64,
                       logIdx, bucketId, userId);
@@ -1461,7 +1461,7 @@ LogAccessEngine::writeLogLocked(const LogEvent &event)
     Connection *pConn = getConnection(event.m_BucketId);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Write log failed, can not connect to database, "
+        ERROR_LOG("Write log failed, can not connect to database, "
                   "bucket Id %" PRIu64, event.m_BucketId);
         return -1;
     }
@@ -1478,42 +1478,42 @@ LogAccessEngine::writeLogLocked(const LogEvent &event)
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
         return -1;
     }
 
     rt = pStmt->bindInt64(1, event.m_SeqNr);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 1);
+        ERROR_LOG("bind error, column index %d", 1);
         return -1;
     }
 
     rt = pStmt->bindInt64(2, event.m_UserId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 2);
+        ERROR_LOG("bind error, column index %d", 2);
         return -1;
     }
 
     rt = pStmt->bindText(3, event.m_Token);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 3);
+        ERROR_LOG("bind error, column index %d", 3);
         return -1;
     }
 
     rt = pStmt->bindText(4, event.m_SerializedLog);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind error, column index %d", 4);
+        ERROR_LOG("bind error, column index %d", 4);
         return -1;
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
         return -1;
     }
 
@@ -1532,7 +1532,7 @@ LogAccessEngine::queryUserLogSeqNrFromArchivedLog(
     Connection *pConn = createConnectionToArchivedLog(bucketId, logIdx);
 
     if (NULL == pConn) {
-        DEBUG_LOG("Cannot get database connection, bucket id %" PRIu64,
+        ERROR_LOG("Cannot get database connection, bucket id %" PRIu64,
                   bucketId);
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -1550,7 +1550,7 @@ LogAccessEngine::queryUserLogSeqNrFromArchivedLog(
     rt = pStmt->prepare(sql);
 
     if (-1 == rt) {
-        DEBUG_LOG("prepare statement failed, %s", sql.c_str());
+        ERROR_LOG("prepare statement failed, %s", sql.c_str());
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -1558,14 +1558,14 @@ LogAccessEngine::queryUserLogSeqNrFromArchivedLog(
     rt = pStmt->bindInt64(1, userId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bind parameter failed, index 1");
+        ERROR_LOG("bind parameter failed, index 1");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = pStmt->execute();
 
     if (-1 == rt) {
-        DEBUG_LOG("execute prepared sql failed.");
+        ERROR_LOG("execute prepared sql failed.");
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }

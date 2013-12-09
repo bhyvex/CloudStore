@@ -106,7 +106,7 @@ RunControl::setResourceLimit()
     rt = ::geteuid();
 
     if (-1 == rt) {
-        DEBUG_LOG("geteuid() error, %s", strerror(errno));
+        ERROR_LOG("geteuid() error, %s", strerror(errno));
         ERROR_LOG("Cannot get EUID of current process. Program will exit.");
         exit(1);
     }
@@ -129,7 +129,7 @@ RunControl::setResourceLimit()
     rt = setrlimit(RLIMIT_NOFILE, &rl);
 
     if (-1 == rt) {
-        DEBUG_LOG("setrlimit() error, %s", strerror(errno));
+        ERROR_LOG("setrlimit() error, %s", strerror(errno));
         ERROR_LOG("Can't set RLIMIT_NOFILE. Program will exit.");
         exit(1);
     }
@@ -387,7 +387,7 @@ RunControl::initFilesystemRoot()
     rt = ::mkdir(root.c_str(), S_IRWXU);
 
     if (-1 == rt) {
-        DEBUG_LOG("mkdir() error, %s", strerror(errno));
+        ERROR_LOG("mkdir() error, %s", strerror(errno));
         ERROR_LOG("Initialize filesystem root failed. Program will exit.");
         exit(1);
     }

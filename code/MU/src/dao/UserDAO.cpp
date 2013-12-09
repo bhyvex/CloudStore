@@ -76,22 +76,22 @@ UserDAO::createUser(uint64_t bucketId,
 	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
 	rt = DataNS->MkDir(userRoot.c_str(), S_IRWXU);
-    //if (-1 == rt) {
-    //    error = errno;
-    //    DEBUG_LOG("path %s, mkdir() error, %s.",
-    //              userRoot.c_str(), strerror(errno));
+    if (-1 == rt) {
+        error = errno;
+        ERROR_LOG("path %s, mkdir() error, %s.",
+                  userRoot.c_str(), strerror(errno));
 
-    //    if (EEXIST == error) {
-    //        return ReturnStatus(MU_FAILED, USER_EXIST);
-    //    }
+        if (EEXIST == error) {
+            return ReturnStatus(MU_FAILED, USER_EXIST);
+        }
 
-    //    return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-    //}
+        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    }
 
     rt = InfoNS->MkDir(userRoot.c_str(), S_IRWXU);
     if (-1 == rt) {
         error = errno;
-        DEBUG_LOG("path %s, mkdir() error, %s.",
+        ERROR_LOG("path %s, mkdir() error, %s.",
                   userRoot.c_str(), strerror(errno));
 
         if (EEXIST == error) {
@@ -108,7 +108,7 @@ UserDAO::createUser(uint64_t bucketId,
     fd_ = InfoNS->Open(infoFile.c_str(), O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
 
     if (false == fd_.valid) {
-        DEBUG_LOG("path %s, open() error, %s.",
+        ERROR_LOG("path %s, open() error, %s.",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -125,7 +125,7 @@ UserDAO::createUser(uint64_t bucketId,
     rs = writeUserInfo(&fd_, info);
 
     if (!rs.success()) {
-        DEBUG_LOG("bucket id %llu, user id %llu, "
+        ERROR_LOG("bucket id %llu, user id %llu, "
                   "writeUserInfo() error", bucketId, userId);
     }
 
@@ -143,7 +143,7 @@ UserDAO::deleteUser(uint64_t bucketId, uint64_t userId)
 
     rs = rmUserRecursive(bucketId, userId);
     if (!rs.success()) {
-        DEBUG_LOG("path %s, rmdirRecursive() error", userRoot.c_str());
+        ERROR_LOG("path %s, rmdirRecursive() error", userRoot.c_str());
     }
 
     return rs;
@@ -167,7 +167,7 @@ UserDAO::readUserInfo(uint64_t bucketId,
     fd = FSNS->Open(infoFile.c_str(), O_RDONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("path %s, open() error, %s,",
+        ERROR_LOG("path %s, open() error, %s,",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -199,7 +199,7 @@ UserDAO::writeUserInfo(uint64_t bucketId,
     fd = FSNS->Open(infoFile.c_str(), O_WRONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("path %s, open() error, %s,",
+        ERROR_LOG("path %s, open() error, %s,",
                   infoFile.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -230,7 +230,7 @@ UserDAO::readUserInfo(Args* fd, UserInfo *pInfo)
     rt = InfoNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
-        DEBUG_LOG("lseek error(), %s.", strerror(errno));
+        ERROR_LOG("lseek error(), %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -254,14 +254,14 @@ UserDAO::writeUserInfo(Args* fd, const UserInfo &info)
     rt = InfoNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
-        DEBUG_LOG("lseek error(), %s.", strerror(errno));
+        ERROR_LOG("lseek error(), %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     rt = InfoNS->writen(fd, &info, sizeof(info));
 
     if (sizeof(info) != rt) {
-        DEBUG_LOG("writen() failed, fd %d", fd);
+        ERROR_LOG("writen() failed, fd %d", fd);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 

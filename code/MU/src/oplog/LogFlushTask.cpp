@@ -60,7 +60,7 @@ LogFlushTask::start()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer error");
+        ERROR_LOG("create timer error");
         recycle(m_pTimer);
         m_pTimer = NULL;
         return -1;
@@ -70,7 +70,7 @@ LogFlushTask::start()
                            LOG_FLUSH_PERIOD);
 
     if (-1 == rt) {
-        DEBUG_LOG("timer set time error");
+        ERROR_LOG("timer set time error");
         recycle(m_pTimer);
         m_pTimer = NULL;
         return -1;

@@ -32,25 +32,25 @@ Mutex::Mutex()
     int rt = pthread_mutexattr_init(&attr);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_mutexattr_init.");
+        ERROR_LOG("Syscall Error: pthread_mutexattr_init.");
     }
 
     rt = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_mutexattr_settype.");
+        ERROR_LOG("Syscall Error: pthread_mutexattr_settype.");
     }
 
     rt = pthread_mutex_init(&m_Mutex, &attr);
 
     if (rt != 0) {
-        DEBUG_LOG("Syscall Error: pthread_mutex_init.");
+        ERROR_LOG("Syscall Error: pthread_mutex_init.");
     }
 
     rt = pthread_mutexattr_destroy(&attr);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_mutexattr_destroy.");
+        ERROR_LOG("Syscall Error: pthread_mutexattr_destroy.");
     }
 }
 
@@ -59,7 +59,7 @@ Mutex::~Mutex()
     const int rt = pthread_mutex_destroy(&m_Mutex);
 
     if (rt != 0) {
-        DEBUG_LOG("Error occurred whilst destroying a mutex.");
+        ERROR_LOG("Error occurred whilst destroying a mutex.");
     }
 }
 
@@ -69,11 +69,11 @@ void Mutex::lock() const
 
     if (rt != 0) {
         if (rt == EDEADLK) {
-            DEBUG_LOG(
+            ERROR_LOG(
                 "Try to acquire the mutex when the current thread already owns the mutex. ");
 
         } else {
-            DEBUG_LOG("Syscall Error: pthread_mutex_lock.");
+            ERROR_LOG("Syscall Error: pthread_mutex_lock.");
         }
     }
 }
@@ -84,11 +84,11 @@ bool Mutex::tryLock() const
 
     if (rt != 0 && rt != EBUSY) {
         if (rt == EDEADLK) {
-            DEBUG_LOG(
+            ERROR_LOG(
                 "Try to acquire the mutex when the current thread already owns the mutex. ");
 
         } else {
-            DEBUG_LOG("Syscall Error: pthread_mutex_trylock.");
+            ERROR_LOG("Syscall Error: pthread_mutex_trylock.");
         }
 
         return false;
@@ -102,7 +102,7 @@ void Mutex::unlock() const
     const int rt = pthread_mutex_unlock(&m_Mutex);
 
     if (rt != 0) {
-        DEBUG_LOG("Error occurred whilst unlock a mutex.");
+        ERROR_LOG("Error occurred whilst unlock a mutex.");
     }
 }
 

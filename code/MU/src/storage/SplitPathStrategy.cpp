@@ -18,7 +18,7 @@ SplitPathStrategy::~SplitPathStrategy()
 }
 
 /*
-  * @pathname such as "bucket1/user1/a/a.txt"  "bucket1/user1/a.txt"
+  * @pathname such as "bucket1/user1/a/a.txt"  "bucket1/user1/a.txt" "bucket1/user1"
   *
   */
 int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
@@ -65,6 +65,7 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
 	string key = Key::serialize(&keyinfo);
+	cout <<"PutEntry(string pathname, const char* buf, int n) key="<<key<<endl;
 
 	/* make the value */
 	string value(buf, n);
@@ -79,10 +80,14 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	return 0;
 }
 
+//pathname = "bucket10/user2"
 //pathname = "bucket10/user2/hehe"
 //pathname = "bucket10/user2/hehe/a.txt"
 int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 {
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 0"<<endl;
+	cout <<"	pathname="<<pathname<<endl;
+	
 	bool ret = false;
 	size_t pos;
 
@@ -95,7 +100,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
 	string user = pathname.substr(0, pos);//"user1"
 	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
-	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
+	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt" or ""
 
 	//find the p_fid and filename
 	string ParentDir;
@@ -112,6 +117,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	string p_fid;
 	ret = FindEntryID(ParentDir, userID, p_fid);
 	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 1="<<ret<<endl;
+	cout <<"	ParentDir="<<ParentDir<<endl;
 	if(ret == false){
 		*n = -1;
 		return -1;
@@ -210,6 +216,7 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 	
 	if(pathname == string("")){//null string
 		fid = pid;
+		return true;
 	}
 
 	/* traverse the dir from pathname */

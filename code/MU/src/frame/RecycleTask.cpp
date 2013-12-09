@@ -75,7 +75,7 @@ RecycleTask::start()
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d", m_CurrentState);
+            ERROR_LOG("unexpected state %d", m_CurrentState);
             assert(0);
             break;
         }
@@ -97,7 +97,7 @@ RecycleTask::next(MUTimer *pChannel, uint64_t times)
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             break;
         }
@@ -117,7 +117,7 @@ RecycleTask::registerTimer()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer failed");
+        ERROR_LOG("create timer failed");
 
         m_pTimer->setTask(NULL);
         delete m_pTimer;

@@ -43,7 +43,7 @@ Connection::open(const std::string &fileName, bool create)
                              NULL);
 
         if (SQLITE_OK != rt) {
-            DEBUG_LOG("sqlite3_open() error, %s", sqlite3_errmsg(m_pDb));
+            ERROR_LOG("sqlite3_open() error, %s", sqlite3_errmsg(m_pDb));
             return -1;
         }
 
@@ -53,7 +53,7 @@ Connection::open(const std::string &fileName, bool create)
                              NULL);
 
         if (SQLITE_OK != rt) {
-            DEBUG_LOG("sqlite3_open() error, %s", sqlite3_errmsg(m_pDb));
+            ERROR_LOG("sqlite3_open() error, %s", sqlite3_errmsg(m_pDb));
             return -1;
         }
     }
@@ -70,7 +70,7 @@ Connection::close()
         rt = sqlite3_close(m_pDb);
 
         if (SQLITE_OK != rt) {
-            DEBUG_LOG("sqlite3_close error, %s.", sqlite3_errmsg(m_pDb));
+            ERROR_LOG("sqlite3_close error, %s.", sqlite3_errmsg(m_pDb));
         }
 
         m_pDb = NULL;

@@ -73,7 +73,7 @@ CSHeartbeatTask::destroy(MUTCPAgent *pChannel)
 {
     m_pAgent = NULL;
 
-    DEBUG_LOG("agent error while doing heartbeating with cs");
+    ERROR_LOG("agent error while doing heartbeating with cs");
 
     m_CurrentState = TASK_CSAGENT_DESTROYED;
 }
@@ -88,7 +88,7 @@ CSHeartbeatTask::start()
     case TASK_INIT: {
             rt = registerTimer();
             if (-1 == rt) {
-                DEBUG_LOG("registerTimer() error");
+                ERROR_LOG("registerTimer() error");
                 return -1;
             }
 
@@ -97,7 +97,7 @@ CSHeartbeatTask::start()
 
     default: {
             // should not reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
 
             break;
@@ -121,7 +121,7 @@ CSHeartbeatTask::next(MUTimer *pTimer, uint64_t times)
         }
 
     case TASK_CSAGENT_CONNECTING: {
-            DEBUG_LOG("agent still connecting");
+            ERROR_LOG("agent still connecting");
             break;
         }
 
@@ -131,7 +131,7 @@ CSHeartbeatTask::next(MUTimer *pTimer, uint64_t times)
         }
 
     case TASK_HANDSHAKE: {
-            DEBUG_LOG("still doing handshake with cs");
+            ERROR_LOG("still doing handshake with cs");
             break;
         }
 
@@ -142,7 +142,7 @@ CSHeartbeatTask::next(MUTimer *pTimer, uint64_t times)
 
     default: {
             // should not reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             break;
         }
@@ -172,7 +172,7 @@ CSHeartbeatTask::next(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             break;
         }
@@ -216,7 +216,7 @@ CSHeartbeatTask::connectToCS()
     rt = m_pAgent->init();
 
     if (-1 == rt) {
-        DEBUG_LOG("init cs agent failed");
+        ERROR_LOG("init cs agent failed");
 
         m_pAgent->setTask(NULL);
         delete m_pAgent;
@@ -229,7 +229,7 @@ CSHeartbeatTask::connectToCS()
     rt = m_pAgent->connect(csAddr);
 
     if (-1 == rt) {
-        DEBUG_LOG("connect to cs failed");
+        ERROR_LOG("connect to cs failed");
 
         m_pAgent->setTask(NULL);
         delete m_pAgent;
@@ -266,7 +266,7 @@ CSHeartbeatTask::sendHandshake()
     std::string data;
 
     if (!handshake.SerializeToString(&data)) {
-        DEBUG_LOG("protobuf serialize failed");
+        ERROR_LOG("protobuf serialize failed");
         return -1;
     }
 
@@ -304,7 +304,7 @@ CSHeartbeatTask::sendHeartbeat()
     std::string data;
 
     if (!heartbeat.SerializeToString(&data)) {
-        DEBUG_LOG("protobuf serialize failed");
+        ERROR_LOG("protobuf serialize failed");
         return -1;
     }
 
@@ -320,12 +320,12 @@ int
 CSHeartbeatTask::parseHandshakeAck(const InReq &req)
 {
     if (MSG_MU_CS_HEARTBEAT_HANDSHAKE_ACK != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
+        ERROR_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
         return -1;
     }
 
     if (CS_OK != req.m_msgHeader.error) {
-        DEBUG_LOG("handshake ack error, error code %d.",
+        ERROR_LOG("handshake ack error, error code %d.",
                   req.m_msgHeader.error);
         return -1;
     }
@@ -339,12 +339,12 @@ int
 CSHeartbeatTask::parseHeartbeatAck(const InReq &req)
 {
     if (MSG_MU_CS_HEARTBEAT_ACK != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
+        ERROR_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
         return -1;
     }
 
     if (CS_OK != req.m_msgHeader.error) {
-        DEBUG_LOG("Heartbeat ack error, error code %d.",
+        ERROR_LOG("Heartbeat ack error, error code %d.",
                   req.m_msgHeader.error);
         return -1;
     }
@@ -362,7 +362,7 @@ CSHeartbeatTask::registerTimer()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer failed");
+        ERROR_LOG("create timer failed");
 
         m_pTimer->setTask(NULL);
         delete m_pTimer;

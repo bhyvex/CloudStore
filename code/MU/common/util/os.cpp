@@ -40,7 +40,7 @@ util::os::mkdir(const std::string &pathName,
     rt = ::mkdir(pathName.c_str(), mode);
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: mkdir. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: mkdir. %s", strerror(errno));
         return -1;
     }
 
@@ -56,7 +56,7 @@ util::os::open(const std::string &path,
     rt = ::open(path.c_str(), flags);
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: open. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: open. %s", strerror(errno));
         return -1;
     }
 
@@ -72,7 +72,7 @@ util::os::open(const std::string &path,
     rt = ::open(path.c_str(), flags, mode);
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: open. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: open. %s", strerror(errno));
         return -1;
     }
 
@@ -86,7 +86,7 @@ util::os::close(int fd)
 
     rt = ::close(fd);
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: close. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: close. %s", strerror(errno));
         return -1;
     }
 
@@ -101,7 +101,7 @@ util::os::remove(const std::string &path)
     rt = ::unlink(path.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: unlink. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: unlink. %s", strerror(errno));
         return -1;
     }
 
@@ -115,7 +115,7 @@ util::os::ftruncate(int fd, off_t length)
 
     rt = ::ftruncate(fd, length);
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: ftruncate. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: ftruncate. %s", strerror(errno));
         return -1;
     }
 

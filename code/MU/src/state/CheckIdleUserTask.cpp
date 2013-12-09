@@ -61,7 +61,7 @@ CheckIdleUserTask::start()
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d", m_CurrentState);
+            ERROR_LOG("unexpected state %d", m_CurrentState);
             assert(0);
             break;
         }
@@ -82,7 +82,7 @@ CheckIdleUserTask::next(MUTimer *pChannel, uint64_t times)
             rt = checkIdleUser();
 
             if (-1 == rt) {
-                DEBUG_LOG("check idle user failed");
+                ERROR_LOG("check idle user failed");
             }
 
             break;
@@ -90,7 +90,7 @@ CheckIdleUserTask::next(MUTimer *pChannel, uint64_t times)
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             break;
         }
@@ -110,7 +110,7 @@ CheckIdleUserTask::registerTimer()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer failed");
+        ERROR_LOG("create timer failed");
 
         m_pTimer->setTask(NULL);
         delete m_pTimer;
@@ -151,7 +151,7 @@ CheckIdleUserTask::next(MUWorkItem *pItem)
     rt = dispatch(pItem);
 
     if (-1 == rt) {
-        DEBUG_LOG("dispatch item failed");
+        ERROR_LOG("dispatch item failed");
     }
 
     return 0;
@@ -168,14 +168,14 @@ CheckIdleUserTask::dispatch(MUWorkItem *pItem)
             rt = checkIdleUser(pItem);
 
             if (-1 == rt) {
-                DEBUG_LOG("check idle user failed");
+                ERROR_LOG("check idle user failed");
             }
 
             break;
         }
 
     default: {
-            DEBUG_LOG("unexpected item type %d", pItem->getItemType());
+            ERROR_LOG("unexpected item type %d", pItem->getItemType());
             return -1;
         }
 
@@ -194,7 +194,7 @@ CheckIdleUserTask::checkIdleUser(MUWorkItem *pItem)
     ReturnStatus rs = pItem->getReturnStatus();
 
     if (!rs.success()) {
-        DEBUG_LOG("check idle user failed");
+        ERROR_LOG("check idle user failed");
     }
 
     return 0;

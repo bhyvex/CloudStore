@@ -57,7 +57,7 @@ bool Channel::setSizeInMB()
 	int rt = ::statvfs(m_Root.c_str(),&st);
 
 	if (-1 == rt) {
-		DEBUG_LOG("statvfs() error, %s.", strerror(errno));
+		ERROR_LOG("statvfs() error, %s.", strerror(errno));
 		return false;
 	}
 

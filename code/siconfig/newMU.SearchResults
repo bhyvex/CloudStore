@@ -1,13 +1,22 @@
----- setRoot Matches (12 in 9 files) ----
-BuildStrategy.cpp (mu\src\storage):bool BuildStrategy::setRoot(string pathname)
-BuildStrategy.h (mu\src\storage):	bool setRoot(string pathname);
-Channel.cpp (mu\src\storage):bool Channel::setRoot(string path)
-Channel.cpp (mu\src\storage):			m_DataNS->setRoot(m_Root);
-Channel.cpp (mu\src\storage):			m_DataNS->setRoot(m_Root);
-Channel.h (mu\src\storage):	bool setRoot(string path);
-ChannelManager.cpp (mu\src\storage):		pChannel->setRoot(RootPath);
-ChannelManager.cpp (mu\src\storage):		pChannel->setRoot(RootPath);
-KVnameSpace_test.cpp (mu\src\storage\test):	ret = fs.setRoot(".");
-NameSpace.cpp (mu\src\storage):bool NameSpace::setRoot(string path)
-NameSpace.h (mu\src\storage):	bool setRoot(string path);
-NameSpace_test.cpp (mu\src\storage\test):	ret = fs.setRoot(".");
+---- MU_DIRECTORY Matches (22 in 9 files) ----
+FileMetaDAO.cpp (mu\src\dao):        if (st.m_Type == MU_DIRECTORY) {//如果path是个存在的目录
+FileMetaDAO.cpp (mu\src\dao):        if (MU_DIRECTORY == dirent.filetype) {
+FileMetaDAO.cpp (mu\src\dao):        if (MU_DIRECTORY == dirent.filetype) {
+FileMetaDAO.cpp (mu\src\dao):            ent.m_Type = MU_DIRECTORY;
+FileMetaDAO.cpp (mu\src\dao):    if (st.m_Type != MU_DIRECTORY) {
+FileMetaDAO.cpp (mu\src\dao):        if (MU_DIRECTORY == dirent.filetype) {
+FileMetaDAO.cpp (mu\src\dao):            ent.m_Type = MU_DIRECTORY;
+FileMetaDAO.cpp (mu\src\dao):        if (MU_DIRECTORY == st.m_Type) {
+FileMetaDAO.cpp (mu\src\dao):        } else if (MU_DIRECTORY == st.m_Type) {
+FileOpItem.cpp (mu\src\item):        if (st.m_Type == MU_DIRECTORY) {
+FSNameSpace.cpp (mu\src\storage):		dirent_->filetype = MU_DIRECTORY;
+FSNameSpace.cpp (mu\src\storage):    	fileAttr->m_Type = MU_DIRECTORY;
+KVNameSpace.cpp (mu\src\storage):	st.m_Type = MU_DIRECTORY;
+KVnameSpace_test.cpp (mu\src\storage\test):#define MU_DIRECTORY                0
+KVnameSpace_test.cpp (mu\src\storage\test):		if(dirent.filetype == MU_DIRECTORY){
+MUMacros.h (mu\src\frame)://#define MU_DIRECTORY                0
+MUMacros.h (mu\src\protocol):#define MU_DIRECTORY                0
+NameSpace_test.cpp (mu\src\storage\test):#define MU_DIRECTORY                0
+NameSpace_test.cpp (mu\src\storage\test):		if(dirent.filetype == MU_DIRECTORY){
+UserItem.cpp (mu\src\item):        if (st.m_Type == MU_DIRECTORY) {
+UserItem.cpp (mu\src\item):        	cout <<"UserItem::userExists() st.m_Type="<<st.m_Type<<"  MU_DIRECTORY="<<MU_DIRECTORY<<endl;

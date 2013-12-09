@@ -149,7 +149,7 @@ Timer::recvData()
 int
 Timer::expirationCallback(uint64_t times)
 {
-    DEBUG_LOG("Timer expired.");
+    ERROR_LOG("Timer expired.");
     return 0;
 }
 

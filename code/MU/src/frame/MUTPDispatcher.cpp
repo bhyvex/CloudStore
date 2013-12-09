@@ -47,7 +47,7 @@ MUTPDispatcher::recvData()
                 break;
 
             } else {
-                DEBUG_LOG("Syscall Error: read. %s.", strerror(errno));
+                ERROR_LOG("Syscall Error: read. %s.", strerror(errno));
                 break;
             }
         }
@@ -58,7 +58,7 @@ MUTPDispatcher::recvData()
         pTask = MUTaskManager::getInstance()->get(pItem->getTaskId());
 
         if (NULL == pTask) {  // Task已不存在
-            DEBUG_LOG("Can't find task %llu.", pItem->getTaskId());
+            ERROR_LOG("Can't find task %llu.", pItem->getTaskId());
 
             delete pItem;
             pItem = NULL;
@@ -77,7 +77,7 @@ MUTPDispatcher::postResult(MUWorkItem *pWorkItem)
     int rt = util::io::writen(m_hWriteHandle, &pWorkItem, sizeof(void *));
 
     if (sizeof(void *) != rt) {
-        DEBUG_LOG("writen error");
+        ERROR_LOG("writen error");
     }
 
     return 0;

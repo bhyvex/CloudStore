@@ -45,7 +45,7 @@ void* Thread::startHook(void *arg) {
 
 int Thread::start(int stackSize) {
     if (m_bRunning) {
-        DEBUG_LOG("Try to start an already started thread.");
+        ERROR_LOG("Try to start an already started thread.");
         return -1;
     }
 
@@ -56,7 +56,7 @@ int Thread::start(int stackSize) {
         int rt = pthread_attr_init(&attr);
 
         if (0 != rt) {
-            DEBUG_LOG("Syscall Error: pthread_attr_init.");
+            ERROR_LOG("Syscall Error: pthread_attr_init.");
             return -1;
         }
 
@@ -67,21 +67,21 @@ int Thread::start(int stackSize) {
         rt = pthread_attr_setstacksize(&attr, stackSize);
 
         if (0 != rt) {
-            DEBUG_LOG("Syscall Error: pthread_attr_setstatcksize.");
+            ERROR_LOG("Syscall Error: pthread_attr_setstatcksize.");
             return -1;
         }
 
         rt = pthread_create(&tid, &attr, startHook, this);
 
         if (0 != rt) {
-            DEBUG_LOG("Syscall Error: pthread_create.");
+            ERROR_LOG("Syscall Error: pthread_create.");
             return -1;
         }
     } else {
         const int rt = pthread_create(&tid, NULL, startHook, this);
 
         if (0 != rt) {
-            DEBUG_LOG("Syscall Error: pthread_create. %s", strerror(errno));
+            ERROR_LOG("Syscall Error: pthread_create. %s", strerror(errno));
             return -1;
         }
     }
@@ -109,14 +109,14 @@ void Thread::done() {
 
 int Thread::join(void **valuePtr) {
     if (m_bDetached) {
-        DEBUG_LOG("Try to join a detached thread.");
+        ERROR_LOG("Try to join a detached thread.");
         return -1;
     }
 
     const int rt = pthread_join(m_ThreadID.getRawID(), valuePtr);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_join.");
+        ERROR_LOG("Syscall Error: pthread_join.");
         return -1;
     }
 
@@ -125,14 +125,14 @@ int Thread::join(void **valuePtr) {
 
 int Thread::detach() {
     if (m_bDetached) {
-        DEBUG_LOG("Try to detach an already detached thread.");
+        ERROR_LOG("Try to detach an already detached thread.");
         return -1;
     }
 
     const int rt = pthread_detach(m_ThreadID.getRawID());
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pthread_detach.");
+        ERROR_LOG("Syscall Error: pthread_detach.");
         return -1;
     }
 

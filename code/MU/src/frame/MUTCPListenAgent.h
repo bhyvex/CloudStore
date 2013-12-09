@@ -61,7 +61,7 @@ MUTCPListenAgent<ConcreteTask>::recvData()
 
     if (connFd < 0) {
         if (!((errno == EINTR) || (errno == EWOULDBLOCK))) {
-            DEBUG_LOG("In MUTCPListenAgent::recvData, accept error, %s.",
+            ERROR_LOG("In MUTCPListenAgent::recvData, accept error, %s.",
                       strerror(errno));
             return -1;
         }
@@ -72,7 +72,7 @@ MUTCPListenAgent<ConcreteTask>::recvData()
     if (connSock.setNonblock() < 0 || connSock.disableLinger() < 0
         || connSock.disableNagle() < 0) {
 
-        DEBUG_LOG("In MUTCPListenAgent::recvData, set socket options error, "
+        ERROR_LOG("In MUTCPListenAgent::recvData, set socket options error, "
                   "%s.", strerror(errno));
         connSock.closeSocket();
         return -1;

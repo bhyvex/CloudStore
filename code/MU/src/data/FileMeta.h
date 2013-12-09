@@ -21,6 +21,7 @@
  * @brief Attributes of file.
  */
 struct FileAttr {
+	uint64_t m_FID;
     uint64_t m_Version;
     uint32_t m_Mode;
     uint64_t m_CTime;
@@ -29,6 +30,7 @@ struct FileAttr {
     uint64_t m_Size;
 
     FileAttr() {
+    	m_FID = 0;
         m_Version = 0;
         m_Mode = 0;
         m_CTime = 0;

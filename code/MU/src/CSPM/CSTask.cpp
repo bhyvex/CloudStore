@@ -43,25 +43,25 @@
 CSTask::~CSTask()
 {
     if (NULL != m_pMigrationTask) {
-        DEBUG_LOG("m_pMigrationTask != NULL");
+        ERROR_LOG("m_pMigrationTask != NULL");
         recycle(m_pMigrationTask);
         m_pMigrationTask = NULL;
     }
 
     if (NULL != m_pExtentTask) {
-        DEBUG_LOG("m_pExtentTask != NULL");
+        ERROR_LOG("m_pExtentTask != NULL");
         recycle(m_pExtentTask);
         m_pExtentTask = NULL;
     }
 
     if (NULL != m_pStartBucketTask) {
-        DEBUG_LOG("m_pStartBucketTask != NULL");
+        ERROR_LOG("m_pStartBucketTask != NULL");
         recycle(m_pStartBucketTask);
         m_pStartBucketTask = NULL;
     }
 
     if (NULL != m_pStopBucketTask) {
-        DEBUG_LOG("m_pStopBucketTask != NULL");
+        ERROR_LOG("m_pStopBucketTask != NULL");
         recycle(m_pStopBucketTask);
         m_pStopBucketTask = NULL;
     }
@@ -83,7 +83,7 @@ CSTask::destroy(MUTCPAgent *pChannel)
 {
     m_pOwner = NULL;
 
-    DEBUG_LOG("cs task, agent error");
+    ERROR_LOG("cs task, agent error");
 
     recycle();
 }
@@ -144,7 +144,7 @@ CSTask::next(MUTCPAgent *pAgent, const InReq &req)
     case TASK_MIGRATION_STARTED:
     case TASK_EXTENT_STARTED: {
             // should not reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
 
             recycle();
             break;
@@ -152,7 +152,7 @@ CSTask::next(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
 
             recycle();
             break;
@@ -195,7 +195,7 @@ CSTask::dispatch(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // should not reach here
-            DEBUG_LOG("unknown protocol command, %d.",
+            ERROR_LOG("unknown protocol command, %d.",
                       req.m_msgHeader.cmd);
 
             return -1;
@@ -226,7 +226,7 @@ CSTask::next(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpected item type %d.", pItem->getItemType());
+            ERROR_LOG("unexpected item type %d.", pItem->getItemType());
             assert(0);
             recycle();
             break;
@@ -304,7 +304,7 @@ CSTask::setBucketState(const InReq &req)
     cstore::pb_MSG_CS_MU_SET_BUCKET_STATE setBucketState;
 
     if (!setBucketState.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse failed");
+        ERROR_LOG("protobuf parse failed");
         errorResponse(MSG_CS_MU_SET_BUCKET_STATE_ACK);
         return 0;
     }
@@ -315,7 +315,7 @@ CSTask::setBucketState(const InReq &req)
     Bucket *pBucket = BucketManager::getInstance()->get(bucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket %ld", bucketId);
+        ERROR_LOG("no such bucket %ld", bucketId);
         errorResponse(MSG_CS_MU_SET_BUCKET_STATE_ACK);
         return 0;
     }
@@ -337,14 +337,14 @@ CSTask::setBucketState(const InReq &req)
 int
 CSTask::deleteBucket(const InReq &req)
 {
-    DEBUG_LOG("delete bucket start");
+    ERROR_LOG("delete bucket start");
 
     std::string data(req.ioBuf, req.m_msgHeader.length);
 
     cstore::pb_MSG_CS_MU_DELETE_BUCKET deleteBucket;
 
     if (!deleteBucket.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse failed");
+        ERROR_LOG("protobuf parse failed");
         errorResponse(MSG_CS_MU_DELETE_BUCKET_ACK);
         return 0;
     }
@@ -354,13 +354,13 @@ CSTask::deleteBucket(const InReq &req)
     Bucket *pBucket = BucketManager::getInstance()->get(bucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket %ld", bucketId);
+        ERROR_LOG("no such bucket %ld", bucketId);
         errorResponse(MSG_CS_MU_DELETE_BUCKET_ACK);
         return 0;
     }
 
     if (MU_BUCKET_STOP != pBucket->m_BucketState) {
-        DEBUG_LOG("Bucket %ld busy.", bucketId);
+        ERROR_LOG("Bucket %ld busy.", bucketId);
         simpleResponse(MSG_CS_MU_DELETE_BUCKET_ACK, MU_BUCKET_BUSY);
         return 0;
     }
@@ -379,7 +379,7 @@ CSTask::deleteBucket(const InReq &req)
 int
 CSTask::migrateBucket(const InReq &req)
 {
-    DEBUG_LOG("migrate bucket start");
+    ERROR_LOG("migrate bucket start");
 
     int rt = 0;
 
@@ -388,7 +388,7 @@ CSTask::migrateBucket(const InReq &req)
     cstore::pb_MSG_CS_MU_MIGRATE_BUCKET migrateBucket;
 
     if (!migrateBucket.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse failed");
+        ERROR_LOG("protobuf parse failed");
         errorResponse(MSG_CS_MU_MIGRATE_BUCKET_ACK);
         return 0;
     }
@@ -415,7 +415,7 @@ CSTask::migrateBucket(const InReq &req)
     pRc = inet_ntop(AF_INET, &addr, strIp, IP_ADDRESS_STR_LEN);
 
     if (NULL == pRc) {
-        DEBUG_LOG("inet_ntop() error, %s", strerror(errno));
+        ERROR_LOG("inet_ntop() error, %s", strerror(errno));
         return -1;
     }
 
@@ -439,7 +439,7 @@ CSTask::migrateBucket(const InReq &req)
 int
 CSTask::prepareExtentBucket(const InReq &req)
 {
-    DEBUG_LOG("extent bucket prepare start");
+    ERROR_LOG("extent bucket prepare start");
 
     int rt = 0;
 
@@ -462,7 +462,7 @@ CSTask::prepareExtentBucket(const InReq &req)
 int
 CSTask::extentBucket(const InReq &req)
 {
-    DEBUG_LOG("extent bucket start");
+    ERROR_LOG("extent bucket start");
 
     int rt = 0;
 
@@ -471,7 +471,7 @@ CSTask::extentBucket(const InReq &req)
     cstore::pb_MSG_CS_MU_EXTENT_BUCKET extent;
 
     if (!extent.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse failed.");
+        ERROR_LOG("protobuf parse failed.");
         errorResponse(MSG_CS_MU_EXTENT_BUCKET_ACK);
         return 0;
     }
@@ -481,7 +481,7 @@ CSTask::extentBucket(const InReq &req)
 
     uint64_t modNr = extent.new_mod();
     m_pExtentTask->setModNr(modNr);
-    DEBUG_LOG("new mod nr %llu", modNr);
+    ERROR_LOG("new mod nr %llu", modNr);
 
     rt = m_pExtentTask->start();
 
@@ -508,7 +508,7 @@ CSTask::dispatch(MUWorkItem *pItem)
 
     default: {
             // never reach here
-            DEBUG_LOG("unknown item type %d.", pItem->getItemType());
+            ERROR_LOG("unknown item type %d.", pItem->getItemType());
             assert(0);
             return -1;
             break;
@@ -531,7 +531,7 @@ CSTask::dispatchBucketItem(MUWorkItem *pItem)
 
     default: {
             // never reach here
-            DEBUG_LOG("unknown work type %d.", pItem->getWorkType());
+            ERROR_LOG("unknown work type %d.", pItem->getWorkType());
             assert(0);
             return -1;
             break;
@@ -562,8 +562,8 @@ CSTask::deleteBucket(MUWorkItem *pItem)
     Bucket *pBucket = BucketManager::getInstance()->get(bucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("delete bucket error");
-        DEBUG_LOG("no such bucket %ld.", bucketId);
+        ERROR_LOG("delete bucket error");
+        ERROR_LOG("no such bucket %ld.", bucketId);
         errorResponse(MSG_CS_MU_DELETE_BUCKET_ACK);
         return 0;
     }
@@ -573,7 +573,7 @@ CSTask::deleteBucket(MUWorkItem *pItem)
 
     simpleResponse(MSG_CS_MU_DELETE_BUCKET_ACK, MU_OK);
 
-    DEBUG_LOG("delete bucket complete");
+    ERROR_LOG("delete bucket complete");
 
     return 0;
 }
@@ -595,7 +595,7 @@ CSTask::destroyMigrationTask(MUTask *pTask)
 int
 CSTask::completeMigration(MUTask *pTask)
 {
-    DEBUG_LOG("migration complete");
+    ERROR_LOG("migration complete");
 
     simpleResponse(MSG_CS_MU_MIGRATE_BUCKET_ACK, MU_OK);
     m_CurrentState = TASK_MIGRATION_COMPLETED;
@@ -607,7 +607,7 @@ CSTask::completeMigration(MUTask *pTask)
 int
 CSTask::startBucket(uint64_t bucketId)
 {
-    DEBUG_LOG("try to start bucket");
+    ERROR_LOG("try to start bucket");
 
     int rt = 0;
 
@@ -633,7 +633,7 @@ CSTask::startBucket(uint64_t bucketId)
 int
 CSTask::completeStartBucket(MUTask *pTask)
 {
-    DEBUG_LOG("start bucket complete");
+    ERROR_LOG("start bucket complete");
     simpleResponse(MSG_CS_MU_SET_BUCKET_STATE_ACK, MU_OK);
     m_CurrentState = TASK_START_BUCKET_COMPLETED;
     m_pStartBucketTask = NULL;
@@ -653,7 +653,7 @@ CSTask::destroyStartBucketTask(MUTask *pTask)
 int
 CSTask::stopBucket(uint64_t bucketId)
 {
-    DEBUG_LOG("try to stop bucket");
+    ERROR_LOG("try to stop bucket");
 
     int rt = 0;
 
@@ -702,7 +702,7 @@ CSTask::completeExtent(MUTask *pTask)
     switch (m_CurrentState) {
 
     case TASK_EXTENT_STARTED: {
-            DEBUG_LOG("extent bucket complete");
+            ERROR_LOG("extent bucket complete");
             sendSimplePacket(m_pOwner, MSG_CS_MU_EXTENT_BUCKET_ACK,
                              MU_OK);
             m_CurrentState = TASK_EXTENT_COMPLETED;
@@ -713,7 +713,7 @@ CSTask::completeExtent(MUTask *pTask)
 
     default: {
             // should not reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
             return -1;
             break;

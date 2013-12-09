@@ -35,7 +35,7 @@ writeFileMeta(const std::string &path)
     rt = ::open(rpath.c_str(), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s",
+        ERROR_LOG("path %s, open() error, %s",
                   rpath.c_str(), strerror(errno));
         return -1;
     }
@@ -53,7 +53,7 @@ writeFileMeta(const std::string &path)
     rt = ::write(fd, &attr, sizeof(FileAttr));
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -66,7 +66,7 @@ writeFileMeta(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -77,7 +77,7 @@ writeFileMeta(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -88,7 +88,7 @@ writeFileMeta(const std::string &path)
     rt = ::write(fd, key, 40);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, write() error, %s",
+        ERROR_LOG("path %s, write() error, %s",
                   rpath.c_str(), strerror(errno));
         ::close(fd);
         return -1;
@@ -113,7 +113,7 @@ main(int argc, char *argv[])
 
     rt = writeFileMeta(argv[1]);
     if (-1 == rt) {
-        DEBUG_LOG("write file meta failed");
+        ERROR_LOG("write file meta failed");
         exit(1);
     }
     

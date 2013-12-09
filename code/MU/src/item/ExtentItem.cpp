@@ -44,7 +44,7 @@ ExtentItem::process()
         }
 
     default: {
-            DEBUG_LOG("Unknown work type %d.", m_WorkType);
+            ERROR_LOG("Unknown work type %d.", m_WorkType);
 
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
 

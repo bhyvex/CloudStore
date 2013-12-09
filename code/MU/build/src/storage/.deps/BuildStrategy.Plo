@@ -79,7 +79,7 @@ BuildStrategy.lo: ../../../src/storage/BuildStrategy.cpp \
   /usr/include/assert.h /usr/include/string.h \
   /usr/include/leveldb/status.h /usr/include/leveldb/options.h \
   /usr/include/leveldb/write_batch.h /usr/include/leveldb/comparator.h \
-  ../../../src/storage/LevelDBEngine.h
+  ../../../src/storage/LevelDBEngine.h ../../../src/storage/Key.h
 
 ../../../src/storage/BuildStrategy.h:
 
@@ -324,3 +324,5 @@ BuildStrategy.lo: ../../../src/storage/BuildStrategy.cpp \
 /usr/include/leveldb/comparator.h:
 
 ../../../src/storage/LevelDBEngine.h:
+
+../../../src/storage/Key.h:

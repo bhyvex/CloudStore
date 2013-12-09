@@ -15,8 +15,6 @@ public:
 	SplitPathStrategy(string path);
 	~SplitPathStrategy();
 
-	uint64_t m_Fid;//gcc atomic sync
-
 	virtual int PutEntry(string pathname, const char* buf, int n);
 	virtual int GetEntry(string pathname, char *buf, int *n);
 	virtual int DeleteEntry(string pathname);

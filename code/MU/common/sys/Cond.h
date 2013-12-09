@@ -108,7 +108,7 @@ Cond::waitImpl(const Mutex& mutex) {
     mutex.lock(&state);
     
     if( 0 != rc ) {
-        DEBUG_LOG("Syscall Error: pthread_mutex_wait.");
+        ERROR_LOG("Syscall Error: pthread_mutex_wait.");
         return false;
     } 
 
@@ -118,7 +118,7 @@ Cond::waitImpl(const Mutex& mutex) {
 inline bool
 Cond::timedWaitImpl(const Mutex& mutex, const Time& timeout) {
     if(timeout < Time::microSeconds(0)) {
-        DEBUG_LOG("Cond::timedWait: Invalid timeout argument.");
+        ERROR_LOG("Cond::timedWait: Invalid timeout argument.");
         return false;
     }
 
@@ -137,7 +137,7 @@ Cond::timedWaitImpl(const Mutex& mutex, const Time& timeout) {
     
     if(rc != 0) {
         if(rc != ETIMEDOUT) {
-            DEBUG_LOG("Syscall Error: pthread_cond_timedwait.");
+            ERROR_LOG("Syscall Error: pthread_cond_timedwait.");
             return false;
         }
     }

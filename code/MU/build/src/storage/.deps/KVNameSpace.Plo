@@ -85,10 +85,10 @@ KVNameSpace.lo: ../../../src/storage/KVNameSpace.cpp \
   /usr/include/leveldb/slice.h /usr/include/assert.h \
   /usr/include/string.h /usr/include/leveldb/status.h \
   /usr/include/leveldb/options.h /usr/include/leveldb/write_batch.h \
-  /usr/include/leveldb/comparator.h \
+  /usr/include/leveldb/comparator.h ../../../src/storage/Key.h \
   ../../../src/storage/SplitPathStrategy.h \
   ../../../src/storage/BuildStrategy.h ../../../src/protocol/MUMacros.h \
-  ../../../src/storage/Key.h ../../../src/storage/KeyValuePair.h
+  ../../../src/storage/KeyValuePair.h
 
 ../../../src/storage/KVNameSpace.h:
 
@@ -366,12 +366,12 @@ KVNameSpace.lo: ../../../src/storage/KVNameSpace.cpp \
 
 /usr/include/leveldb/comparator.h:
 
+../../../src/storage/Key.h:
+
 ../../../src/storage/SplitPathStrategy.h:
 
 ../../../src/storage/BuildStrategy.h:
 
 ../../../src/protocol/MUMacros.h:
-
-../../../src/storage/Key.h:
 
 ../../../src/storage/KeyValuePair.h:

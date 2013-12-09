@@ -45,7 +45,7 @@ Time Time::now(Clock clock)
         struct timeval tv;
         if(gettimeofday(&tv, 0) < 0)
         {
-            DEBUG_LOG("Syscall Error: gettimeofday.");
+            ERROR_LOG("Syscall Error: gettimeofday.");
         }
         return Time(tv.tv_sec * static_cast<int64_t>(1000000) + tv.tv_usec);
     }
@@ -54,7 +54,7 @@ Time Time::now(Clock clock)
         struct timespec ts;
         if(clock_gettime(CLOCK_MONOTONIC, &ts) < 0)
         {
-            DEBUG_LOG("Syscall Error: clock_gettime.");
+            ERROR_LOG("Syscall Error: clock_gettime.");
         }
         return Time(ts.tv_sec * static_cast<int64_t>(1000000) 
                 + ts.tv_nsec / static_cast<int64_t>(1000));

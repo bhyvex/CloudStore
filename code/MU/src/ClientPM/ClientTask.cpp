@@ -162,7 +162,7 @@ ClientTask::dispatch(const InReq &req)
         }
 
     default: {
-            DEBUG_LOG("Unknown protocol command 0x%x.", req.m_msgHeader.cmd);
+            ERROR_LOG("Unknown protocol command 0x%x.", req.m_msgHeader.cmd);
             return -1;
             break;
         }
@@ -179,7 +179,7 @@ ClientTask::getUserInfo(const InReq &req)
     cstore::pb_MSG_SYS_MU_GET_USER_INFO getUserInfo;
 
     if (!getUserInfo.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_GET_USER_INFO_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -214,7 +214,7 @@ ClientTask::createUser(const InReq &req)
     cstore::pb_MSG_MPC_MU_CREATE_USER createUser;
 
     if (!createUser.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_MPC_MU_CREATE_USER_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -250,7 +250,7 @@ ClientTask::deleteUser(const InReq &req)
     cstore::pb_MSG_MPC_MU_DELETE_USER delUser;
 
     if (!delUser.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_MPC_MU_DELETE_USER_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -285,7 +285,7 @@ ClientTask::putDir(const InReq &req)
     cstore::pb_MSG_SYS_MU_PUT_DIR putDir;
 
     if (!putDir.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_PUT_DIR_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -302,7 +302,7 @@ ClientTask::putDir(const InReq &req)
     std::string path = putDir.path();
 
     if (!checkPath(path) || path == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_PUT_DIR_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -331,7 +331,7 @@ ClientTask::delDir(const InReq &req)
     cstore::pb_MSG_SYS_MU_DEL_DIR delDir;
 
     if (!delDir.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_DEL_DIR_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -348,7 +348,7 @@ ClientTask::delDir(const InReq &req)
     std::string path = delDir.path();
 
     if (!checkPath(path)) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_DEL_DIR_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -377,7 +377,7 @@ ClientTask::getDir(const InReq &req)
     cstore::pb_MSG_SYS_MU_GET_DIR getDir;
 
     if (!getDir.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_GET_DIR_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -394,7 +394,7 @@ ClientTask::getDir(const InReq &req)
     std::string path = getDir.path();
 
     if (!checkPath(path)) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_GET_DIR_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -423,7 +423,7 @@ ClientTask::statDir(const InReq &req)
     cstore::pb_MSG_SYS_MU_STAT_DIR statDir;
 
     if (!statDir.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_STAT_DIR_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -440,7 +440,7 @@ ClientTask::statDir(const InReq &req)
     std::string path = statDir.path();
 
     if (!checkPath(path)) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_STAT_DIR_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -469,7 +469,7 @@ ClientTask::getDir2(const InReq &req)
     cstore::pb_MSG_SYS_MU_GET_DIR2 getDir2;
 
     if (!getDir2.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_GET_DIR2_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -486,7 +486,7 @@ ClientTask::getDir2(const InReq &req)
     std::string path = getDir2.path();
 
     if (!checkPath(path)) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_GET_DIR2_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -515,7 +515,7 @@ ClientTask::movDir(const InReq &req)
     cstore::pb_MSG_SYS_MU_MOV_DIR movDir;
 
     if (!movDir.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_MOV_DIR_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -533,14 +533,14 @@ ClientTask::movDir(const InReq &req)
     std::string destPath = movDir.dest_path();
 
     if (!checkPath(srcPath) || srcPath == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", srcPath.c_str());
+        ERROR_LOG("invalid path, %s", srcPath.c_str());
         simpleResponse(MSG_SYS_MU_MOV_DIR_ACK,
                        SRC_PATH_INVALID, req.m_msgHeader.para1);
         return 0;
     }
 
     if (!checkPath(destPath) || destPath == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", destPath.c_str());
+        ERROR_LOG("invalid path, %s", destPath.c_str());
         simpleResponse(MSG_SYS_MU_MOV_DIR_ACK,
                        DEST_PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -570,7 +570,7 @@ ClientTask::putFile(const InReq &req)
     cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
 
     if (!putFile.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_PUT_FILE_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -587,7 +587,7 @@ ClientTask::putFile(const InReq &req)
     std::string path = putFile.path();
 
     if (!checkPath(path) || path == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_PUT_FILE_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -603,6 +603,7 @@ ClientTask::putFile(const InReq &req)
         RuleManager::getInstance()->getBucketIdByUserId(putFile.uid()));
     pItem->setToken(putFile.token());
     pItem->setPath(putFile.path());
+    cout <<"ClientTask::putFile(const InReq &req) path="<<putFile.path()<<endl;
 
     const cstore::File_Attr &attr = putFile.attr();
 
@@ -636,7 +637,7 @@ ClientTask::delFile(const InReq &req)
     cstore::pb_MSG_SYS_MU_DEL_FILE delFile;
 
     if (!delFile.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_DEL_FILE_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -653,7 +654,7 @@ ClientTask::delFile(const InReq &req)
     std::string path = delFile.path();
 
     if (!checkPath(path) || path == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_DEL_FILE_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -682,7 +683,7 @@ ClientTask::getFile(const InReq &req)
     cstore::pb_MSG_SYS_MU_GET_FILE getFile;
 
     if (!getFile.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_GET_FILE_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -699,7 +700,7 @@ ClientTask::getFile(const InReq &req)
     std::string path = getFile.path();
 
     if (!checkPath(path) || path == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         simpleResponse(MSG_SYS_MU_GET_FILE_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -728,7 +729,7 @@ ClientTask::movFile(const InReq &req)
     cstore::pb_MSG_SYS_MU_MOV_FILE movFile;
 
     if (!movFile.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_MOV_FILE_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -746,14 +747,14 @@ ClientTask::movFile(const InReq &req)
     std::string destPath = movFile.dest_path();
 
     if (!checkPath(srcPath) || srcPath == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", srcPath.c_str());
+        ERROR_LOG("invalid path, %s", srcPath.c_str());
         simpleResponse(MSG_SYS_MU_MOV_FILE_ACK,
                        SRC_PATH_INVALID, req.m_msgHeader.para1);
         return 0;
     }
 
     if (!checkPath(destPath) || destPath == ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", destPath.c_str());
+        ERROR_LOG("invalid path, %s", destPath.c_str());
         simpleResponse(MSG_SYS_MU_MOV_FILE_ACK,
                        DEST_PATH_INVALID, req.m_msgHeader.para1);
         return 0;
@@ -783,7 +784,7 @@ ClientTask::getUserLog(const InReq &req)
     cstore::pb_MSG_SYS_MU_GET_USER_LOG getUserLog;
 
     if (!getUserLog.ParseFromString(data)) {
-        DEBUG_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("Protobuf parse failed, command 0x%x.", req.m_msgHeader.cmd);
         errorResponse(MSG_SYS_MU_GET_USER_LOG_ACK, req.m_msgHeader.para1);
         return -1;
     }
@@ -829,7 +830,7 @@ ClientTask::dispatch(MUWorkItem *pItem)
         return dispatchLogItem(pItem);
 
     } else {
-        DEBUG_LOG("Unknown work item type %d.", pItem->getItemType());
+        ERROR_LOG("Unknown work item type %d.", pItem->getItemType());
         return -1;
     }
 
@@ -853,7 +854,7 @@ ClientTask::dispatchFileOpItem(MUWorkItem *pItem)
             }
 
         default: {
-                DEBUG_LOG("unexpected task state %d", m_CurrentState);
+                ERROR_LOG("unexpected task state %d", m_CurrentState);
                 delete pItem;
                 pItem = NULL;
                 return -1;
@@ -916,7 +917,7 @@ ClientTask::dispatchFileOpItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("Unknown FileOpItem work type %d.",
+            ERROR_LOG("Unknown FileOpItem work type %d.",
                       pItem->getWorkType());
             return -1;
             break;
@@ -940,7 +941,7 @@ ClientTask::dispatchUserItem(MUWorkItem *pItem)
             }
 
         default: {
-                DEBUG_LOG("unexpected task state %d", m_CurrentState);
+                ERROR_LOG("unexpected task state %d", m_CurrentState);
                 delete pItem;
                 pItem = NULL;
                 return -1;
@@ -968,7 +969,7 @@ ClientTask::dispatchUserItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("Unknown UserItem work type %d.",
+            ERROR_LOG("Unknown UserItem work type %d.",
                       pItem->getWorkType());
             return -1;
             break;
@@ -983,7 +984,7 @@ int
 ClientTask::dispatchLogItem(MUWorkItem *pItem)
 {
     if (TASK_WORKING != m_CurrentState) {
-        DEBUG_LOG("unexpected task state %d", m_CurrentState);
+        ERROR_LOG("unexpected task state %d", m_CurrentState);
         delete pItem;
         pItem = NULL;
         return -1;
@@ -997,7 +998,7 @@ ClientTask::dispatchLogItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("Unknown LogItem work type %d.",
+            ERROR_LOG("Unknown LogItem work type %d.",
                       pItem->getWorkType());
             return -1;
             break;
@@ -1034,7 +1035,7 @@ ClientTask::getUserInfo(MUWorkItem *pItem)
         std::string data;
 
         if (!getUserInfoAck.SerializeToString(&data)) {
-            DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+            ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
             errorResponse(msg.cmd, msg.para1);
             return -1;
         }
@@ -1044,7 +1045,7 @@ ClientTask::getUserInfo(MUWorkItem *pItem)
         m_pOwner->sendPacket(msg, data.c_str());
 
     } else {
-        DEBUG_LOG("get user info failed, user id %llu, bucket id %llu",
+        ERROR_LOG("get user info failed, user id %llu, bucket id %llu",
                   pRItem->getUserId(), pRItem->getBucketId());
         msg.error = rs.errorCode;
     }
@@ -1066,7 +1067,7 @@ ClientTask::putDir(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log put dir operation after task recycled");
+            ERROR_LOG("log put dir operation after task recycled");
             logPutDir(pItem);
         }
 
@@ -1082,7 +1083,7 @@ ClientTask::putDir(MUWorkItem *pItem)
         logPutDir(pItem);
 
     } else {
-        DEBUG_LOG("put dir failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("put dir failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1106,7 +1107,7 @@ ClientTask::delDir(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log del dir operation after task recycled");
+            ERROR_LOG("log del dir operation after task recycled");
             logDelDir(pItem);
         }
 
@@ -1122,7 +1123,7 @@ ClientTask::delDir(MUWorkItem *pItem)
         logDelDir(pItem);
 
     } else {
-        DEBUG_LOG("del dir failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("del dir failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1167,7 +1168,7 @@ ClientTask::getDir(MUWorkItem *pItem)
         std::string data;
 
         if (!getDirAck.SerializeToString(&data)) {
-            DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+            ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
             errorResponse(msg.cmd, msg.para1);
             return -1;
         }
@@ -1177,7 +1178,7 @@ ClientTask::getDir(MUWorkItem *pItem)
         m_pOwner->sendPacket(msg, data.c_str());
 
     } else {
-        DEBUG_LOG("get dir failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("get dir failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1215,7 +1216,7 @@ ClientTask::statDir(MUWorkItem *pItem)
         std::string data;
 
         if (!statDirAck.SerializeToString(&data)) {
-            DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+            ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
             errorResponse(msg.cmd, msg.para1);
             return -1;
         }
@@ -1225,7 +1226,7 @@ ClientTask::statDir(MUWorkItem *pItem)
         m_pOwner->sendPacket(msg, data.c_str());
 
     } else {
-        DEBUG_LOG("stat dir failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("stat dir failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1278,7 +1279,7 @@ ClientTask::getDir2(MUWorkItem *pItem)
         std::string data;
 
         if (!getDir2Ack.SerializeToString(&data)) {
-            DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+            ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
             errorResponse(msg.cmd, msg.para1);
             return -1;
         }
@@ -1288,7 +1289,7 @@ ClientTask::getDir2(MUWorkItem *pItem)
         m_pOwner->sendPacket(msg, data.c_str());
 
     } else {
-        DEBUG_LOG("get dir2 failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("get dir2 failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1310,7 +1311,7 @@ ClientTask::movDir(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log mov dir operation after task recycled");
+            ERROR_LOG("log mov dir operation after task recycled");
             logMovDir(pItem);
         }
 
@@ -1327,7 +1328,7 @@ ClientTask::movDir(MUWorkItem *pItem)
         logMovDir(pItem);
 
     } else {
-        DEBUG_LOG("mov dir failed, user id %llu, bucket id %llu, "
+        ERROR_LOG("mov dir failed, user id %llu, bucket id %llu, "
                   "src path %s, dest path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getSrcPath().c_str(), pRItem->getDestPath().c_str());
@@ -1350,7 +1351,7 @@ ClientTask::putFile(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log put file operation after task recycled");
+            ERROR_LOG("log put file operation after task recycled");
             logPutFile(pItem);
         }
 
@@ -1374,7 +1375,7 @@ ClientTask::putFile(MUWorkItem *pItem)
 
         if (VERSION_OUTDATED != rs.errorCode
             && PATH_EXIST != rs.errorCode) {
-            DEBUG_LOG("put file failed, user id %llu, bucket id %llu, path %s",
+            ERROR_LOG("put file failed, user id %llu, bucket id %llu, path %s",
                       pRItem->getUserId(), pRItem->getBucketId(),
                       pRItem->getPath().c_str());
 
@@ -1384,7 +1385,7 @@ ClientTask::putFile(MUWorkItem *pItem)
         } else {
             // version outdated or file exists
 
-            DEBUG_LOG("put file failed, version outdated, "
+            ERROR_LOG("put file failed, version outdated, "
                       "user id %llu, bucket id %llu, path %s",
                       pRItem->getUserId(), pRItem->getBucketId(),
                       pRItem->getPath().c_str());
@@ -1397,7 +1398,7 @@ ClientTask::putFile(MUWorkItem *pItem)
             std::string data;
 
             if (!putFileAck.SerializeToString(&data)) {
-                DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+                ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
                 errorResponse(msg.cmd, msg.para1);
                 return -1;
             }
@@ -1421,7 +1422,7 @@ ClientTask::delFile(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log del file operation after task recycled");
+            ERROR_LOG("log del file operation after task recycled");
             logDelFile(pItem);
         }
 
@@ -1438,7 +1439,7 @@ ClientTask::delFile(MUWorkItem *pItem)
         logDelFile(pItem);
 
     } else {
-        DEBUG_LOG("del file failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("del file failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1489,7 +1490,7 @@ ClientTask::getFile(MUWorkItem *pItem)
         std::string data;
 
         if (!getFileAck.SerializeToString(&data)) {
-            DEBUG_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
+            ERROR_LOG("Protobuf serialize failed, command 0x%x.", msg.cmd);
             errorResponse(msg.cmd, msg.para1);
             return -1;
         }
@@ -1499,7 +1500,7 @@ ClientTask::getFile(MUWorkItem *pItem)
         m_pOwner->sendPacket(msg, data.c_str());
 
     } else {
-        DEBUG_LOG("get file failed, user id %llu, bucket id %llu, path %s",
+        ERROR_LOG("get file failed, user id %llu, bucket id %llu, path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getPath().c_str());
         msg.error = rs.errorCode;
@@ -1521,7 +1522,7 @@ ClientTask::movFile(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log mov file operation after task recycled");
+            ERROR_LOG("log mov file operation after task recycled");
             logMovFile(pItem);
         }
 
@@ -1538,7 +1539,7 @@ ClientTask::movFile(MUWorkItem *pItem)
         logMovFile(pItem);
 
     } else {
-        DEBUG_LOG("mov file failed, user id %llu, bucket id %llu, "
+        ERROR_LOG("mov file failed, user id %llu, bucket id %llu, "
                   "src path %s, dest path %s",
                   pRItem->getUserId(), pRItem->getBucketId(),
                   pRItem->getSrcPath().c_str(), pRItem->getDestPath().c_str());
@@ -1588,7 +1589,7 @@ ClientTask::getUserLog(MUWorkItem *pItem)
             pEntry = getUserLogAck.add_log_list();
 
             if (!pEntry->ParseFromString(it->m_SerializedLog)) {
-                DEBUG_LOG("protobuf parse error");
+                ERROR_LOG("protobuf parse error");
                 errorResponse(MSG_SYS_MU_GET_USER_LOG_ACK, msg.para1);
                 return -1;
             }
@@ -1597,7 +1598,7 @@ ClientTask::getUserLog(MUWorkItem *pItem)
         std::string data;
 
         if (!getUserLogAck.SerializeToString(&data)) {
-            DEBUG_LOG("protobuf serialize error");
+            ERROR_LOG("protobuf serialize error");
             errorResponse(MSG_SYS_MU_GET_USER_LOG_ACK, msg.para1);
             return -1;
         }
@@ -1627,7 +1628,7 @@ ClientTask::createUser(MUWorkItem *pItem)
 
     if (TASK_WORKING != m_CurrentState) {
         if (rs.success()) {
-            DEBUG_LOG("log create user operation after task recycled");
+            ERROR_LOG("log create user operation after task recycled");
             logCreateUser(pItem);
         }
 
@@ -1664,7 +1665,7 @@ ClientTask::deleteUser(MUWorkItem *pItem)
     if (TASK_WORKING != m_CurrentState) {
 
         if (rs.success()) {
-            DEBUG_LOG("log delete user operation after task recycled");
+            ERROR_LOG("log delete user operation after task recycled");
             logDeleteUser(pItem);
         }
 
@@ -1722,14 +1723,14 @@ ClientTask::checkUser(uint64_t userId)
         BucketManager::getInstance()->get(bucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("user id %" PRIu64 ", locate error, "
+        ERROR_LOG("user id %" PRIu64 ", locate error, "
                   "no such bucket on current MU",
                   userId);
         return ReturnStatus(MU_FAILED, MU_LOCATE_ERROR);
     }
 
     if (MU_BUCKET_MASTER != pBucket->m_BucketState) {
-        DEBUG_LOG("user id %" PRIu64 ", service deny, "
+        ERROR_LOG("user id %" PRIu64 ", service deny, "
                   "bucket %" PRIu64 " is not master",
                   userId, pBucket->m_BucketId);
         return ReturnStatus(MU_FAILED, MU_SERVICE_DENY);
@@ -1742,13 +1743,13 @@ bool
 ClientTask::checkPath(const std::string &path)
 {
     if (path.empty()) {
-        DEBUG_LOG("invalid path, empty path");
+        ERROR_LOG("invalid path, empty path");
         return false;
     }
 
     if ((path.substr(path.length() - 1) == PATH_SEPARATOR_STRING)
         && path != ROOT_PATH) {
-        DEBUG_LOG("invalid path, %s", path.c_str());
+        ERROR_LOG("invalid path, %s", path.c_str());
         return false;
     }
 

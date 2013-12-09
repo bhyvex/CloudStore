@@ -37,7 +37,7 @@ InitItem::process()
         }
 
     default: {
-            DEBUG_LOG("unexpected work type %d.", m_WorkType);
+            ERROR_LOG("unexpected work type %d.", m_WorkType);
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
 
             break;

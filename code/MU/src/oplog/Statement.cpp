@@ -27,7 +27,7 @@ Statement::~Statement()
         rt = sqlite3_finalize(m_pStmt);
 
         if (SQLITE_OK != rt) {
-            DEBUG_LOG("sqlite3_finalize() error, %s.", sqlite3_errmsg(m_pDb));
+            ERROR_LOG("sqlite3_finalize() error, %s.", sqlite3_errmsg(m_pDb));
         }
 
         m_pStmt = NULL;
@@ -55,7 +55,7 @@ Statement::prepare(const std::string &sql)
          );
 
     if (SQLITE_OK != rt) {
-        DEBUG_LOG("sqlite3_prepare() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_prepare() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -70,7 +70,7 @@ Statement::bindInt64(int idx, int64_t val)
     rt = sqlite3_bind_int64(m_pStmt, idx, val);
 
     if (SQLITE_OK != rt) {
-        DEBUG_LOG("sqlite3_bind_int64() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_bind_int64() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -91,7 +91,7 @@ Statement::bindText(int idx, const std::string &val)
          );
 
     if (SQLITE_OK != rt) {
-        DEBUG_LOG("sqlite3_bind_text() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_bind_text() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -112,7 +112,7 @@ Statement::step()
         return SQLITE_ROW;
 
     } else {
-        DEBUG_LOG("sqlite3_step() error, error code %d, %s.",
+        ERROR_LOG("sqlite3_step() error, error code %d, %s.",
                   rt,
                   sqlite3_errmsg(m_pDb));
         return -1;
@@ -129,7 +129,7 @@ Statement::columnBytes(int idx)
     rt = sqlite3_column_bytes(m_pStmt, idx);
 
     if (rt < 0) {
-        DEBUG_LOG("sqlite3_column_bytes() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_column_bytes() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -165,7 +165,7 @@ Statement::clearBindings()
     rt = sqlite3_clear_bindings(m_pStmt);
 
     if (SQLITE_OK != rt) {
-        DEBUG_LOG("sqlite3_clear_bindings() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_clear_bindings() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -180,7 +180,7 @@ Statement::reset()
     rt = sqlite3_reset(m_pStmt);
 
     if (SQLITE_OK != rt) {
-        DEBUG_LOG("sqlite3_reset() error, %s.", sqlite3_errmsg(m_pDb));
+        ERROR_LOG("sqlite3_reset() error, %s.", sqlite3_errmsg(m_pDb));
         return -1;
     }
 
@@ -195,14 +195,14 @@ Statement::clean()
     rt = reset();
 
     if (-1 == rt) {
-        DEBUG_LOG("reset() error");
+        ERROR_LOG("reset() error");
         return -1;
     }
 
     rt = clearBindings();
 
     if (-1 == rt) {
-        DEBUG_LOG("clearBindings() error");
+        ERROR_LOG("clearBindings() error");
         return -1;
     }
 

@@ -105,7 +105,7 @@ MUTCPAgent::readBack(InReq &req)
     rc = m_pTask->next(this, req);
 
     if (-1 == rc) {
-        DEBUG_LOG("In MUTCPAgent::readBack, m_pOwner->next() failed.");
+        ERROR_LOG("In MUTCPAgent::readBack, m_pOwner->next() failed.");
     }
 }
 

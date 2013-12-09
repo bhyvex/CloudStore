@@ -31,7 +31,7 @@ readFileMeta(const std::string &path, FileMeta *pMeta)
     rt = ::open(path.c_str(), O_RDONLY);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
         return -1;
     }
 
@@ -40,7 +40,7 @@ readFileMeta(const std::string &path, FileMeta *pMeta)
     rt = util::io::readn(fd, &(pMeta->m_Attr), sizeof(pMeta->m_Attr));
 
     if (sizeof(pMeta->m_Attr) != rt) {
-        DEBUG_LOG("read attr, readn() error");
+        ERROR_LOG("read attr, readn() error");
         ::close(fd);
         return -1;
     }
@@ -58,7 +58,7 @@ readFileMeta(const std::string &path, FileMeta *pMeta)
     rt = util::io::readn(fd, pBlockList, blocks * FIXED_BLOCK_CHECKSUM_LEN);
 
     if (blocks * FIXED_BLOCK_CHECKSUM_LEN != rt) {
-        DEBUG_LOG("read block list, readn() error");
+        ERROR_LOG("read block list, readn() error");
         delete [] pBlockList;
         ::close(fd);
         return -1;
@@ -94,7 +94,7 @@ main(int argc, char *argv[])
 
     rt = readFileMeta(argv[1], &meta);
     if (-1 == rt) {
-        DEBUG_LOG("read file meta failed");
+        ERROR_LOG("read file meta failed");
         exit(1);
     }
     

@@ -79,14 +79,14 @@ FileMetaDAO::putDir(const std::string &path)
 
     int error = errno;
 
-    DEBUG_LOG("path %s, mkdir() error, %s.", path.c_str(), strerror(error));
+    ERROR_LOG("path %s, mkdir() error, %s.", path.c_str(), strerror(error));
 
     if (EEXIST == error) {
-        DEBUG_LOG("path %s, path exist", path.c_str());
+        ERROR_LOG("path %s, path exist", path.c_str());
         return ReturnStatus(MU_FAILED, PATH_EXIST);
 
     } else if (ENOENT == error || ENOTDIR == error) {
-        DEBUG_LOG("path %s, path invalid", path.c_str());
+        ERROR_LOG("path %s, path invalid", path.c_str());
         return ReturnStatus(MU_FAILED, PATH_INVALID);
 
     } else {
@@ -107,7 +107,7 @@ FileMetaDAO::delDir(const std::string &path, uint64_t *pDelta)
     rs = rmdirRecursive(path, pDelta);
 
     if (!rs.success()) {
-        DEBUG_LOG("path %s, rmdirRecursive() error", path.c_str());
+        ERROR_LOG("path %s, rmdirRecursive() error", path.c_str());
     }
 
     return rs;
@@ -170,11 +170,11 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
     if (rt < 0) {
         error = errno;
 
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   path.c_str(), strerror(errno));
 
         if (ENOTDIR == error) {
-            DEBUG_LOG("path %s, opendir() error, no directory");
+            ERROR_LOG("path %s, opendir() error, no directory");
             return ReturnStatus(MU_FAILED, NOT_DIRECTORY);
 
         } else if (ENOENT == error) {
@@ -204,7 +204,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
             rs = rmdirRecursive(npath, pDelta);
 
             if (!rs.success()) {
-                DEBUG_LOG("path %s, rmdirRecursive() error", npath.c_str());
+                ERROR_LOG("path %s, rmdirRecursive() error", npath.c_str());
                 return rs;
             }
 
@@ -216,7 +216,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
             rt = DataNS->Unlink(npath.c_str());
 
             if (-1 == rt) {
-                DEBUG_LOG("path %s, unlink() error, %s.",
+                ERROR_LOG("path %s, unlink() error, %s.",
                           npath.c_str(), strerror(errno));
                 return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             }
@@ -234,7 +234,7 @@ FileMetaDAO::rmdirRecursive(const std::string &path, uint64_t *pDelta)
     rt = DataNS->RmDir(path.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, rmdir() error, %s.",
+        ERROR_LOG("path %s, rmdir() error, %s.",
                   path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -257,7 +257,7 @@ FileMetaDAO::addFileSizeToDelta(const std::string &path, uint64_t *pDelta)
     fd = DataNS->Open(path.c_str(), O_RDONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
         return ;
     }
 
@@ -269,7 +269,7 @@ FileMetaDAO::addFileSizeToDelta(const std::string &path, uint64_t *pDelta)
     DataNS->Close(&fd);
 
     if (sizeof(attr) != rt) {
-        DEBUG_LOG("path %s, readn() error", path.c_str());
+        ERROR_LOG("path %s, readn() error", path.c_str());
         return ;
     }
 
@@ -294,7 +294,7 @@ FileMetaDAO::getDir(const std::string &path, std::list<PDEntry> *pEntryList)
     if (false == st.valid) {
         error = errno;
 
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   path.c_str(), strerror(errno));
 
         if (ENOTDIR == error) {
@@ -352,7 +352,7 @@ FileMetaDAO::statDir(const std::string &path, FileMeta *pMeta)
 
     if (-1 == rt) {
         error = errno;
-        DEBUG_LOG("path %s, stat() error, %s.", path.c_str(), strerror(error));
+        ERROR_LOG("path %s, stat() error, %s.", path.c_str(), strerror(error));
 
         if (ENOENT == error || ENOTDIR == error) {
             return checkPrefix(path);
@@ -363,7 +363,7 @@ FileMetaDAO::statDir(const std::string &path, FileMeta *pMeta)
     }
 
     if (st.m_Type != MU_DIRECTORY) {
-        DEBUG_LOG("path %s, not directory", path.c_str());
+        ERROR_LOG("path %s, not directory", path.c_str());
         return ReturnStatus(MU_FAILED, NOT_DIRECTORY);
     }
 
@@ -394,7 +394,7 @@ FileMetaDAO::getDir2(const std::string &path,
     if (false == st.valid) {
         error = errno;
 
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   path.c_str(), strerror(errno));
 
         if (ENOTDIR == error) {
@@ -430,7 +430,7 @@ FileMetaDAO::getDir2(const std::string &path,
             rs = statDir(npath, &meta);
 
             if (!rs.success()) {
-                DEBUG_LOG("path %s, statDir() error", npath.c_str());
+                ERROR_LOG("path %s, statDir() error", npath.c_str());
                 return rs;
             }
 
@@ -446,7 +446,7 @@ FileMetaDAO::getDir2(const std::string &path,
             rs = getFile(npath, &meta);
 
             if (!rs.success()) {
-                DEBUG_LOG("path %s, getFile() error", npath.c_str());
+                ERROR_LOG("path %s, getFile() error", npath.c_str());
                 return rs;
             }
 
@@ -513,7 +513,7 @@ FileMetaDAO::movDir(const std::string &srcPath,
 
     if (-1 == rt) {
         error = errno;
-        DEBUG_LOG("src path %s, dest path %s, rename() error, %s.",
+        ERROR_LOG("src path %s, dest path %s, rename() error, %s.",
                   srcPath.c_str(), destPath.c_str(), strerror(error));
 
         if (ENOTDIR == error) {
@@ -547,14 +547,14 @@ FileMetaDAO::isdir(const std::string &path)
             return ReturnStatus(MU_SUCCESS);
 
         } else {
-            DEBUG_LOG("path %s, not directory", path.c_str());
+            ERROR_LOG("path %s, not directory", path.c_str());
             return ReturnStatus(MU_FAILED, NOT_DIRECTORY);
         }
     }
 
     int error = errno;
 
-    DEBUG_LOG("path %s, stat() error, %s", path.c_str(), strerror(error));
+    ERROR_LOG("path %s, stat() error, %s", path.c_str(), strerror(error));
 
     if (ENOENT == error || ENOTDIR == error) {
         return checkPrefix(path);
@@ -573,11 +573,11 @@ FileMetaDAO::putFile(const std::string &path, const FileMeta &meta,
     assert(pDelta);
 
     if (FILE_VERSION_INIT == meta.m_Attr.m_Version) {
-    	DEBUG_LOG("createFile, %s", path.c_str());
+    	ERROR_LOG("createFile, %s", path.c_str());
         return createFile(path, meta, pMeta, pDelta);
 
     } else {
-    	DEBUG_LOG("updateFile, %s", path.c_str());
+    	ERROR_LOG("updateFile, %s", path.c_str());
         return updateFile(path, meta, pMeta, pDelta);
     }
 }
@@ -602,10 +602,10 @@ FileMetaDAO::createFile(
 
     if (false == fd.valid) {
         error = errno;
-        DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(error));
+        ERROR_LOG("path %s, open() error, %s.", path.c_str(), strerror(error));
 
         if (EEXIST == error) {
-            DEBUG_LOG("path %s, file exist", path.c_str());
+            ERROR_LOG("path %s, file exist", path.c_str());
 
             // is a regular file?
             ReturnStatus rs = isfile(path);
@@ -617,7 +617,7 @@ FileMetaDAO::createFile(
             fd = DataNS->Open(path.c_str(), O_RDONLY);
 
             if (false == fd.valid) {
-                DEBUG_LOG("path %s, open() error, %s",
+                ERROR_LOG("path %s, open() error, %s",
                           path.c_str(), strerror(errno));
                 return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             }
@@ -640,7 +640,7 @@ FileMetaDAO::createFile(
             return ReturnStatus(MU_FAILED, PATH_EXIST);
 
         } else if (ENOENT == error || ENOTDIR == error) {
-            DEBUG_LOG("path %s, path invalid", path.c_str());
+            ERROR_LOG("path %s, path invalid", path.c_str());
             return ReturnStatus(MU_FAILED, PATH_INVALID);
 
         } else {
@@ -680,7 +680,7 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
     fd = DataNS->Open(path.c_str(), O_RDWR);
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
 
         // already check path errors in isfile()
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -694,13 +694,13 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
     rt = DataNS->readn(&fd, &attr, sizeof(attr));
 
     if (sizeof(attr) != rt) {
-        DEBUG_LOG("readn() error");
+        ERROR_LOG("readn() error");
         DataNS->Close(&fd);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
     if (meta.m_Attr.m_Version != attr.m_Version + 1) {
-        DEBUG_LOG("version outdated, current version %" PRIu64 ", "
+        ERROR_LOG("version outdated, current version %" PRIu64 ", "
                   "received version %" PRIu64,
                   attr.m_Version, meta.m_Attr.m_Version);
         DataNS->Close(&fd);
@@ -732,7 +732,7 @@ FileMetaDAO::writeFileMeta(Args *fd, const FileMeta &meta)
     rt = DataNS->Lseek(fd, 0, SEEK_SET);
 
     if (-1 == rt) {
-        DEBUG_LOG("lseek() error, %s.", strerror(errno));
+        ERROR_LOG("lseek() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -761,7 +761,7 @@ FileMetaDAO::writeFileMeta(Args *fd, const FileMeta &meta)
     pBuf = NULL;
 
     if (bufIdx != rt) {
-        DEBUG_LOG("writen() error");
+        ERROR_LOG("writen() error");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -783,7 +783,7 @@ FileMetaDAO::writeFileMeta(Args *fd, const FileMeta &meta)
     //rt = ::writev(fd, iov, iovcnt);
 
     //if (sizeof(meta.m_Attr) + blocks * FIXED_BLOCK_CHECKSUM_LEN != rt) {
-    //DEBUG_LOG("writev() error, %s.", strerror(errno));
+    //ERROR_LOG("writev() error, %s.", strerror(errno));
     //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     //}
 
@@ -806,18 +806,18 @@ FileMetaDAO::isfile(const std::string &path)
             return ReturnStatus(MU_SUCCESS);
 
         } else if (MU_DIRECTORY == st.m_Type) {
-            DEBUG_LOG("path %s, is directory", path.c_str());
+            ERROR_LOG("path %s, is directory", path.c_str());
             return ReturnStatus(MU_FAILED, IS_DIRECTORY);
 
         } else {
-            DEBUG_LOG("path %s, unexpected file type", path.c_str());
+            ERROR_LOG("path %s, unexpected file type", path.c_str());
             return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         }
     }
 
     int error = errno;
 
-    DEBUG_LOG("path %s, stat() error, %s", path.c_str(), strerror(error));
+    ERROR_LOG("path %s, stat() error, %s", path.c_str(), strerror(error));
 
     if (ENOENT == error || ENOTDIR == error) {
         return checkPrefix(path);
@@ -848,7 +848,7 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     fd = DataNS->Open(path.c_str(), O_RDONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s, open() error, %s", path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -859,7 +859,7 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     DataNS->Close(&fd);
 
     if (sizeof(attr) != rt) {
-        DEBUG_LOG("path %s, readn() error", path.c_str());
+        ERROR_LOG("path %s, readn() error", path.c_str());
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -870,7 +870,7 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     rt = DataNS->Unlink(path.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, unlink() error, %s.",
+        ERROR_LOG("path %s, unlink() error, %s.",
                   path.c_str(), strerror(errno));
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -904,7 +904,7 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
     fd = DataNS->Open(path.c_str(), O_RDONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s, open() error, %s.", path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -914,7 +914,7 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
     DataNS->Close(&fd);
 
     if (!rs.success()) {
-        DEBUG_LOG("path %s, readFileMeta() error", path.c_str());
+        ERROR_LOG("path %s, readFileMeta() error", path.c_str());
     }
 
     return rs;
@@ -934,7 +934,7 @@ FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
     rt = DataNS->readn(fd, &(pMeta->m_Attr), sizeof(pMeta->m_Attr));
 
     if (sizeof(pMeta->m_Attr) != rt) {
-        DEBUG_LOG("read attr, readn() error");
+        ERROR_LOG("read attr, readn() error");
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -949,7 +949,7 @@ FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
     rt = DataNS->readn(fd, pBlockList, blocks * FIXED_BLOCK_CHECKSUM_LEN);
 
     if (blocks * FIXED_BLOCK_CHECKSUM_LEN != rt) {
-        DEBUG_LOG("read block list, readn() error");
+        ERROR_LOG("read block list, readn() error");
         delete [] pBlockList;
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -1015,7 +1015,7 @@ FileMetaDAO::movFile(const std::string &srcPath,
 
     if (-1 == rt) {
         error = errno;
-        DEBUG_LOG("src path %s, dest path %s, rename() error, %s.",
+        ERROR_LOG("src path %s, dest path %s, rename() error, %s.",
                   srcPath.c_str(), destPath.c_str(), strerror(error));
 
         if (EISDIR == error) {

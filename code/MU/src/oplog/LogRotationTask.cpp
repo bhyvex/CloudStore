@@ -69,7 +69,7 @@ LogRotationTask::start()
     rt = m_pTimer->create();
 
     if (-1 == rt) {
-        DEBUG_LOG("create timer error");
+        ERROR_LOG("create timer error");
         recycle(m_pTimer);
         m_pTimer = NULL;
         return -1;
@@ -79,7 +79,7 @@ LogRotationTask::start()
                            LOG_ROTATION_CHECK_PERIOD);
 
     if (-1 == rt) {
-        DEBUG_LOG("timer set time error");
+        ERROR_LOG("timer set time error");
         recycle(m_pTimer);
         m_pTimer = NULL;
         return -1;
@@ -98,7 +98,7 @@ LogRotationTask::next(MUTimer *pTimer, uint64_t times)
         return doRotationBySize();
 
     } else {
-        DEBUG_LOG("unknown log rotation strategy %s.",
+        ERROR_LOG("unknown log rotation strategy %s.",
                   m_RotateStrategy.c_str());
         assert(0);
         return -1;
@@ -170,7 +170,7 @@ LogRotationTask::dispatch(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unknown work item type %d.", pItem->getItemType());
+            ERROR_LOG("unknown work item type %d.", pItem->getItemType());
             assert(0);
 
             return -1;
@@ -194,7 +194,7 @@ LogRotationTask::dispatchLogRotationCheckItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unknown work type %d.", pItem->getWorkType());
+            ERROR_LOG("unknown work type %d.", pItem->getWorkType());
             assert(0);
 
             return -1;
@@ -216,7 +216,7 @@ LogRotationTask::checkLogFileSize(MUWorkItem *pItem)
     ReturnStatus rs = pRItem->getReturnStatus();
 
     if (!rs.success()) {
-        DEBUG_LOG("check log file size failed.");
+        ERROR_LOG("check log file size failed.");
         return -1;
     }
 

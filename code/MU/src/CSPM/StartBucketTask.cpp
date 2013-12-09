@@ -25,7 +25,7 @@
 StartBucketTask::~StartBucketTask()
 {
     if (TASK_FINISH != m_CurrentState) {
-        DEBUG_LOG("start bucket %llu failed", m_BucketId);
+        ERROR_LOG("start bucket %llu failed", m_BucketId);
     }
 }
 
@@ -48,7 +48,7 @@ StartBucketTask::start()
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
 
             return -1;
@@ -75,7 +75,7 @@ StartBucketTask::next(MUWorkItem *pItem)
 
     } else {
         // never going here
-        DEBUG_LOG("unexpected item type %d", pItem->getItemType());
+        ERROR_LOG("unexpected item type %d", pItem->getItemType());
         assert(0);
 
         return -1;
@@ -96,7 +96,7 @@ StartBucketTask::dispatchBucketItem(MUWorkItem *pItem)
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected work type %d.", pItem->getWorkType());
+            ERROR_LOG("unexpected work type %d.", pItem->getWorkType());
             assert(0);
             break;
         }
@@ -109,7 +109,7 @@ StartBucketTask::dispatchBucketItem(MUWorkItem *pItem)
 int
 StartBucketTask::startBucket()
 {
-    DEBUG_LOG("try to start bucket %llu", m_BucketId);
+    ERROR_LOG("try to start bucket %llu", m_BucketId);
 
     Bucket *pBucket = BucketManager::getInstance()->get(m_BucketId);
 
@@ -146,7 +146,7 @@ StartBucketTask::startBucket(MUWorkItem *pItem)
     rs = pRItem->getReturnStatus();
 
     if (!rs.success()) {
-        DEBUG_LOG("start bucket %ld failed", pRItem->getBucketId());
+        ERROR_LOG("start bucket %ld failed", pRItem->getBucketId());
         return -1;
     }
 
@@ -167,7 +167,7 @@ StartBucketTask::startBucket(MUWorkItem *pItem)
         pBucket->m_BucketState = MU_BUCKET_MASTER;
     }
 
-    DEBUG_LOG("start bucket %" PRIu64 " successfully", m_BucketId);
+    ERROR_LOG("start bucket %" PRIu64 " successfully", m_BucketId);
 
     if (NULL != m_pParent) {
         m_pParent->next(this);

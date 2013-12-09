@@ -52,7 +52,7 @@ ThreadPoolDispatcher::ThreadPoolDispatcher(
     int rt = pipe(fd);
 
     if (0 != rt) {
-        DEBUG_LOG("Syscall Error: pipe. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: pipe. %s", strerror(errno));
     }
 
     m_hReadHandle = fd[0];
@@ -81,14 +81,14 @@ ThreadPoolDispatcher::setNonblock(int fd)
     int val = 0;
 
     if ((val = fcntl(fd, F_GETFL, 0)) < 0) {
-        DEBUG_LOG("Syscall Error: fcntl. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: fcntl. %s", strerror(errno));
         return val;
     }
 
     val |= O_NONBLOCK;
 
     if (fcntl(fd, F_SETFL, val) < 0) {
-        DEBUG_LOG("Syscall Error: fcntl. %s", strerror(errno));
+        ERROR_LOG("Syscall Error: fcntl. %s", strerror(errno));
         return -1;
     }
 
@@ -114,7 +114,7 @@ ThreadPoolDispatcher::sendData()
 
         if (0 != rt) {
             if (EAGAIN != rt) {
-                DEBUG_LOG("Error occurred while post request to thread pool, "
+                ERROR_LOG("Error occurred while post request to thread pool, "
                           "%s", strerror(errno));
                 //return -1;
                 break;

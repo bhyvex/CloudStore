@@ -81,7 +81,7 @@ int KVNameSpace::Read(Args *args, void *buf, size_t count)
 
 int KVNameSpace::Write(Args *args, const void *buf, size_t count)
 {
-	int ret;
+	int ret = count;
 	args->valid = false;
 
 	if(args == NULL){
@@ -121,6 +121,7 @@ int KVNameSpace::MkDir(const char *pathname, mode_t mode)
 {
 	int ret;
 	FileAttr st;
+	st.m_FID = __sync_add_and_fetch(&(m_BuildStrategy->m_Fid), 1);
 	st.m_CTime = 0;
 	st.m_Mode = 0;
 	st.m_MTime = 0;
@@ -189,7 +190,12 @@ int KVNameSpace::Stat(const char *path, FileAttr  *fileAttr)
 {
 	Args args;
 	args.arg3 = path;
-	return Read(&args, fileAttr, sizeof(FileAttr));
+	int ret = Read(&args, fileAttr, sizeof(FileAttr));
+	if(ret < 0){
+		return -1;
+	}else{
+		return 0;
+	}
 }
 
 //TODO

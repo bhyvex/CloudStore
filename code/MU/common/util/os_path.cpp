@@ -37,7 +37,7 @@ util::os::path::exists(
 {
     // 参数检验
     if (NULL == pOutResult) {
-        DEBUG_LOG("null pointer");
+        ERROR_LOG("null pointer");
         return -1;
     }
 
@@ -60,7 +60,7 @@ util::os::path::exists(
         return 0;
     }
 
-    DEBUG_LOG("Syscall Error: stat. %s", strerror(errno));
+    ERROR_LOG("Syscall Error: stat. %s", strerror(errno));
 
     return -1;
 }
@@ -72,7 +72,7 @@ util::os::path::isdir(
 {
     // 参数检验
     if (NULL == pOutResult) {
-        DEBUG_LOG("null ponter");
+        ERROR_LOG("null ponter");
         return -1;
     }
 
@@ -90,7 +90,7 @@ util::os::path::isdir(
     }
 
     // -1 == rt
-    DEBUG_LOG("Syscall Error: stat. %s", strerror(errno));
+    ERROR_LOG("Syscall Error: stat. %s", strerror(errno));
 
     return -1;
 }
@@ -101,7 +101,7 @@ util::os::path::isfile(
         bool *pOutResult)
 {
     if (NULL == pOutResult) {
-        DEBUG_LOG("null pointer.");
+        ERROR_LOG("null pointer.");
         return -1;
     }
 
@@ -117,7 +117,7 @@ util::os::path::isfile(
         return 0;
     }
 
-    DEBUG_LOG("Syscall Error: stat. %s", strerror(errno));
+    ERROR_LOG("Syscall Error: stat. %s", strerror(errno));
 
     return -1;
 }

@@ -50,7 +50,7 @@ LogItem::process()
         }
 
     default: {
-            DEBUG_LOG("unknown work type %" PRIi32 , m_WorkType);
+            ERROR_LOG("unknown work type %" PRIi32 , m_WorkType);
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             break;
         }
@@ -82,12 +82,12 @@ LogItem::queryUserLog()
 
     if (!m_ReturnStatus.success()) {
         if (LOG_SEQ_OUTDATED == m_ReturnStatus.errorCode) {
-            DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+            ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                       "log seq %" PRIu64 ", log seq outdated",
                       m_BucketId, m_UserId, m_UserLogSeq);
 
         } else {
-            DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+            ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                       "log seq %" PRIu64 ", get user log failed",
                       m_BucketId, m_UserId, m_UserLogSeq);
         }

@@ -2,6 +2,7 @@
 #define _LEVELDBENGINE_H_
 
 #include "StoreEngine.h"
+#include "Key.h"
 
 #define DBNAME "data.db"
 
@@ -11,6 +12,7 @@ class LevelDBComparator : public leveldb::Comparator
 public:
 	int Compare(const leveldb::Slice& a, const leveldb::Slice& b) const 
 	{
+	/*
 		int num_a = atoi(a.ToString().substr(3).c_str());
 		int num_b = atoi(b.ToString().substr(3).c_str());
 
@@ -18,6 +20,39 @@ public:
 		if (num_a > num_b) return +1;
 
 		return 0;
+*/
+
+		string str_a = a.ToString();
+		string str_b = b.ToString();
+		size_t pos;
+		
+		pos = str_a.find(KEY_SEPARATOR); 
+		string userid_a = str_a.substr(0, pos);
+		str_a = str_a.substr(pos+1);
+
+		pos = str_a.find(KEY_SEPARATOR);
+		string pid_a = str_a.substr(0, pos);
+		string filename_a = str_a.substr(pos+1);
+
+		pos = str_b.find(KEY_SEPARATOR); 
+		string userid_b = str_b.substr(0, pos);
+		str_b = str_b.substr(pos+1);
+
+		pos = str_b.find(KEY_SEPARATOR);
+		string pid_b = str_b.substr(0, pos);
+		string filename_b = str_b.substr(pos+1);
+
+		if(userid_a < userid_b) return -1;
+		if(userid_a > userid_b) return +1;
+
+		if(pid_a < pid_b) return -1;
+		if(pid_a > pid_b) return +1;
+
+		if(filename_a < filename_b) return -1;
+		if(filename_a > filename_b) return +1;
+
+		return 0;
+		
 	}
 
 	// Ignore the following methods for now:

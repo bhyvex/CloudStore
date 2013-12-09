@@ -42,7 +42,7 @@ LogRotationCheckItem::process()
         }
 
     default: {
-            DEBUG_LOG("Unknown work type %d.", m_WorkType);
+            ERROR_LOG("Unknown work type %d.", m_WorkType);
             break;
         }
 

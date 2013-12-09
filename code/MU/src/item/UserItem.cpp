@@ -67,7 +67,7 @@ UserItem::process()
         }
 
     default: {
-            DEBUG_LOG("unknown work type %" PRIi32, m_WorkType);
+            ERROR_LOG("unknown work type %" PRIi32, m_WorkType);
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             break;
         }
@@ -88,7 +88,7 @@ UserItem::createUser()
     m_ReturnStatus = pUserDAO->createUser(m_BucketId, m_UserId, m_UserQuota);
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+        ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                   "create user files failed",
                   m_BucketId, m_UserId);
 
@@ -103,14 +103,14 @@ UserItem::createUser()
     rt = LogAccessEngine::getInstance()->createUser(m_BucketId, m_UserId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+        ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                   "create user log records failed", m_BucketId, m_UserId);
 
         // rollback
         m_ReturnStatus = pUserDAO->deleteUser(m_BucketId, m_UserId);
 
         if (!m_ReturnStatus.success()) {
-            DEBUG_LOG("error occurred whilst rollback user-create operation");
+            ERROR_LOG("error occurred whilst rollback user-create operation");
         }
 
         m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -141,7 +141,7 @@ UserItem::deleteUser()
     pUserDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+        ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                   "delete user files failed",
                   m_BucketId, m_UserId);
         return ;
@@ -152,7 +152,7 @@ UserItem::deleteUser()
     rt = LogAccessEngine::getInstance()->deleteUser(m_BucketId, m_UserId);
 
     if (-1 == rt) {
-        DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+        ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                   "delete user log records failed",
                   m_BucketId, m_UserId);
         // ignore this error
@@ -185,7 +185,7 @@ UserItem::readUserInfo()
     pUDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("readUserInfo() failed, bucket id %" PRIu64 ", "
+        ERROR_LOG("readUserInfo() failed, bucket id %" PRIu64 ", "
                   "user id %" PRIu64,
                   m_BucketId, m_UserId);
         return ;
@@ -201,7 +201,7 @@ UserItem::readUserInfo()
     pLDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("queryCurrentUserLogSeqNr() failed, bucket id %" PRIu64
+        ERROR_LOG("queryCurrentUserLogSeqNr() failed, bucket id %" PRIu64
                   ", user id %" PRIu64 ,
                   m_BucketId, m_UserId);
         return ;
@@ -237,25 +237,28 @@ UserItem::userExists()
 
     FileAttr st;
     rt = DataNS->Stat(userRootPath.c_str(), &st);
+    cout <<"UserItem::userExists() stat()="<<rt<<endl;
 
     if (0 == rt) {
-
+		
         if (st.m_Type == MU_DIRECTORY) {
+        	cout <<"UserItem::userExists() is right!!!"<<endl;
             return ReturnStatus(MU_SUCCESS);
 
         } else {
-            DEBUG_LOG("Invalid user root directory, user id %" PRIu64,
+        	cout <<"UserItem::userExists() st.m_Type="<<st.m_Type<<"  MU_DIRECTORY="<<MU_DIRECTORY<<endl;
+            ERROR_LOG("Invalid user root directory, user id %" PRIu64,
                       m_UserId);
             return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         }
     }
 
     if (ENOENT == errno || ENOTDIR == errno) {
-        DEBUG_LOG("no such user, user id %" PRIu64, m_UserId);
+        ERROR_LOG("no such user, user id %" PRIu64, m_UserId);
         return ReturnStatus(MU_FAILED, MU_LOCATE_ERROR);
 
     } else {
-        DEBUG_LOG("path %s, stat() error, %s.",
+        ERROR_LOG("path %s, stat() error, %s.",
                   userRootPath.c_str(), strerror(errno));
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);

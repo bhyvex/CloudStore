@@ -5,6 +5,7 @@
 BuildStrategy::BuildStrategy(string path)
 {
 	m_Root = path;
+	m_Fid = 0;
 	m_StoreEngine = NULL;
 }
 

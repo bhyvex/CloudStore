@@ -47,12 +47,12 @@ LogDAO::queryUserLog(
 
     if (!rs.success()) {
         if (LOG_SEQ_OUTDATED == rs.errorCode) {
-            DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+            ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                       "log seq %" PRIu64 ", log seq outdated",
                       bucketId, userId, seq);
 
         } else {
-            DEBUG_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
+            ERROR_LOG("bucket id %" PRIu64 ", user id %" PRIu64 ", "
                       "log seq %" PRIu64 ", readUserLog() error",
                       bucketId, userId, seq);
         }
@@ -73,7 +73,7 @@ LogDAO::queryCurrentBucketLogSeqNr(uint64_t bucketId, uint64_t *pSeqNr)
              bucketId, pSeqNr);
 
     if (!rs.success()) {
-        DEBUG_LOG("bucket id %llu, query bucket log seq failed", bucketId);
+        ERROR_LOG("bucket id %llu, query bucket log seq failed", bucketId);
     }
 
     return rs;
@@ -90,7 +90,7 @@ LogDAO::queryCurrentUserLogSeqNr(
              bucketId, userId, pSeqNr);
 
     if (!rs.success()) {
-        DEBUG_LOG("bucket id %llu, user id %llu, query user log seq failed",
+        ERROR_LOG("bucket id %llu, user id %llu, query user log seq failed",
                   bucketId, userId);
     }
 

@@ -68,7 +68,7 @@ off_t FSNameSpace::Lseek(Args *args, off_t offset, int whence)
 ssize_t FSNameSpace::readn(Args *args, void *vptr, size_t n)
 {
     if (NULL == vptr) {
-        DEBUG_LOG("NULL pointer.");
+        ERROR_LOG("NULL pointer.");
         return -1;
     }
 
@@ -87,7 +87,7 @@ ssize_t FSNameSpace::readn(Args *args, void *vptr, size_t n)
                 continue;
 
             } else {
-                DEBUG_LOG("Syscall Error: read. errno %d, %s.",
+                ERROR_LOG("Syscall Error: read. errno %d, %s.",
                           errno, strerror(errno));
                 return -1;
             }
@@ -105,7 +105,7 @@ ssize_t FSNameSpace::readn(Args *args, void *vptr, size_t n)
 ssize_t FSNameSpace::writen(Args *args, const void *vptr, size_t n)
 {
     if (NULL == vptr) {
-        DEBUG_LOG("NULL pointer.");
+        ERROR_LOG("NULL pointer.");
         return -1;
     }
 
@@ -125,7 +125,7 @@ ssize_t FSNameSpace::writen(Args *args, const void *vptr, size_t n)
 
             } else {
                 if (EAGAIN != errno) {
-                    DEBUG_LOG("Syscall Error: write. errno %d, %s",
+                    ERROR_LOG("Syscall Error: write. errno %d, %s",
                               errno, strerror(errno));
                 }
 
@@ -273,7 +273,7 @@ int FSNameSpace::RmdirRecursive(const char *pathname)
     DIR *pDir = ::opendir(path.c_str());
 
     if (NULL == pDir) {
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   path.c_str(), strerror(errno));
 
         return -1;
@@ -300,7 +300,7 @@ int FSNameSpace::RmdirRecursive(const char *pathname)
             rt = RmdirRecursive(npath.c_str());
 
             if (rt < 0) {
-                DEBUG_LOG("path %s, rmdirRecursive() error", npath.c_str());
+                ERROR_LOG("path %s, rmdirRecursive() error", npath.c_str());
                 return rt;
             }
 
@@ -309,7 +309,7 @@ int FSNameSpace::RmdirRecursive(const char *pathname)
             rt = ::unlink(npath.c_str());
 
             if (-1 == rt) {
-                DEBUG_LOG("path %s, unlink() error, %s.",
+                ERROR_LOG("path %s, unlink() error, %s.",
                           npath.c_str(), strerror(errno));
                 return -1;
             }
@@ -323,7 +323,7 @@ int FSNameSpace::RmdirRecursive(const char *pathname)
     rt = ::rmdir(path.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, rmdir() error, %s.",
+        ERROR_LOG("path %s, rmdir() error, %s.",
                   path.c_str(), strerror(errno));
         return -1;
     }

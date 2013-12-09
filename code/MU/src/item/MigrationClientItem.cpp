@@ -55,7 +55,7 @@ MigrationClientItem::process()
         }
 
     default: {
-            DEBUG_LOG("Unexpected work type %d.", m_WorkType);
+            ERROR_LOG("Unexpected work type %d.", m_WorkType);
 
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             break;

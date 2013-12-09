@@ -21,14 +21,14 @@
 class A {
     public:
         void f() {
-            DEBUG_LOG("This is a log in a class.\n\n\n");
+            ERROR_LOG("This is a log in a class.\n\n\n");
         }
 };
 
 int main() {
     Logger *rootLogger = LoggerFactory::getInstance()->getRootLogger();
 
-    DEBUG_LOG("This is TEST %d for log system.", 1);
+    ERROR_LOG("This is TEST %d for log system.", 1);
 
     rootLogger->fatal("Fata error log %d.\n", 0);
     rootLogger->error("Error log %d.\n", 1);

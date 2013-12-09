@@ -43,7 +43,7 @@ RWLock::rlock()
     rt = ::pthread_rwlock_rdlock(&_rwlock);
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: pthread_rwlock_rdlock, %s", strerror(rt));
+        ERROR_LOG("Syscall Error: pthread_rwlock_rdlock, %s", strerror(rt));
         return -1;
     }
 
@@ -58,7 +58,7 @@ RWLock::wlock()
     rt = ::pthread_rwlock_wrlock(&_rwlock);
 
     if (-1 == rt) {
-        DEBUG_LOG("Syscall Error: pthread_rwlock_wrlock, %s", strerror(rt));
+        ERROR_LOG("Syscall Error: pthread_rwlock_wrlock, %s", strerror(rt));
         return -1;
     }
 
@@ -92,14 +92,14 @@ RWLockGuard::RWLockGuard(RWLock *pLock, _LockType type)
         rt = _pLock->rlock();
 
         if (-1 == rt) {
-            DEBUG_LOG("acquire read lock failed");
+            ERROR_LOG("acquire read lock failed");
         }
 
     } else {
         rt = _pLock->wlock();
 
         if (-1 == rt) {
-            DEBUG_LOG("acquire write lock failed");
+            ERROR_LOG("acquire write lock failed");
         }
     }
 }

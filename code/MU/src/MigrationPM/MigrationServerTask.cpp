@@ -88,7 +88,7 @@ MigrationServerTask::destroy(MUTCPAgent *pChannel)
         }
 
     default: {
-            DEBUG_LOG("unexpected task state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected task state %" PRIi32, m_CurrentState);
 
             assert(0);
             recycle();
@@ -174,7 +174,7 @@ MigrationServerTask::next(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // never reach here
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
 
             assert(0);
             recycle();
@@ -208,7 +208,7 @@ MigrationServerTask::next(MUTask *pTask)
         }
 
     } else {
-        DEBUG_LOG("unexpeced task pointer");
+        ERROR_LOG("unexpeced task pointer");
         recycle();
     }
 
@@ -231,7 +231,7 @@ MigrationServerTask::next(MUWorkItem *pItem)
 
     }  else {
         // never reach here
-        DEBUG_LOG("unexpected item type %" PRIi32, pItem->getItemType());
+        ERROR_LOG("unexpected item type %" PRIi32, pItem->getItemType());
 
         assert(0);
         recycle();
@@ -260,7 +260,7 @@ MigrationServerTask::dispatchMigrationServerItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpect work type %" PRIi32, pItem->getWorkType());
+            ERROR_LOG("unexpect work type %" PRIi32, pItem->getWorkType());
 
             return -1;
             break;
@@ -274,7 +274,7 @@ int
 MigrationServerTask::handshake(const InReq &req)
 {
     if (MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command 0x%x.",
+        ERROR_LOG("unexpected protocol command 0x%x.",
                   req.m_msgHeader.cmd);
         return -1;
     }
@@ -284,7 +284,7 @@ MigrationServerTask::handshake(const InReq &req)
     cstore::pb_MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE handshake;
 
     if (!handshake.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse error");
+        ERROR_LOG("protobuf parse error");
 
         sendSimplePacket(
             m_pOwner, MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK,
@@ -301,7 +301,7 @@ MigrationServerTask::handshake(const InReq &req)
         BucketManager::getInstance()->get(m_BucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket %" PRIu64, m_BucketId);
+        ERROR_LOG("no such bucket %" PRIu64, m_BucketId);
 
         sendSimplePacket(
             m_pOwner, MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK,
@@ -317,7 +317,7 @@ int
 MigrationServerTask::migrate(const InReq &req)
 {
     if (MSG_MU_MU_MIGRATE_BUCKET_DATA != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command 0x%x.",
+        ERROR_LOG("unexpected protocol command 0x%x.",
                   req.m_msgHeader.cmd);
         return -1;
     }
@@ -454,7 +454,7 @@ MigrationServerTask::tarBucket(MUWorkItem *pItem)
         BucketManager::getInstance()->get(m_BucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket %" PRIu64, m_BucketId);
+        ERROR_LOG("no such bucket %" PRIu64, m_BucketId);
 
         sendSimplePacket(
             m_pOwner, MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK,
@@ -473,7 +473,7 @@ MigrationServerTask::tarBucket(MUWorkItem *pItem)
 
     if (!ack.SerializeToString(&data)) {
 
-        DEBUG_LOG("protobuf serialize failed.");
+        ERROR_LOG("protobuf serialize failed.");
 
         sendSimplePacket(
             m_pOwner, MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK,
@@ -494,7 +494,7 @@ int
 MigrationServerTask::deleteBucket(const InReq &req)
 {
     if (MSG_CS_MU_DELETE_BUCKET != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command 0x%x",
+        ERROR_LOG("unexpected protocol command 0x%x",
                   req.m_msgHeader.cmd);
         return -1;
     }
@@ -532,7 +532,7 @@ MigrationServerTask::deleteBucket(MUWorkItem *pItem)
     Bucket *pBucket = BucketManager::getInstance()->get(m_BucketId);
 
     if (NULL == pBucket) {
-        DEBUG_LOG("no such bucket %" PRIu64, m_BucketId);
+        ERROR_LOG("no such bucket %" PRIu64, m_BucketId);
         return 0;
     }
 

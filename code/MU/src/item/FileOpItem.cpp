@@ -75,7 +75,7 @@ FileOpItem::process()
         pUser = UserManager::getInstance()->get(m_UserId);
 
         if (NULL == pUser) {
-            DEBUG_LOG("pUser == NULL");
+            ERROR_LOG("pUser == NULL");
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             return 0;
         }
@@ -135,7 +135,7 @@ FileOpItem::process()
         }
 
     default: {
-            DEBUG_LOG("unknown work type %d.", m_WorkType);
+            ERROR_LOG("unknown work type %d.", m_WorkType);
             m_ReturnStatus = ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             break;
         }
@@ -174,7 +174,7 @@ FileOpItem::putDir()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, put dir failed", path.c_str());
+        ERROR_LOG("path %s, put dir failed", path.c_str());
     }
 }
 
@@ -197,7 +197,7 @@ FileOpItem::delDir()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, delete directory failed", path.c_str());
+        ERROR_LOG("path %s, delete directory failed", path.c_str());
         return ;
     }
 
@@ -210,7 +210,7 @@ FileOpItem::delDir()
     m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, readUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
@@ -225,7 +225,7 @@ FileOpItem::delDir()
     m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, writeUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
 
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
@@ -252,7 +252,7 @@ FileOpItem::getDir()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, get dir failed", path.c_str());
+        ERROR_LOG("path %s, get dir failed", path.c_str());
     }
 }
 
@@ -273,7 +273,7 @@ FileOpItem::statDir()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, stat dir failed", path.c_str());
+        ERROR_LOG("path %s, stat dir failed", path.c_str());
     }
 }
 
@@ -294,7 +294,7 @@ FileOpItem::getDir2()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, getdir2 failed", path.c_str());
+        ERROR_LOG("path %s, getdir2 failed", path.c_str());
     }
 }
 
@@ -317,7 +317,7 @@ FileOpItem::movDir()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("src path %s, dest path %s, mov dir failed",
+        ERROR_LOG("src path %s, dest path %s, mov dir failed",
                   srcPath.c_str(), destPath.c_str());
     }
 }
@@ -348,7 +348,7 @@ FileOpItem::putFile()
 	INFO_LOG("put file3, path %s", path.c_str());
 	
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, put file failed", path.c_str());
+        ERROR_LOG("path %s, put file failed", path.c_str());
         return ;
     }
 
@@ -365,7 +365,7 @@ FileOpItem::putFile()
     INFO_LOG("put file5, path %s", path.c_str());
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, readUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
@@ -389,7 +389,7 @@ FileOpItem::putFile()
     INFO_LOG("put file7, path %s", path.c_str());
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, writeUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
 
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
@@ -418,7 +418,7 @@ FileOpItem::delFile()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, delete file failed", path.c_str());
+        ERROR_LOG("path %s, delete file failed", path.c_str());
         return ;
     }
 
@@ -431,7 +431,7 @@ FileOpItem::delFile()
     m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, readUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
@@ -446,7 +446,7 @@ FileOpItem::delFile()
     m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, writeUserInfo() failed", path.c_str());
+        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
 
         // ignore this error
         m_ReturnStatus = ReturnStatus(MU_SUCCESS);
@@ -473,7 +473,7 @@ FileOpItem::getFile()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("path %s, get file failed", path.c_str());
+        ERROR_LOG("path %s, get file failed", path.c_str());
     }
 
 }
@@ -497,7 +497,7 @@ FileOpItem::movFile()
     pMetaDAO = NULL;
 
     if (!m_ReturnStatus.success()) {
-        DEBUG_LOG("src path %s, dest path %s, mov file failed",
+        ERROR_LOG("src path %s, dest path %s, mov file failed",
                   srcPath.c_str(), destPath.c_str());
     }
 }
@@ -519,12 +519,14 @@ FileOpItem::delay()
 ReturnStatus
 FileOpItem::userExists()
 {
+	cout <<"FileOpItem::userExists()"<<endl;
 	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
 	NameSpace *DataNS = pDataChannel->m_DataNS;
 	
     int rt = 0;
 
     std::string userRootPath = userRoot();
+    cout <<"userRootPath="<<userRootPath<<endl;
 
 	FileAttr st;
     rt = DataNS->Stat(userRootPath.c_str(), &st);
@@ -532,10 +534,11 @@ FileOpItem::userExists()
     if (0 == rt) {
 
         if (st.m_Type == MU_DIRECTORY) {
+        	cout <<"	user exists!!!!!"<<endl;
             return ReturnStatus(MU_SUCCESS);
 
         } else {
-            DEBUG_LOG("invalid user root directory, "
+            ERROR_LOG("invalid user root directory, "
                       "bucket id %llu, user id %llu",
                       m_BucketId, m_UserId);
             return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -543,11 +546,11 @@ FileOpItem::userExists()
     }
 
     if (ENOENT == errno || ENOTDIR == errno) {
-        DEBUG_LOG("no such user, user id %llu", m_UserId);
+        ERROR_LOG("no such user, user id %llu", m_UserId);
         return ReturnStatus(MU_FAILED, MU_LOCATE_ERROR);
 
     } else {
-        DEBUG_LOG("path %s, stat() error, %s.",
+        ERROR_LOG("path %s, stat() error, %s.",
                   userRootPath.c_str(), strerror(errno));
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);

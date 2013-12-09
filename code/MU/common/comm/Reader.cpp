@@ -30,7 +30,7 @@ Reader::doRead(char *pBuf, size_t len)
     if (rt < 0) {
         ERROR_LOG("In Reader::doRead, Reader::doReadInternal error");
     } else if (0 == rt) {
-        DEBUG_LOG("In Reader::doRead, EOF encountered");
+        ERROR_LOG("In Reader::doRead, EOF encountered");
     }
 
     return rt;

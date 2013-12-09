@@ -25,7 +25,7 @@ UserManager::~UserManager()
     rt = ::pthread_rwlock_wrlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
     }
 
     for (std::map<uint64_t, User *>::iterator it = m_UserMap.begin();
@@ -37,13 +37,13 @@ UserManager::~UserManager()
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
     }
 
     rt = ::pthread_rwlock_destroy(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_destroy() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_destroy() error, %s", strerror(rt));
     }
 }
 
@@ -54,7 +54,7 @@ UserManager::UserManager()
     rt = ::pthread_rwlock_init(&m_MapRWLock, NULL);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_init() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_init() error, %s", strerror(rt));
     }
 }
 
@@ -68,7 +68,7 @@ UserManager::getAllUsers(std::list<User *> *pUserList)
     rt = ::pthread_rwlock_rdlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
         return ;
     }
 
@@ -80,7 +80,7 @@ UserManager::getAllUsers(std::list<User *> *pUserList)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
     }
 }
 
@@ -95,7 +95,7 @@ UserManager::getAllUsers(std::list<uint64_t> *pUserList)
     rt = ::pthread_rwlock_rdlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
         return ;
     }
 
@@ -107,7 +107,7 @@ UserManager::getAllUsers(std::list<uint64_t> *pUserList)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
     }
 }
 
@@ -119,7 +119,7 @@ UserManager::put(uint64_t userId, User *pUser)
     rt = ::pthread_rwlock_wrlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
         return false;
     }
 
@@ -130,7 +130,7 @@ UserManager::put(uint64_t userId, User *pUser)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
         // ignore this error
     }
 
@@ -145,7 +145,7 @@ UserManager::get(uint64_t userId)
     rt = ::pthread_rwlock_rdlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_rdlock() error, %s", strerror(rt));
         return NULL;
     }
 
@@ -159,7 +159,7 @@ UserManager::get(uint64_t userId)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
     }
 
     if (m_UserMap.end() != it) {
@@ -171,7 +171,7 @@ UserManager::get(uint64_t userId)
     rt = ::pthread_rwlock_wrlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
         return NULL;
     }
 
@@ -186,7 +186,7 @@ UserManager::get(uint64_t userId)
         rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
         if (0 != rt) {
-            DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+            ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
         }
 
         return it->second;
@@ -205,11 +205,11 @@ UserManager::get(uint64_t userId)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
     }
 
     if (!rc.second) {
-        DEBUG_LOG("insert new user %" PRIu64 " into map failed",
+        ERROR_LOG("insert new user %" PRIu64 " into map failed",
                   userId);
 
         pUser->m_Mutex.unlock();
@@ -237,7 +237,7 @@ UserManager::remove(uint64_t userId)
     rt = ::pthread_rwlock_wrlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
         return ;
     }
 
@@ -246,7 +246,7 @@ UserManager::remove(uint64_t userId)
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
         // ignore this error
     }
 }
@@ -260,7 +260,7 @@ UserManager::checkIdleUsers()
     rt = ::pthread_rwlock_wrlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_wrlock() error, %s", strerror(rt));
         return ;
     }
 
@@ -287,7 +287,7 @@ UserManager::checkIdleUsers()
     rt = ::pthread_rwlock_unlock(&m_MapRWLock);
 
     if (0 != rt) {
-        DEBUG_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
+        ERROR_LOG("pthread_rwlock_unlock() error, %s", strerror(rt));
         // ignore this error
     }
 }

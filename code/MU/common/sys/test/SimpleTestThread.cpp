@@ -28,7 +28,7 @@ class ThreadA : public Thread {
     public:
         void run() {
             for (; ; ) {
-                DEBUG_LOG("I am Thread A.");
+                ERROR_LOG("I am Thread A.");
                 Thread::sleep(Time::seconds(1));
             }
         }
@@ -38,7 +38,7 @@ class ThreadB : public Thread {
     public:
         void run() {
             for (; ; ) {
-                DEBUG_LOG("I am Thread B.");
+                ERROR_LOG("I am Thread B.");
                 Thread::sleep(Time::seconds(1));
                 //Thread::sleep(Time::microSeconds(random()));
             }

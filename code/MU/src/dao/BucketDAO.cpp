@@ -72,7 +72,7 @@ BucketDAO::rmdirRecursive(const std::string &path)
     if (NULL == pDir) {
         error = errno;
 
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   path.c_str(), strerror(errno));
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -108,7 +108,7 @@ BucketDAO::rmdirRecursive(const std::string &path)
             rt = ::unlink(npath.c_str());
 
             if (-1 == rt) {
-                DEBUG_LOG("path %s, unlink() error, %s.",
+                ERROR_LOG("path %s, unlink() error, %s.",
                           npath.c_str(), strerror(errno));
                 return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
             }
@@ -116,7 +116,7 @@ BucketDAO::rmdirRecursive(const std::string &path)
 
         //rt = ::stat(npath.c_str(), &st);
         //if (-1 == rt) {
-        //DEBUG_LOG("stat() error, path %s, %s",
+        //ERROR_LOG("stat() error, path %s, %s",
         //npath.c_str(), strerror(errno));
         //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         //}
@@ -130,7 +130,7 @@ BucketDAO::rmdirRecursive(const std::string &path)
         //rt = ::unlink(npath.c_str());
 
         //if (-1 == rt) {
-        //DEBUG_LOG("path %s, unlink() error, %s.",
+        //ERROR_LOG("path %s, unlink() error, %s.",
         //npath.c_str(), strerror(errno));
         //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
         //}
@@ -144,7 +144,7 @@ BucketDAO::rmdirRecursive(const std::string &path)
     rt = ::rmdir(path.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("path %s, rmdir() error, %s.",
+        ERROR_LOG("path %s, rmdir() error, %s.",
                   path.c_str(), strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
@@ -182,7 +182,7 @@ BucketDAO::createMigrationTmpFile(uint64_t bucketId, int *pFd)
                 S_IRUSR | S_IWUSR);
 
     if (false == fd.valid) {
-        DEBUG_LOG("open() error, %s.", strerror(errno));
+        ERROR_LOG("open() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -211,7 +211,7 @@ BucketDAO::openMigrationTmpFile(uint64_t bucketId, int *pFd)
     fd = InfoNS->Open(tmpFileName.c_str(), O_RDONLY);
 
     if (false == fd.valid) {
-        DEBUG_LOG("open() error, %s.", strerror(errno));
+        ERROR_LOG("open() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -236,7 +236,7 @@ BucketDAO::deleteMigrationTmpFile(uint64_t bucketId)
     rt = InfoNS->Unlink(tmpFileName.c_str());
 
     if (rt < 0) {
-        DEBUG_LOG("unlink() error, %s.", strerror(errno));
+        ERROR_LOG("unlink() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -251,7 +251,7 @@ BucketDAO::writeMigrationTmpFile(int fd, const std::string &data)
     rt = util::io::writen(fd, data.c_str(), data.length());
 
     if (data.length() != rt) {
-        DEBUG_LOG("writen() error, %s.", strerror(errno));
+        ERROR_LOG("writen() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -268,7 +268,7 @@ BucketDAO::readMigrationTmpFile(int fd, std::string *pData)
     rt = util::io::readn(fd, pBuf, MIGRATION_DATA_PIECE_SIZE);
 
     if (-1 == rt) {
-        DEBUG_LOG("readn() error, %s.", strerror(errno));
+        ERROR_LOG("readn() error, %s.", strerror(errno));
 
         delete [] pBuf;
         pBuf = NULL;
@@ -315,7 +315,7 @@ BucketDAO::extractMigrationTmpFile(uint64_t bucketId)
     //rt = ::system(command.c_str());
 
     //if (-1 == rt) {
-    //DEBUG_LOG("system() error, %s.", strerror(errno));
+    //ERROR_LOG("system() error, %s.", strerror(errno));
     //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     //}
 
@@ -358,7 +358,7 @@ BucketDAO::tarMigrationTmpFile(uint64_t bucketId)
     //rt = ::system(command.c_str());
 
     //if (-1 == rt) {
-    //DEBUG_LOG("system() error, %s.", strerror(errno));
+    //ERROR_LOG("system() error, %s.", strerror(errno));
     //return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     //}
 
@@ -394,7 +394,7 @@ BucketDAO::getAllUsersInBucket(uint64_t bucketId,
     DIR *pDir = ::opendir(bucketRoot.c_str());
 
     if (NULL == pDir) {
-        DEBUG_LOG("path %s, opendir() error, %s.",
+        ERROR_LOG("path %s, opendir() error, %s.",
                   bucketRoot.c_str(), strerror(errno));
 
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
@@ -488,7 +488,7 @@ BucketDAO::moveUser(
     rt = ::rename(srcPath.c_str(), destPath.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("reanem() error, %s.", strerror(errno));
+        ERROR_LOG("reanem() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -506,7 +506,7 @@ BucketDAO::linkLogFile(uint64_t srcBucket, uint64_t destBucket)
     rt = ::link(srcLog.c_str(), destLog.c_str());
 
     if (-1 == rt) {
-        DEBUG_LOG("link() error, %s.", strerror(errno));
+        ERROR_LOG("link() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 

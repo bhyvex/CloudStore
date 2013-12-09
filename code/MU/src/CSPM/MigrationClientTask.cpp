@@ -39,19 +39,19 @@ MigrationClientTask::~MigrationClientTask()
     }
 
     if (NULL != m_pAgent) {
-        DEBUG_LOG("m_pAgent != NULL");
+        ERROR_LOG("m_pAgent != NULL");
         recycle(m_pAgent);
         m_pAgent = NULL;
     }
 
     if (NULL != m_pItem) {
-        DEBUG_LOG("m_pItem != NULL");
+        ERROR_LOG("m_pItem != NULL");
         delete m_pItem;
         m_pItem = NULL;
     }
 
     if (NULL != m_pStartBucketTask) {
-        DEBUG_LOG("m_pStartBucketTask != NULL");
+        ERROR_LOG("m_pStartBucketTask != NULL");
         recycle(m_pStartBucketTask);
         m_pStartBucketTask = NULL;
     }
@@ -72,7 +72,7 @@ MigrationClientTask::MigrationClientTask(MUTask *pParent) :
 int
 MigrationClientTask::start()
 {
-    DEBUG_LOG("try to migrate bucket %" PRIu64 " to myself", m_BucketId);
+    ERROR_LOG("try to migrate bucket %" PRIu64 " to myself", m_BucketId);
 
     int rt = 0;
 
@@ -93,7 +93,7 @@ MigrationClientTask::start()
     rt = m_pAgent->init();
 
     if (-1 == rt) {
-        DEBUG_LOG("init MUTCPAgent failed");
+        ERROR_LOG("init MUTCPAgent failed");
 
         recycle(m_pAgent);
         m_pAgent = NULL;
@@ -104,7 +104,7 @@ MigrationClientTask::start()
     rt = m_pAgent->connect(muAddr);
 
     if (-1 == rt) {
-        DEBUG_LOG("connect to src mu failed");
+        ERROR_LOG("connect to src mu failed");
 
         recycle(m_pAgent);
         m_pAgent = NULL;
@@ -202,7 +202,7 @@ MigrationClientTask::next(MUTCPAgent *pAgent, const InReq &req)
 
     default: {
             // never going here
-            DEBUG_LOG("unexpected state %" PRIi32, m_CurrentState);
+            ERROR_LOG("unexpected state %" PRIi32, m_CurrentState);
 
             assert(0);
             recycle();
@@ -231,7 +231,7 @@ MigrationClientTask::next(MUWorkItem *pItem)
 
     } else {
         // never going here
-        DEBUG_LOG("unexpected item type %d", pItem->getItemType());
+        ERROR_LOG("unexpected item type %d", pItem->getItemType());
         assert(0);
 
         delete pItem;
@@ -254,7 +254,7 @@ MigrationClientTask::handshake()
     std::string data;
 
     if (!handshake.SerializeToString(&data)) {
-        DEBUG_LOG("protobuf serialize failed.");
+        ERROR_LOG("protobuf serialize failed.");
         return -1;
     }
 
@@ -282,7 +282,7 @@ MigrationClientTask::connectCallback(MUTCPAgent *pAgent, bool bConn)
         }
 
     default: {
-            DEBUG_LOG("unexpected state %d.", m_CurrentState);
+            ERROR_LOG("unexpected state %d.", m_CurrentState);
             assert(0);
 
             return -1;
@@ -298,12 +298,12 @@ int
 MigrationClientTask::handshake(MUTCPAgent *pAgent, const InReq &req)
 {
     if (MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
+        ERROR_LOG("unexpected protocol command %d.", req.m_msgHeader.cmd);
         return -1;
     }
 
     if (MU_OK != req.m_msgHeader.error) {
-        DEBUG_LOG("migration handshake error");
+        ERROR_LOG("migration handshake error");
         return -1;
     }
 
@@ -311,7 +311,7 @@ MigrationClientTask::handshake(MUTCPAgent *pAgent, const InReq &req)
     cstore::pb_MSG_MU_MU_MIGRATE_BUCKET_HANDSHAKE_ACK ack;
 
     if (!ack.ParseFromString(data)) {
-        DEBUG_LOG("protobuf parse error.");
+        ERROR_LOG("protobuf parse error.");
         return -1;
     }
 
@@ -334,12 +334,12 @@ int
 MigrationClientTask::migrate(MUTCPAgent *pAgent, const InReq &req)
 {
     if (MSG_MU_MU_MIGRATE_BUCKET_DATA_ACK != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command 0x%x.", req.m_msgHeader.cmd);
+        ERROR_LOG("unexpected protocol command 0x%x.", req.m_msgHeader.cmd);
         return -1;
     }
 
     if (MU_OK != req.m_msgHeader.error) {
-        DEBUG_LOG("receive data from dest mu failed");
+        ERROR_LOG("receive data from dest mu failed");
     }
 
     if (MU_MORE_DATA == req.m_msgHeader.para1) {
@@ -392,7 +392,7 @@ MigrationClientTask::dispatchMigrationClientItem(MUWorkItem *pItem)
         }
 
     default: {
-            DEBUG_LOG("unexpected work type %" PRIi32,
+            ERROR_LOG("unexpected work type %" PRIi32,
                       m_pItem->getWorkType());
 
             assert(0);
@@ -459,7 +459,7 @@ MigrationClientTask::deleteBucket()
     std::string data;
 
     if (!delBucket.SerializeToString(&data)) {
-        DEBUG_LOG("protobuf serialize failed");
+        ERROR_LOG("protobuf serialize failed");
         return -1;
     }
 
@@ -475,7 +475,7 @@ int
 MigrationClientTask::deleteBucket(const InReq &req)
 {
     if (MSG_CS_MU_DELETE_BUCKET_ACK != req.m_msgHeader.cmd) {
-        DEBUG_LOG("unexpected protocol command 0x%x", req.m_msgHeader.cmd);
+        ERROR_LOG("unexpected protocol command 0x%x", req.m_msgHeader.cmd);
         return -1;
     }
 
