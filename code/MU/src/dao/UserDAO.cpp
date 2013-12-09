@@ -76,17 +76,17 @@ UserDAO::createUser(uint64_t bucketId,
 	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
 	rt = DataNS->MkDir(userRoot.c_str(), S_IRWXU);
-    if (-1 == rt) {
-        error = errno;
-        DEBUG_LOG("path %s, mkdir() error, %s.",
-                  userRoot.c_str(), strerror(errno));
+    //if (-1 == rt) {
+    //    error = errno;
+    //    DEBUG_LOG("path %s, mkdir() error, %s.",
+    //              userRoot.c_str(), strerror(errno));
 
-        if (EEXIST == error) {
-            return ReturnStatus(MU_FAILED, USER_EXIST);
-        }
+    //    if (EEXIST == error) {
+    //        return ReturnStatus(MU_FAILED, USER_EXIST);
+    //    }
 
-        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-    }
+    //    return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    //}
 
     rt = InfoNS->MkDir(userRoot.c_str(), S_IRWXU);
     if (-1 == rt) {

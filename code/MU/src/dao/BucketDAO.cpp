@@ -456,8 +456,10 @@ ReturnStatus
 BucketDAO::createBucketIfNotExist(uint64_t bucketId)
 {
 	cout <<"BucketDAO::createBucketIfNotExist(uint64_t bucketId)"<<endl;
-	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
-	NameSpace *DataNS = pDataChannel->m_DataNS;
+	//Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
+	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
+	//NameSpace *DataNS = pDataChannel->m_DataNS;
+	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 
 	
     std::string bucketRoot = bucketRootPath(bucketId);
@@ -465,8 +467,8 @@ BucketDAO::createBucketIfNotExist(uint64_t bucketId)
     int rt = 0;
 
 	FileAttr st;
-    rt = DataNS->Stat(bucketRoot.c_str(), &st);
-	cout <<" rt =DataNS->Stat ="<<rt<<endl;
+    rt = InfoNS->Stat(bucketRoot.c_str(), &st);
+	cout <<" rt =InfoNS->Stat ="<<rt<<endl;
     if (-1 == rt) {
         return createBucket(bucketId);
     }
