@@ -12,7 +12,7 @@ using namespace std;
 class SplitPathStrategy : public BuildStrategy
 {
 public:
-	SplitPathStrategy();
+	SplitPathStrategy(string path);
 	~SplitPathStrategy();
 
 	uint64_t m_Fid;//gcc atomic sync

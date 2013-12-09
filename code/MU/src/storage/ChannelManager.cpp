@@ -28,7 +28,21 @@ bool ChannelManager::createChannel(int ChannelID, string RootPath)
 
 	if(ChannelID > m_ChannelVec.size()){
 		return false;
-	}else{
+
+	//Data Channel
+	}else if (ChannelID != MUConfiguration::getInstance()->m_MainChannelID){
+		pChannel = new Channel();
+		pChannel->setID(ChannelID);
+		pChannel->setRoot(RootPath);
+		pChannel->setDataNS(KV);
+		pChannel->setSizeInMB();
+		
+		m_ChannelVec[ChannelID] = pChannel;
+		//m_ChannelVec.shrink_to_fit(); //need C++11
+		return true;
+
+	//Main Chennel
+	}else if (ChannelID == MUConfiguration::getInstance()->m_MainChannelID){
 		pChannel = new Channel();
 		pChannel->setID(ChannelID);
 		pChannel->setRoot(RootPath);

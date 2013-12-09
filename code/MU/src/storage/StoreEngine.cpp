@@ -1,7 +1,8 @@
 #include "StoreEngine.h"
 
 
-StoreEngine::StoreEngine()
+StoreEngine::StoreEngine(string path):
+	m_DbPath(path)
 {
 }
 

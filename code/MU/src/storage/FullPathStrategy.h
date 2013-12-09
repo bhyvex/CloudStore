@@ -6,7 +6,7 @@
 class FullPathStrategy : public BuildStrategy
 {
 public:
-	FullPathStrategy();
+	FullPathStrategy(string path);
 	~FullPathStrategy();
 };
 

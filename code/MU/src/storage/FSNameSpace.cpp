@@ -9,7 +9,8 @@
 
 
 
-FSNameSpace::FSNameSpace()
+FSNameSpace::FSNameSpace(string path):
+	NameSpace(path)
 {
 }
 

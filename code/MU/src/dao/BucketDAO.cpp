@@ -425,6 +425,7 @@ BucketDAO::getAllUsersInBucket(uint64_t bucketId,
 ReturnStatus
 BucketDAO::createBucket(uint64_t bucketId)
 {
+	cout <<"BucketDAO::createBucket()"<<endl;
 	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
 	NameSpace *DataNS = pDataChannel->m_DataNS;
 	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
@@ -436,15 +437,15 @@ BucketDAO::createBucket(uint64_t bucketId)
     std::string bucketRoot = bucketRootPath(bucketId);
     
     rt = DataNS->MkDir(bucketRoot.c_str(), S_IRWXU);
-    if (-1 == rt) {
-        DEBUG_LOG("mkdir() error, %s.", strerror(errno));
-        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
-    }
+    //if (-1 == rt) {
+    //    ERROR_LOG("mkdir() error, %s.", strerror(errno));
+    //    return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    //}
 
 	//bucket log path
     rt = InfoNS->MkDir(bucketRoot.c_str(), S_IRWXU);
     if (-1 == rt) {
-        DEBUG_LOG("mkdir() error, %s.", strerror(errno));
+        ERROR_LOG("mkdir() error, %s.", strerror(errno));
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
 
@@ -454,6 +455,7 @@ BucketDAO::createBucket(uint64_t bucketId)
 ReturnStatus
 BucketDAO::createBucketIfNotExist(uint64_t bucketId)
 {
+	cout <<"BucketDAO::createBucketIfNotExist(uint64_t bucketId)"<<endl;
 	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketId);
 	NameSpace *DataNS = pDataChannel->m_DataNS;
 
@@ -464,7 +466,7 @@ BucketDAO::createBucketIfNotExist(uint64_t bucketId)
 
 	FileAttr st;
     rt = DataNS->Stat(bucketRoot.c_str(), &st);
-
+	cout <<" rt =DataNS->Stat ="<<rt<<endl;
     if (-1 == rt) {
         return createBucket(bucketId);
     }

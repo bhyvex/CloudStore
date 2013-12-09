@@ -7,9 +7,10 @@
 
 #define ROOT_FILEID "0"
 
-SplitPathStrategy::SplitPathStrategy()
+SplitPathStrategy::SplitPathStrategy(string path):
+	BuildStrategy(path)
 {
-	m_StoreEngine = new LevelDBEngine();
+	m_StoreEngine = new LevelDBEngine(m_Root);
 }
 
 SplitPathStrategy::~SplitPathStrategy()
@@ -22,6 +23,8 @@ SplitPathStrategy::~SplitPathStrategy()
   */
 int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 {
+	cout <<"SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)"<<endl;
+	cout <<"	pathname="<<pathname<<endl;
 	bool ret = false;
 	size_t pos;
 
@@ -50,6 +53,7 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 
 	string p_fid;
 	ret = FindEntryID(ParentDir, userID, p_fid);
+	cout <<"	ret = FindEntryID(ParentDir, userID, p_fid)="<<ret<<endl;
 	if(ret == false){
 		return -1;
 	}
@@ -67,7 +71,9 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 
 	/* insert to db */
 	ret = m_StoreEngine->Put(key, value);
+	cout <<"	ret = m_StoreEngine->Put(key, value)="<<ret<<endl;
 	if(ret == false){
+		return -1;
 	}
 
 	return 0;
@@ -105,7 +111,9 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 
 	string p_fid;
 	ret = FindEntryID(ParentDir, userID, p_fid);
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 1="<<ret<<endl;
 	if(ret == false){
+		*n = -1;
 		return -1;
 	}
 	
@@ -120,7 +128,10 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	/* get from db */
 	string value;
 	ret = m_StoreEngine->Get(key, value);
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 2="<<ret<<endl;
 	if(ret == false){
+		*n = -1;
+		return -1;
 	}
 
 	memcpy(buf, value.c_str(), value.size());
@@ -174,6 +185,7 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 	/* delete from db */
 	ret = m_StoreEngine->Delete(key);
 	if(ret == false){
+		return -1;
 	}
 
 	return 0;

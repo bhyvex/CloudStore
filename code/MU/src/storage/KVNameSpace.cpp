@@ -5,31 +5,42 @@
 #include "Key.h"
 #include "KeyValuePair.h"
 
-KVNameSpace::KVNameSpace()
+KVNameSpace::KVNameSpace(string path):
+	NameSpace(path)
 {
-	m_BuildStrategy = new SplitPathStrategy();
+	m_BuildStrategy = new SplitPathStrategy(path);
 }
 
 KVNameSpace::~KVNameSpace()
 {
 }
 
-//file
+//file open
 Args KVNameSpace::Open(const char *pathname, int flags)
 {
 	Args args;
 	args.valid = false;
+	
+	if(pathname == NULL){
+		cout <<"KVNameSpace::Open() pathname is NULL"<<endl;
+		return args;
+	}
 	
 	args.arg3 = string(pathname);
 	args.valid = true;
 	return args;
 
 }
-
+//file create
 Args KVNameSpace::Open(const char *pathname, int flags, mode_t mode)
 {
 	Args args;
 	args.valid = false;
+
+	if(pathname == NULL){
+		cout <<"KVNameSpace::Open() pathname is NULL"<<endl;
+		return args;
+	}
 	
 	args.arg3 = string(pathname);
 	args.valid = true;
@@ -38,6 +49,11 @@ Args KVNameSpace::Open(const char *pathname, int flags, mode_t mode)
 
 int KVNameSpace::Close(Args *args)
 {
+	if(args == NULL){
+		cout <<"KVNameSpace::Close() args is NULL"<<endl;
+		return -1;
+	}
+	
 	args->valid = true;
 	return 0;
 }
@@ -46,7 +62,19 @@ int KVNameSpace::Read(Args *args, void *buf, size_t count)
 {
 	int ret;
 	args->valid = false;
+
+	if(args == NULL){
+		cout <<"KVNameSpace::Read() args is NULL"<<endl;
+		return -1;
+	}
+
+	if(buf == NULL){
+		cout <<"KVNameSpace::Read() buf is NULL"<<endl;
+		return -1;
+	}
+	
 	m_BuildStrategy->GetEntry(args->arg3, (char *)buf, &ret);
+	cout <<"KVNameSpace::Read(Args *args, void *buf, size_t count) count="<<ret<<endl;
 	args->valid = true;
 	return ret;
 }
@@ -55,6 +83,17 @@ int KVNameSpace::Write(Args *args, const void *buf, size_t count)
 {
 	int ret;
 	args->valid = false;
+
+	if(args == NULL){
+		cout <<"KVNameSpace::Write() args is NULL"<<endl;
+		return -1;
+	}
+
+	if(buf == NULL){
+		cout <<"KVNameSpace::Write() buf is NULL"<<endl;
+		return -1;
+	}
+	
 	m_BuildStrategy->PutEntry(args->arg3, (char *)buf, count);
 	args->valid = true;
 	

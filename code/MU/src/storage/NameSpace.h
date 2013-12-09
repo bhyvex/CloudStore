@@ -37,7 +37,7 @@ enum NameSpaceType
 class NameSpace 
 {
 public:
-	NameSpace();
+	NameSpace(string path);
 	~NameSpace();
 
 	/*

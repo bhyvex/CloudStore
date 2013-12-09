@@ -1,7 +1,8 @@
 #include "NameSpace.h"
 
 
-NameSpace::NameSpace()
+NameSpace::NameSpace(string path):
+	m_Root(path)
 {
 }
 

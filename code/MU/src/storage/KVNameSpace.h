@@ -9,7 +9,7 @@ class BuildStrategy;
 class KVNameSpace : public NameSpace
 {
 public:
-	KVNameSpace();
+	KVNameSpace(string path);
 	~KVNameSpace();
 	
 

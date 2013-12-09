@@ -1,7 +1,8 @@
 #include "FullPathStrategy.h"
 
 
-FullPathStrategy::FullPathStrategy()
+FullPathStrategy::FullPathStrategy(string path):
+	BuildStrategy(path)
 {
 }
 

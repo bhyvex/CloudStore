@@ -13,8 +13,10 @@ class StoreEngine;
 class BuildStrategy
 {
 public:
-	BuildStrategy();
+	BuildStrategy(string path);
 	~BuildStrategy();
+
+	bool setRoot(string pathname);
 
 	virtual int PutEntry(string pathname, const char* buf, int n) = 0;
 	virtual int GetEntry(string pathname, char *buf, int *n) = 0;
@@ -24,6 +26,7 @@ public:
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv) = 0;
 
 	StoreEngine *m_StoreEngine;
+	string m_Root;
 };
 
 

@@ -39,11 +39,11 @@ bool Channel::setDataNS(enum NameSpaceType NST)
 {
 	switch(NST){
 		case FS:
-			m_DataNS = new FSNameSpace();
+			m_DataNS = new FSNameSpace(m_Root);
 			m_DataNS->setRoot(m_Root);
 			break;
 		case KV:
-			m_DataNS = new KVNameSpace();
+			m_DataNS = new KVNameSpace(m_Root);
 			m_DataNS->setRoot(m_Root);
 			break;
 	}

@@ -13,7 +13,7 @@ using namespace std;
 class FSNameSpace : public NameSpace
 {
 public:
-	FSNameSpace();
+	FSNameSpace(string path);
 	~FSNameSpace();
 
 

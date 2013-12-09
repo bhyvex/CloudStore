@@ -2,9 +2,15 @@
 #include "KeyValuePair.h"
 
 
-LevelDBEngine::LevelDBEngine():
+LevelDBEngine::LevelDBEngine(string path):
+	StoreEngine(path),
 	m_Db(NULL)
 {
+
+	string dbpath = m_DbPath + "/" + DBNAME;
+	cout <<"create dbpath="<<dbpath<<endl;
+	bool ret = Open(dbpath);
+
 }
 
 

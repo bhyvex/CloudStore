@@ -24,7 +24,7 @@ struct KeyValuePair;
 class StoreEngine
 {
 public:
-	StoreEngine();
+	StoreEngine(string path);
 	~StoreEngine();
 
 	virtual bool Open(string dbPath) = 0;

@@ -3,6 +3,8 @@
 
 #include "StoreEngine.h"
 
+#define DBNAME "data.db"
+
 
 class LevelDBComparator : public leveldb::Comparator 
 {
@@ -30,7 +32,7 @@ struct KeyValuePair;
 class LevelDBEngine : public StoreEngine
 {
 public:
-	LevelDBEngine();
+	LevelDBEngine(string path);
 	~LevelDBEngine();
 	
 	virtual bool Open(string dbPath);
