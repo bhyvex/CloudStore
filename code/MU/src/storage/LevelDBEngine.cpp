@@ -1,4 +1,5 @@
 #include "LevelDBEngine.h"
+#include "KeyValuePair.h"
 
 
 LevelDBEngine::LevelDBEngine():
@@ -66,6 +67,7 @@ bool LevelDBEngine::Delete(string key)
 
 }
 
+/*
 bool LevelDBEngine::Range(string start, string limit)//range [start,limit)
 {
 	leveldb::Iterator* it = m_Db->NewIterator(leveldb::ReadOptions());
@@ -78,5 +80,42 @@ bool LevelDBEngine::Range(string start, string limit)//range [start,limit)
 	return true;
 
 }
+*/
+
+RangeStruct LevelDBEngine::RangeOpen(string start, string limit)
+{
+	leveldb::Iterator* it = m_Db->NewIterator(leveldb::ReadOptions());
+	it->Seek(start);
+	
+
+	RangeStruct rs;
+	rs.start = start;
+	rs.start = limit;
+	rs.iterator = it;
+
+	return rs;
+}
+
+bool LevelDBEngine::Next(RangeStruct *rs, KeyValuePair *kv)
+{
+	leveldb::Iterator* it = (leveldb::Iterator*)(rs->iterator);
+
+	if(it->Valid() && it->key().ToString() < rs->limit){
+		kv->key = it->key().ToString();
+		kv->value = it->value().ToString();
+	}else{
+		delete it;
+		return false;
+	}
+
+	it->Next();
+
+	rs->iterator = it;
+
+	return true;
+}
+
+
+
 
 

@@ -1,10 +1,24 @@
 #include <iostream>
 #include <string.h>
+
+#include <sstream>
+
 using namespace std;
 
 #define PATH_SEPARATOR_STRING "/"
 #define USER_NAME_PREFIX "user"
 #define KEY_SEPARATOR "/"
+
+
+template <typename D, typename S>
+D conv(const S &s) {
+    std::stringstream ss;
+    ss << s;
+    D d;
+    ss >> d;
+    return d;
+}
+
 
 
 int main(int argc, char **argv)
@@ -113,6 +127,17 @@ int main(int argc, char **argv)
 	dir = postfix;
 	key = userID + PATH_SEPARATOR_STRING + pid +PATH_SEPARATOR_STRING +dir;
 	cout <<"key="<<key<<endl;
+
+	cout <<"--------------------------"<<endl;
+
+	int bucketId = 15;
+	string buckeyId_str = conv<std::string, uint64_t>(bucketId);
+	cout <<"old bucketid = "<<buckeyId_str<<endl;
+
+	int newId = conv<uint64_t, std::string>(buckeyId_str);
+	newId++;
+	string newId_str = conv<std::string, uint64_t>(newId);
+	cout <<"new bucketid = "<<newId_str<<endl;
 	
 
 }

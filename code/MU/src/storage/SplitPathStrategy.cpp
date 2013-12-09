@@ -3,6 +3,7 @@
 #include "Key.h"
 #include "Value.h"
 #include "LevelDBEngine.h"
+#include "util/util.h"
 
 #define ROOT_FILEID "0"
 
@@ -72,6 +73,8 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	return 0;
 }
 
+//pathname = "bucket10/user2/hehe"
+//pathname = "bucket10/user2/hehe/a.txt"
 int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 {
 	bool ret = false;
@@ -237,4 +240,52 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 	}
 	
 	
+}
+
+
+//pathname = "bucket1/user1/a"
+RangeStruct SplitPathStrategy::DirOpen(string pathname)
+{
+	size_t pos;
+	RangeStruct rs;
+	rs.start = "";
+	rs.limit = "";
+	rs.iterator = NULL;
+
+	//get bucket string
+	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);//BUCKET_NAME_PREFIX
+	string bucket = pathname.substr(0, pos);
+	pathname = pathname.substr(pos+1);//"user1/a/a.txt"
+
+	//get user string
+	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
+	string user = pathname.substr(0, pos);//"user1"
+	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
+	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
+
+	//find the fid
+	string fid;
+	bool ret = FindEntryID(pathname, userID, fid);
+	if(ret == false){
+		return rs;
+	}
+	
+
+	/* make the key */
+	MUKeyInfo keyinfo;
+	string start = userID + KEY_SEPARATOR + fid + KEY_SEPARATOR;
+	uint64_t end = util::conv::conv<uint64_t, std::string>(fid);
+	end++;
+	string limit = userID + KEY_SEPARATOR + util::conv::conv< std::string, uint64_t>(end) + KEY_SEPARATOR;
+	cout <<"start = "<<start<<endl;
+	cout <<"limit = "<<limit<<endl;
+
+
+	rs = m_StoreEngine->RangeOpen(start, limit);
+	return rs;
+}
+
+bool SplitPathStrategy::Next(RangeStruct *rs, KeyValuePair *kv)
+{
+	return m_StoreEngine->Next(rs, kv);
 }

@@ -18,6 +18,7 @@ struct Args
 {
 	void *arg1;
 	int arg2;
+	string arg3;
 	bool valid;
 };
 

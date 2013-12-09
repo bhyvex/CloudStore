@@ -2,6 +2,7 @@
 #define _KVNAMESPACE_H_
 
 #include "NameSpace.h"
+#include "iostream"
 
 class BuildStrategy;
 

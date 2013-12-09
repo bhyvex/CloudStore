@@ -78,7 +78,8 @@ LevelDBEngine.lo: ../../../src/storage/LevelDBEngine.cpp \
   /usr/include/leveldb/iterator.h /usr/include/leveldb/slice.h \
   /usr/include/assert.h /usr/include/string.h \
   /usr/include/leveldb/status.h /usr/include/leveldb/options.h \
-  /usr/include/leveldb/write_batch.h /usr/include/leveldb/comparator.h
+  /usr/include/leveldb/write_batch.h /usr/include/leveldb/comparator.h \
+  ../../../src/storage/KeyValuePair.h
 
 ../../../src/storage/LevelDBEngine.h:
 
@@ -321,3 +322,5 @@ LevelDBEngine.lo: ../../../src/storage/LevelDBEngine.cpp \
 /usr/include/leveldb/write_batch.h:
 
 /usr/include/leveldb/comparator.h:
+
+../../../src/storage/KeyValuePair.h:

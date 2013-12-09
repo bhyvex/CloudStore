@@ -18,7 +18,7 @@ FSNameSpace::~FSNameSpace()
 }
 
 
-//file
+//file open
 Args FSNameSpace::Open(const char *pathname, int flags)
 {
 	Args args;
@@ -33,6 +33,7 @@ Args FSNameSpace::Open(const char *pathname, int flags)
 
 	return args;
 }
+//file create
 Args FSNameSpace::Open(const char *pathname, int flags, mode_t mode)
 {
 	Args args;

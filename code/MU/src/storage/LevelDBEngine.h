@@ -26,6 +26,7 @@ public:
 
 
 
+struct KeyValuePair;
 class LevelDBEngine : public StoreEngine
 {
 public:
@@ -36,7 +37,8 @@ public:
 	virtual bool Put(string key, string value);
 	virtual bool Get(string key, string &value);
 	virtual bool Delete(string key);
-	virtual bool Range(string start, string limit);//range [start,limit)
+	virtual RangeStruct RangeOpen(string start, string limit);
+	virtual bool Next(RangeStruct *rs, KeyValuePair *kv);
 
 	leveldb::Options m_Options;
 	LevelDBComparator m_Cmp;

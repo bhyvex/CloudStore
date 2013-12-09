@@ -49,7 +49,11 @@ int main()
 		}
 	}
 
-	db.Range("key100", "key200");
+	RangeStruct rs = db.RangeOpen("key100", "key200");
+	while(db.Next(&rs)){
+		cout << it->key().ToString() << ": "  << it->value().ToString() << endl;
+	}
+	
 
 
 	//atomic

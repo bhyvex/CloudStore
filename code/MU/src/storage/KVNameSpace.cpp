@@ -1,6 +1,9 @@
 #include "KVNameSpace.h"
 #include "LevelDBEngine.h"
 #include "SplitPathStrategy.h"
+#include "protocol/MUMacros.h"
+#include "Key.h"
+#include "KeyValuePair.h"
 
 KVNameSpace::KVNameSpace()
 {
@@ -15,30 +18,47 @@ KVNameSpace::~KVNameSpace()
 Args KVNameSpace::Open(const char *pathname, int flags)
 {
 	Args args;
-
+	args.valid = false;
+	
+	args.arg3 = string(pathname);
+	args.valid = true;
 	return args;
 
 }
 
 Args KVNameSpace::Open(const char *pathname, int flags, mode_t mode)
 {
-	Args arg;
-	return arg;
+	Args args;
+	args.valid = false;
+	
+	args.arg3 = string(pathname);
+	args.valid = true;
+	return args;
 }
 
 int KVNameSpace::Close(Args *args)
 {
+	args->valid = true;
 	return 0;
 }
 
 int KVNameSpace::Read(Args *args, void *buf, size_t count)
 {
-	return 0;
+	int ret;
+	args->valid = false;
+	m_BuildStrategy->GetEntry(args->arg3, (char *)buf, &ret);
+	args->valid = true;
+	return ret;
 }
 
 int KVNameSpace::Write(Args *args, const void *buf, size_t count)
 {
-	return 0;
+	int ret;
+	args->valid = false;
+	m_BuildStrategy->PutEntry(args->arg3, (char *)buf, count);
+	args->valid = true;
+	
+	return ret;
 }
 
 off_t KVNameSpace::Lseek(Args *args, off_t offset, int whence)
@@ -48,34 +68,73 @@ off_t KVNameSpace::Lseek(Args *args, off_t offset, int whence)
 
 ssize_t KVNameSpace::readn(Args *args, void *vptr, size_t n)
 {
-	return 0;
+	return Read(args, vptr, n);
 }
 
 ssize_t KVNameSpace::writen(Args *args, const void *vptr, size_t n)
 {
-	return 0;
+	return Write(args, vptr, n);
 }
 
 
 //dir
 int KVNameSpace::MkDir(const char *pathname, mode_t mode)
 {
-	return 0;
+	int ret;
+	FileAttr st;
+	st.m_CTime = 0;
+	st.m_Mode = 0;
+	st.m_MTime = 0;
+	st.m_Size = 0;
+	st.m_Type = MU_DIRECTORY;
+	st.m_Version = 0;
+
+	ret = m_BuildStrategy->PutEntry(pathname, (const char*)&st, sizeof(st));
+	
+	return ret;
 }
 
 int KVNameSpace::RmDir(const char *pathname)
 {
-	return 0;
+	int ret = m_BuildStrategy->DeleteEntry(pathname);
+	return ret;
 }
 
 int KVNameSpace::OpenDir(const char *name, Args *args)
 {
+	RangeStruct rs;
+	RangeStruct *n_rs= new RangeStruct();
+	rs = m_BuildStrategy->DirOpen(name);
+	*n_rs = rs;
+	args->arg1 = n_rs;
+	args->valid = true;
+
 	return 0;
 }
 
 bool KVNameSpace::ReadDirNext(Args *Dir, Dirent *dirent_)
 {
-	return false;
+	bool ret = false;
+	RangeStruct *rs = (RangeStruct *)(Dir->arg1);
+	KeyValuePair kv;
+	
+	ret = m_BuildStrategy->Next(rs, &kv);
+
+	//key = "key=5/6/filename"
+	//value = "FileAttr";
+	size_t pos;
+	pos = kv.key.find(KEY_SEPARATOR);
+	kv.key = kv.key.substr(pos+1);
+	pos = kv.key.find(KEY_SEPARATOR);
+	kv.key = kv.key.substr(pos+1);
+
+	FileAttr fa;
+	memcpy(&fa, kv.value.data(), sizeof(fa));
+
+	dirent_->filename = kv.key;
+	dirent_->filetype = fa.m_Type;
+
+	return ret;
 }
 
 
@@ -83,29 +142,36 @@ bool KVNameSpace::ReadDirNext(Args *Dir, Dirent *dirent_)
 //common
 int KVNameSpace::Remove(const char *pathname)
 {
-	return 0;
+	int ret = m_BuildStrategy->DeleteEntry(pathname);
+	return ret;
 }
 
 int KVNameSpace::Stat(const char *path, FileAttr  *fileAttr)
 {
-	return 0;
+	Args args;
+	args.arg3 = path;
+	return Read(&args, fileAttr, sizeof(FileAttr));
 }
 
+//TODO
 int KVNameSpace::Move(const char *oldpath, const char *newpath)
 {
 	return 0;
 }
 
+//TODO
 int KVNameSpace::Link(const char *oldpath, const char *newpath)
 {
 	return 0;
 }
 
+//TODO
 int KVNameSpace::Unlink(const char *pathname)
 {
 	return 0;
 }
 
+//TODO
 int KVNameSpace::RmdirRecursive(const char *pathname)
 {
 	return 0;
