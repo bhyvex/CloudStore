@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
 
-/*
+
     signal(SIGINT, sighandler);
     signal(SIGUSR1, sighandler);
 
@@ -106,10 +106,10 @@ int main(int argc, char *argv[])
 
     return 0;
 
-*/
+
 //------------------------------------KVNameSpace test-----------------------------------------------------------
 
-
+/*
 
 	//test Channel 
 	MUConfiguration::getInstance()->m_ChannelNum = 4;
@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
 		cout << "filename:"<<dirent.filename<<"  type:"<<dirent.filetype<<endl;
 	}
 	
-	
+	*/
 
 
 	/*
