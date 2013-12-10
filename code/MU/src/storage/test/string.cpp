@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <stdlib.h>
 
 #include <sstream>
 
@@ -19,6 +20,53 @@ D conv(const S &s) {
     return d;
 }
 
+struct ddd
+{
+	int a;
+	int b;
+	char c;
+};
+int comp(string a, string b)
+{
+	string str_a = a;
+	string str_b = b;
+	size_t pos;
+	
+	pos = str_a.find(KEY_SEPARATOR); 
+	string userid_a = str_a.substr(0, pos);
+	str_a = str_a.substr(pos+1);
+	int userid_a_num = atoi(userid_a.c_str());
+	
+	pos = str_a.find(KEY_SEPARATOR);
+	string pid_a = str_a.substr(0, pos);
+	string filename_a = str_a.substr(pos+1);
+	int pid_a_num = atoi(pid_a.c_str());
+	
+	pos = str_b.find(KEY_SEPARATOR); 
+	string userid_b = str_b.substr(0, pos);
+	str_b = str_b.substr(pos+1);
+	int userid_b_num = atoi(userid_b.c_str());
+	
+	pos = str_b.find(KEY_SEPARATOR);
+	string pid_b = str_b.substr(0, pos);
+	string filename_b = str_b.substr(pos+1);
+	int pid_b_num = atoi(pid_b.c_str());
+	
+	if(userid_a_num < userid_b_num) return -1;
+	if(userid_a_num > userid_b_num) return +1;
+	cout <<"userid is equal"<<endl;
+	
+	if(pid_a_num < pid_b_num) return -1;
+	if(pid_a_num > pid_b_num) return +1;
+	cout <<"pid is equal"<<endl;
+	
+	if(filename_a < filename_b) return -1;
+	if(filename_a > filename_b) return +1;
+	cout <<"filename is equal"<<endl;
+	
+	return 0;
+
+}
 
 
 int main(int argc, char **argv)
@@ -138,6 +186,24 @@ int main(int argc, char **argv)
 	newId++;
 	string newId_str = conv<std::string, uint64_t>(newId);
 	cout <<"new bucketid = "<<newId_str<<endl;
+	
+	cout <<"--------------------------"<<endl;
+
+	cout <<"comp(1/0/, 1/0/0)="<< comp("1/0/", "1/0/0") <<endl;
+	cout <<"comp(1/1/, 1/0/0)="<< comp("1/1/", "1/0/0") <<endl;
+
+	cout <<"--------------------------"<<endl;
+
+	ddd d;
+	d.a = 123;
+	d.b = 22;
+	d.c = 1;
+	char buffer[sizeof(ddd)];
+	memset(buffer, 0, sizeof(ddd));
+	memcpy(buffer, &d, sizeof(ddd));
+
+	string str(buffer, sizeof(ddd));
+	cout <<"size="<<str.size()<<endl;
 	
 
 }

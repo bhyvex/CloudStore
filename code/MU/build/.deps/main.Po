@@ -99,7 +99,32 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   /usr/include/fcntl.h /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
   ../common/util/os_path.h ../common/util/TimeCounter.h \
   ../common/sys/ThreadPool.h ../common/sys/noncopyable.h \
-  ../src/frame/RunControl.h
+  ../src/frame/RunControl.h ../src/storage/ChannelMappingStrategy.h \
+  ../src/storage/Channel.h ../src/storage/NameSpace.h \
+  /usr/include/dirent.h /usr/include/bits/dirent.h \
+  /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
+  /usr/include/linux/limits.h ../src/data/FileMeta.h \
+  ../src/storage/ChannelManager.h /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+  ../src/storage/KVNameSpace.h ../src/storage/FSNameSpace.h \
+  ../src/storage/HashMappingStrategy.h \
+  ../src/storage/ChannelMappingStrategy.h ../src/storage/Key.h \
+  ../src/storage/KeyValuePair.h ../src/storage/RangeStruct.h \
+  ../src/storage/SplitPathStrategy.h ../src/storage/BuildStrategy.h \
+  ../src/storage/StoreEngine.h /usr/include/leveldb/db.h \
+  /usr/include/leveldb/iterator.h /usr/include/leveldb/slice.h \
+  /usr/include/assert.h /usr/include/leveldb/status.h \
+  /usr/include/leveldb/options.h /usr/include/leveldb/write_batch.h \
+  /usr/include/leveldb/comparator.h ../src/storage/RangeStruct.h \
+  ../src/storage/LevelDBEngine.h ../src/storage/Key.h
 
 /usr/include/c++/4.3/string:
 
@@ -438,3 +463,95 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 ../common/sys/noncopyable.h:
 
 ../src/frame/RunControl.h:
+
+../src/storage/ChannelMappingStrategy.h:
+
+../src/storage/Channel.h:
+
+../src/storage/NameSpace.h:
+
+/usr/include/dirent.h:
+
+/usr/include/bits/dirent.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+../src/data/FileMeta.h:
+
+../src/storage/ChannelManager.h:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/huge_valf.h:
+
+/usr/include/bits/huge_vall.h:
+
+/usr/include/bits/inf.h:
+
+/usr/include/bits/nan.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
+
+../src/storage/KVNameSpace.h:
+
+../src/storage/FSNameSpace.h:
+
+../src/storage/HashMappingStrategy.h:
+
+../src/storage/ChannelMappingStrategy.h:
+
+../src/storage/Key.h:
+
+../src/storage/KeyValuePair.h:
+
+../src/storage/RangeStruct.h:
+
+../src/storage/SplitPathStrategy.h:
+
+../src/storage/BuildStrategy.h:
+
+../src/storage/StoreEngine.h:
+
+/usr/include/leveldb/db.h:
+
+/usr/include/leveldb/iterator.h:
+
+/usr/include/leveldb/slice.h:
+
+/usr/include/assert.h:
+
+/usr/include/leveldb/status.h:
+
+/usr/include/leveldb/options.h:
+
+/usr/include/leveldb/write_batch.h:
+
+/usr/include/leveldb/comparator.h:
+
+../src/storage/RangeStruct.h:
+
+../src/storage/LevelDBEngine.h:
+
+../src/storage/Key.h:

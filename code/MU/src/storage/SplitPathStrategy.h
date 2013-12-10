@@ -19,7 +19,8 @@ public:
 	virtual int GetEntry(string pathname, char *buf, int *n);
 	virtual int DeleteEntry(string pathname);
 	virtual bool FindEntryID(string pathname, string userID, string &fid);
-	virtual RangeStruct DirOpen(string pathname);
+	//virtual RangeStruct DirOpen(string pathname);
+	virtual bool DirOpen(string pathname, RangeStruct *rs);
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv);
 	
 };

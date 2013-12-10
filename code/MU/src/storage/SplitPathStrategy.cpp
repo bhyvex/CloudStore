@@ -4,6 +4,7 @@
 #include "Value.h"
 #include "LevelDBEngine.h"
 #include "util/util.h"
+#include "data/FileMeta.h"
 
 #define ROOT_FILEID "0"
 
@@ -26,7 +27,10 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	cout <<"SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)"<<endl;
 	cout <<"	pathname="<<pathname<<endl;
 	bool ret = false;
+	bool isroot = false;
 	size_t pos;
+	string user;
+	string userID;
 
 	//get bucket string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);//BUCKET_NAME_PREFIX
@@ -35,8 +39,11 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 
 	//get user string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
-	string user = pathname.substr(0, pos);//"user1"
-	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
+	if(pos == string::npos){
+		isroot = true;
+	}
+	user = pathname.substr(0, pos);//"user1"
+	userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
 	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
 
 	//find the p_fid and filename
@@ -64,6 +71,9 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	keyinfo.userID = userID;
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
+	if(isroot){
+		keyinfo.FileName = "";
+	}
 	string key = Key::serialize(&keyinfo);
 	cout <<"PutEntry(string pathname, const char* buf, int n) key="<<key<<endl;
 
@@ -90,6 +100,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	
 	bool ret = false;
 	size_t pos;
+	bool isroot = false;
 
 	//get bucket string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);//BUCKET_NAME_PREFIX
@@ -98,6 +109,9 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 
 	//get user string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
+	if(pos == string::npos){
+		isroot = true;
+	}
 	string user = pathname.substr(0, pos);//"user1"
 	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
 	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt" or ""
@@ -129,6 +143,9 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	keyinfo.userID = userID;
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
+	if(isroot){
+		keyinfo.FileName = "";
+	}
 	string key = Key::serialize(&keyinfo);
 
 	/* get from db */
@@ -150,6 +167,7 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 {
 	bool ret = false;
 	size_t pos;
+	bool isroot = false;
 
 	//get bucket string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);//BUCKET_NAME_PREFIX
@@ -158,6 +176,10 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 
 	//get user string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
+
+	if(pos == string::npos){
+		isroot = true;
+	}
 	string user = pathname.substr(0, pos);//"user1"
 	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
 	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
@@ -186,6 +208,9 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 	keyinfo.userID = userID;
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
+	if(isroot){
+		keyinfo.FileName = "";
+	}
 	string key = Key::serialize(&keyinfo);
 
 	/* delete from db */
@@ -207,6 +232,7 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 	size_t pos;
 	string dir;
 	string postfix;
+	int pid_num = 0;
 	string pid = ROOT_FILEID;
 	string key;
 	string value;
@@ -219,9 +245,11 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 		return true;
 	}
 
+	cout <<"FindEntryID(string pathname, string userID, string &fid) 1 pathname="<<pathname<<endl;
 	/* traverse the dir from pathname */
 	postfix = pathname;
 	while((pos = postfix.find_first_of(PATH_SEPARATOR_STRING)) != string::npos){
+		cout <<"FindEntryID(string pathname, string userID, string &fid) 2"<<endl;
 		dir = postfix.substr(0, pos);
 		postfix = postfix.substr(pos+1);
 		
@@ -235,8 +263,10 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 			return false;
 		}
 
-		valueinfo = Value::deserialize(value);
-		pid = valueinfo.fid;
+		FileAttr fa;
+		fa = *(FileAttr *)(value.data());
+		pid_num = fa.m_FID;
+		pid = util::conv::conv<std::string, uint64_t>(pid_num);
 
 	}
 
@@ -245,31 +275,40 @@ bool SplitPathStrategy::FindEntryID(string pathname, string userID, string &fid)
 	keyinfo.PID = pid;
 	keyinfo.FileName = postfix;
 	key = Key::serialize(&keyinfo);
+	cout <<"FindEntryID(string pathname, string userID, string &fid) last key="<<key<<endl;
 	ret = m_StoreEngine->Get(key, value);
 	if(ret == false){
 		return false;
 	}
-	valueinfo = Value::deserialize(value);
-	pid = valueinfo.fid;
+	cout <<"1"<<endl;
 	
+	FileAttr fa;
+	fa = *(FileAttr *)(value.data());
+	pid_num = fa.m_FID;
+	pid = util::conv::conv<std::string, uint64_t>(pid_num);
+	fid = pid;
+	
+	cout <<"find pid="<<pid<<endl;
 	if(pid < string(ROOT_FILEID)){
 		return false;
 	}else{
 		return true;
 	}
 	
+	cout <<"1"<<endl;
+	
 	
 }
 
 
 //pathname = "bucket1/user1/a"
-RangeStruct SplitPathStrategy::DirOpen(string pathname)
+bool SplitPathStrategy::DirOpen(string pathname, RangeStruct *rs)
 {
 	size_t pos;
-	RangeStruct rs;
-	rs.start = "";
-	rs.limit = "";
-	rs.iterator = NULL;
+	bool isroot = false;
+	rs->start = "";
+	rs->limit = "";
+	rs->iterator = NULL;
 
 	//get bucket string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);//BUCKET_NAME_PREFIX
@@ -278,15 +317,21 @@ RangeStruct SplitPathStrategy::DirOpen(string pathname)
 
 	//get user string
 	pos = pathname.find_first_of(PATH_SEPARATOR_STRING);
+	if(pos == string::npos){
+		isroot = true;
+	}
 	string user = pathname.substr(0, pos);//"user1"
 	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
 	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
+	if(isroot){
+		pathname = "";
+	}
 
 	//find the fid
 	string fid;
 	bool ret = FindEntryID(pathname, userID, fid);
 	if(ret == false){
-		return rs;
+		return false;
 	}
 	
 
@@ -299,9 +344,15 @@ RangeStruct SplitPathStrategy::DirOpen(string pathname)
 	cout <<"start = "<<start<<endl;
 	cout <<"limit = "<<limit<<endl;
 
+	rs->start = start;
+	rs->limit = limit;
 
-	rs = m_StoreEngine->RangeOpen(start, limit);
-	return rs;
+	ret = m_StoreEngine->RangeOpen(rs);
+	if(ret == false){
+		cout <<"RangeOpen error."<<endl;
+		return false;
+	}
+	return true;
 }
 
 bool SplitPathStrategy::Next(RangeStruct *rs, KeyValuePair *kv)

@@ -8,19 +8,14 @@
 #include "leveldb/db.h"
 #include "leveldb/write_batch.h"
 #include "leveldb/comparator.h"
+#include "RangeStruct.h"
+
 
 using namespace std;
 
-//range [start,limit)
-
-struct RangeStruct
-{
-	string start;
-	string limit;
-	void *iterator;
-};
 
 struct KeyValuePair;
+
 class StoreEngine
 {
 public:
@@ -31,7 +26,8 @@ public:
 	virtual bool Put(string key, string value) = 0;
 	virtual bool Get(string key, string &value) = 0;
 	virtual bool Delete(string key) = 0;
-	virtual RangeStruct RangeOpen(string start, string limit) = 0;
+	virtual bool Range(string start, string limit) = 0;
+	virtual bool RangeOpen(RangeStruct *rs) = 0;
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv) = 0;
 
 	string m_DbPath;

@@ -17,43 +17,63 @@ string IntToString(int num)
 	return s;
 }
 
-
+struct KeyValuePair
+{
+	string key;
+	string value;
+};
 
 int main()
 {
-	LevelDBEngine db;
-	string dbPath = "./leveldbDir";
+	LevelDBEngine db(".");
 	bool ret;
-	
-	ret = db.Open(dbPath);
-	if(!ret){
-		cout <<"db.Open() error"<<endl;
-	}
 
-	for(int i = 0; i < 5000; i++){
+	for(int i = 0; i < 500; i++){
 		//key
-		string key = "key";
+		string key = "1/1/";
 		string str_i = IntToString(i);
 		key += str_i;
 		//value
 		string value = "value";
 		value += str_i;
 
-		if(i%1000 == 0){
+		//if(i%1000 == 0){
+		if(1){
 			cout <<key<<endl;
 		}
 		
-		db.Put(key, value);
+		ret = db.Put(key, value);
 		if(!ret){
 			cout <<"db.Put() error"<<endl;
 		}
 	}
+	cout <<"----------------"<<endl;
 
-	RangeStruct rs = db.RangeOpen("key100", "key200");
-	while(db.Next(&rs)){
+	KeyValuePair kv;
+	RangeStruct rs;
+	rs.start = "1/1/100";
+	rs.limit = "1/1/105";
+	rs.iterator = NULL;
+	cout <<"1"<<endl;
+	ret = db.RangeOpen(&rs);
+	cout <<"2"<<endl;
+	while(db.Next(&rs, &kv)){
+		cout <<"3"<<endl;
+		cout << kv.key << ": "  << kv.value << endl;
+		cout <<"4"<<endl;
+	}
+	cout <<"5"<<endl;
+	
+	cout <<"----------------"<<endl;
+	
+	db.Range("1/1/100", "1/1/105");
+
+/*
+	leveldb::Iterator* it = db.m_Db->NewIterator(leveldb::ReadOptions());
+	for (; it->Valid(); it->Next()){
 		cout << it->key().ToString() << ": "  << it->value().ToString() << endl;
 	}
-	
+	*/
 
 
 	//atomic

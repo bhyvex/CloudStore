@@ -121,7 +121,7 @@ int KVNameSpace::MkDir(const char *pathname, mode_t mode)
 {
 	int ret;
 	FileAttr st;
-	st.m_FID = __sync_add_and_fetch(&(m_BuildStrategy->m_Fid), 1);
+	st.m_FID = __sync_fetch_and_add(&(m_BuildStrategy->m_Fid), 1);
 	st.m_CTime = 0;
 	st.m_Mode = 0;
 	st.m_MTime = 0;
@@ -142,10 +142,12 @@ int KVNameSpace::RmDir(const char *pathname)
 
 int KVNameSpace::OpenDir(const char *name, Args *args)
 {
-	RangeStruct rs;
 	RangeStruct *n_rs= new RangeStruct();
-	rs = m_BuildStrategy->DirOpen(name);
-	*n_rs = rs;
+	bool ret = m_BuildStrategy->DirOpen(name, n_rs);
+	if(ret == false){
+		cout <<"KVNameSpace::OpenDir(const char *name, Args *args) error."<<endl;
+		return -1;
+	}
 	args->arg1 = n_rs;
 	args->valid = true;
 

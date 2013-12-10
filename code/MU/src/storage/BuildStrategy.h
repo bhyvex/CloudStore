@@ -22,7 +22,8 @@ public:
 	virtual int GetEntry(string pathname, char *buf, int *n) = 0;
 	virtual int DeleteEntry(string pathname) = 0;
 	virtual bool FindEntryID(string pathname, string userID, string &fid) = 0;
-	virtual RangeStruct DirOpen(string pathname) = 0;
+	//virtual RangeStruct DirOpen(string pathname) = 0;
+	virtual bool DirOpen(string pathname, RangeStruct *rs) = 0;
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv) = 0;
 
 	uint64_t m_Fid;//gcc atomic sync

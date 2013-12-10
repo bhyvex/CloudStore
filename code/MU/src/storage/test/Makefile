@@ -31,4 +31,4 @@ string:
 
 
 clean:
-	rm gmon.out *.o string namespace_test kvnamespace_test leveldb_test leveldbDir fs_test -rf
+	rm gmon.out *.o string namespace_test kvnamespace_test leveldb_test data.db leveldbDir fs_test -rf

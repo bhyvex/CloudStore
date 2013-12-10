@@ -10,7 +10,11 @@ LevelDBEngine::LevelDBEngine(string path):
 	string dbpath = m_DbPath + "/" + DBNAME;
 	cout <<"create dbpath="<<dbpath<<endl;
 	bool ret = Open(dbpath);
-
+	if(ret == false){
+		cout <<"LevelDB Open error."<<endl;
+		exit(1);
+	}
+	
 }
 
 
@@ -40,8 +44,11 @@ bool LevelDBEngine::Open(string dbPath)
 bool LevelDBEngine::Put(string key, string value)
 {
 	leveldb::Status s = m_Db->Put(leveldb::WriteOptions(), key, value);
+	cout <<"LevelDBEngine::Put()"<<endl;
+	cout <<"	key="<<key<<"  size="<<key.size()<<endl;
+	cout <<"	value="<<value<<endl;
 	if (!s.ok()) {
-		cerr << s.ToString() << endl;
+		cout << s.ToString() << endl;
 		return false;
 	}else{
 		return true;
@@ -52,10 +59,13 @@ bool LevelDBEngine::Put(string key, string value)
 bool LevelDBEngine::Get(string key, string &value)
 {
 	leveldb::Status s = m_Db->Get(leveldb::ReadOptions(), key, &value);
+	cout <<"LevelDBEngine::Get()"<<endl;
+	cout <<"	key="<<key<<"  size="<<key.size()<<endl;
 	if (!s.ok()) {
 		cerr << s.ToString() << endl;
 		return false;
 	}else{
+		cout <<"	value="<<value<<endl;
 		return true;
 	}
 
@@ -73,12 +83,13 @@ bool LevelDBEngine::Delete(string key)
 
 }
 
-/*
+
 bool LevelDBEngine::Range(string start, string limit)//range [start,limit)
 {
 	leveldb::Iterator* it = m_Db->NewIterator(leveldb::ReadOptions());
 	for (it->Seek(start); it->Valid() && it->key().ToString() < limit; it->Next()){
 		cout << it->key().ToString() << ": "  << it->value().ToString() << endl;
+		//cout <<"iterator="<<it<<endl;
 	}
 	
 	delete it;
@@ -86,18 +97,14 @@ bool LevelDBEngine::Range(string start, string limit)//range [start,limit)
 	return true;
 
 }
-*/
 
-RangeStruct LevelDBEngine::RangeOpen(string start, string limit)
+
+bool LevelDBEngine::RangeOpen(RangeStruct *rs)
 {
 	leveldb::Iterator* it = m_Db->NewIterator(leveldb::ReadOptions());
-	//it->Seek(start);
+	it->Seek(rs->start);
 	
-
-	RangeStruct rs;
-	rs.start = start;
-	rs.start = limit;
-	rs.iterator = it;
+	rs->iterator = it;
 
 	return rs;
 }
@@ -105,9 +112,10 @@ RangeStruct LevelDBEngine::RangeOpen(string start, string limit)
 bool LevelDBEngine::Next(RangeStruct *rs, KeyValuePair *kv)
 {
 	leveldb::Iterator* it = (leveldb::Iterator*)(rs->iterator);
+	//cout <<"iterator="<<it<<endl;
 
-	//if(it->Valid() && it->key().ToString() < rs->limit){
-	if(it->Valid()){
+	if(it->Valid() && it->key().ToString() < rs->limit){
+	//if(it->Valid()){
 		kv->key = it->key().ToString();
 		kv->value = it->value().ToString();
 	}else{
