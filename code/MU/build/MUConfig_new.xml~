@@ -70,7 +70,7 @@
 
 	<User>
 		<UserSerializable>true</UserSerializable>
-        <UserDeltaKeep>false</UserDeltaKeep>
+        <UserDeltaKeep>true</UserDeltaKeep>
 	</User>
 
     <Log>

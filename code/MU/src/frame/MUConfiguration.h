@@ -76,6 +76,8 @@ public:
     std::string m_FileSystemRoot;
     // user serializable lock
     bool m_UserSerializable;
+    // user delta keep
+    bool m_UserDeltaKeep;
 
     // oplogs
     std::string m_LogRotateStrategy;

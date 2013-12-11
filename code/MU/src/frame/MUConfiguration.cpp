@@ -274,7 +274,27 @@ MUConfiguration::configWithXML(const std::string &confFileName)
         fprintf(stderr, "Unexpected user searializable value %s.", val.c_str());
         return -1;
     }
-    std::cout <<"/MU/User/UserSerializable = "<< m_UserSerializable <<std::endl;
+    std::cout <<"/MU/User/UserDeltaKeep = "<< m_UserDeltaKeep <<std::endl;
+
+
+	rt = x.getNodeValueByXPath("/MU/User/UserDeltaKeep", &val);
+
+    if (-1 == rt) {
+        return -1;
+    }
+
+    if (val == "true") {
+        m_UserDeltaKeep = true;
+
+    } else if (val == "false") {
+        m_UserDeltaKeep = false;
+
+    } else {
+        fprintf(stderr, "Unexpected UserDeltaKeep value %s.", val.c_str());
+        return -1;
+    }
+    std::cout <<"/MU/User/UserDeltaKeep = "<< m_UserDeltaKeep <<std::endl;
+    
 
     rt = x.getNodeValueByXPath("/MU/Log/RotateStrategy", &val);
 

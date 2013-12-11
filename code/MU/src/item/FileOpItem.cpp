@@ -202,37 +202,39 @@ FileOpItem::delDir()
     }
 
     // change user quota
+	if(MUConfiguration::getInstance()->m_UserDeltaKeep) {
+	
+	    UserDAO *pUserDAO = new UserDAO();
 
-    UserDAO *pUserDAO = new UserDAO();
+	    struct UserInfo info;
 
-    struct UserInfo info;
+	    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
-    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	        delete pUserDAO;
+	        pUserDAO = NULL;
 
-        delete pUserDAO;
-        pUserDAO = NULL;
+	        return ;
+	    }
 
-        return ;
+	    info.m_UsedQuota -= delta;
+
+	    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
+
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
+
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	    }
+
+	    delete pUserDAO;
+	    pUserDAO = NULL;
     }
-
-    info.m_UsedQuota -= delta;
-
-    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
-
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
-
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
-    }
-
-    delete pUserDAO;
-    pUserDAO = NULL;
 }
 
 void
@@ -353,51 +355,52 @@ FileOpItem::putFile()
     }
 
     // change user quota
+	if(MUConfiguration::getInstance()->m_UserDeltaKeep) {
+	    UserDAO *pUserDAO = new UserDAO();
 
-    UserDAO *pUserDAO = new UserDAO();
+	    INFO_LOG("put file4, path %s", path.c_str());
 
-    INFO_LOG("put file4, path %s", path.c_str());
+	    struct UserInfo info;
 
-    struct UserInfo info;
+	    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
-    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
+	    INFO_LOG("put file5, path %s", path.c_str());
 
-    INFO_LOG("put file5, path %s", path.c_str());
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	        delete pUserDAO;
+	        pUserDAO = NULL;
 
-        delete pUserDAO;
-        pUserDAO = NULL;
+	        return ;
+	    }
 
-        return ;
-    }
+	    INFO_LOG("put file6, path %s", path.c_str());
 
-    INFO_LOG("put file6, path %s", path.c_str());
+	    if (delta > 0) {
+	        info.m_UsedQuota += delta;
 
-    if (delta > 0) {
-        info.m_UsedQuota += delta;
+	    } else if (delta < 0) {
+	        info.m_UsedQuota -= -delta;
+	    }
 
-    } else if (delta < 0) {
-        info.m_UsedQuota -= -delta;
-    }
+	    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
 
-    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
+	    INFO_LOG("put file7, path %s", path.c_str());
 
-    INFO_LOG("put file7, path %s", path.c_str());
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
 
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	    }
+	    INFO_LOG("put file8, path %s", path.c_str());
 
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
-    }
-    INFO_LOG("put file8, path %s", path.c_str());
-
-    delete pUserDAO;
-    pUserDAO = NULL;
+	    delete pUserDAO;
+	    pUserDAO = NULL;
+	}
 }
 
 void
@@ -423,37 +426,38 @@ FileOpItem::delFile()
     }
 
     // change user quota
+	if(MUConfiguration::getInstance()->m_UserDeltaKeep) {
+	    UserDAO *pUserDAO = new UserDAO();
 
-    UserDAO *pUserDAO = new UserDAO();
+	    struct UserInfo info;
 
-    struct UserInfo info;
+	    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
-    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
 
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	        delete pUserDAO;
+	        pUserDAO = NULL;
 
-        delete pUserDAO;
-        pUserDAO = NULL;
+	        return ;
+	    }
 
-        return ;
-    }
+	    info.m_UsedQuota -= delta;
 
-    info.m_UsedQuota -= delta;
+	    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
 
-    m_ReturnStatus = pUserDAO->writeUserInfo(m_BucketId, m_UserId, info);
+	    if (!m_ReturnStatus.success()) {
+	        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
 
-    if (!m_ReturnStatus.success()) {
-        ERROR_LOG("path %s, writeUserInfo() failed", path.c_str());
+	        // ignore this error
+	        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
+	    }
 
-        // ignore this error
-        m_ReturnStatus = ReturnStatus(MU_SUCCESS);
-    }
-
-    delete pUserDAO;
-    pUserDAO = NULL;
+	    delete pUserDAO;
+	    pUserDAO = NULL;
+	}
 }
 
 void
