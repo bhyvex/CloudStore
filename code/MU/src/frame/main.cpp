@@ -129,6 +129,7 @@ int main(int argc, char *argv[])
 	string path_home_a = "bucket0/user1/home/a";
 	string path_home_a_b = "bucket0/user1/home/a/b";
 	string file_home_a_b_atxt = "bucket0/user1/home/a/b/a.txt";
+	string file_b_txt = "bucket0/user1/b.txt";
 
 
 	int ret = DataNS->MkDir(path_root.c_str(), 0);
@@ -184,8 +185,23 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	string buffer_str = "hello";
-	ssize_t size = DataNS->writen(&file_home_a_b_atxt_fd, buffer_str.c_str(), buffer_str.size());
+	Args file_b_txt_fd = DataNS->Open(file_b_txt.c_str(), 0);
+	if(file_b_txt_fd.valid == false){
+		cout <<"Open() error"<<endl;
+		exit(0);
+	}
+
+	fa.m_FID = 0;
+	fa.m_Size = 0;
+	fa.m_Type = 1;
+	fa.m_Version = 1;
+	string buffer_str((char*)(&fa), sizeof(fa));
+	ssize_t size = DataNS->writen(&file_home_a_b_atxt_fd, buffer_str.data(), buffer_str.size());
+	if(size < 0){
+		cout <<"writen() error"<<endl;
+		exit(0);
+	}
+	size = DataNS->writen(&file_b_txt_fd, buffer_str.data(), buffer_str.size());
 	if(size < 0){
 		cout <<"writen() error"<<endl;
 		exit(0);

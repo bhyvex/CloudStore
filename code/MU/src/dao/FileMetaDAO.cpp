@@ -924,6 +924,7 @@ FileMetaDAO::getFile(const std::string &path, FileMeta *pMeta)
 ReturnStatus
 FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
 {
+	/*
     assert(pMeta);
 
     Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
@@ -966,6 +967,48 @@ FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
     delete [] pBlockList;
 
     return ReturnStatus(MU_SUCCESS);
+
+	*/
+//----------------
+    assert(pMeta);
+    Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
+	NameSpace *DataNS = pDataChannel->m_DataNS;
+
+	int rt = 0;
+
+	//TODO
+	int max_blocks = 512;//max file size is 256MB
+	char *buffer = new char[max_blocks * FIXED_BLOCK_CHECKSUM_LEN];
+	rt = DataNS->readn(fd, buffer, max_blocks * FIXED_BLOCK_CHECKSUM_LEN);
+	memcpy(&(pMeta->m_Attr), buffer, sizeof(pMeta->m_Attr));
+
+	int blocks = pMeta->m_Attr.m_Size / FIXED_BLOCK_SIZE;
+
+	if (pMeta->m_Attr.m_Size % FIXED_BLOCK_SIZE != 0) {
+        ++blocks;
+    }
+
+	if ((sizeof(pMeta->m_Attr) + blocks * FIXED_BLOCK_CHECKSUM_LEN) != rt) {
+        ERROR_LOG("read file meta, readn() error");
+        delete [] buffer;
+        return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
+    }
+
+    BlockMeta bmeta;
+
+    for(int i = 0; i < blocks; ++i){
+    	bmeta.m_Checksum = 
+    		std::string(buffer + sizeof(pMeta->m_Attr) + i * FIXED_BLOCK_CHECKSUM_LEN,
+    					FIXED_BLOCK_CHECKSUM_LEN);
+    					
+    	pMeta->m_BlockList.push_back(bmeta);
+    		
+    }
+    
+	delete [] buffer;
+
+	return ReturnStatus(MU_SUCCESS);
+    
 }
 
 

@@ -72,7 +72,7 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
 	if(isroot){
-		keyinfo.FileName = "";
+		keyinfo.FileName = ".";
 	}
 	string key = Key::serialize(&keyinfo);
 	cout <<"PutEntry(string pathname, const char* buf, int n) key="<<key<<endl;
@@ -144,7 +144,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
 	if(isroot){
-		keyinfo.FileName = "";
+		keyinfo.FileName = ".";
 	}
 	string key = Key::serialize(&keyinfo);
 
@@ -209,7 +209,7 @@ int SplitPathStrategy::DeleteEntry(string pathname)
 	keyinfo.PID = p_fid;
 	keyinfo.FileName = FileName;
 	if(isroot){
-		keyinfo.FileName = "";
+		keyinfo.FileName = ".";
 	}
 	string key = Key::serialize(&keyinfo);
 
@@ -324,7 +324,7 @@ bool SplitPathStrategy::DirOpen(string pathname, RangeStruct *rs)
 	string userID = user.substr(sizeof(USER_NAME_PREFIX)-1);
 	pathname = pathname.substr(pos+1);//"a/a.txt" or "a.txt"
 	if(isroot){
-		pathname = "";
+		pathname = ".";
 	}
 
 	//find the fid
