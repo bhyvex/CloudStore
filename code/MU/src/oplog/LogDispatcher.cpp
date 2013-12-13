@@ -171,7 +171,7 @@ LogDispatcher::sendLog(LogEvent &event)
     pReq->m_LogEvent = event;
     m_ReqList.push_back(pReq);
 
-    // 打开线程池句柄写事件
+    // ���̳߳ؾ��д�¼�
     m_WriteEpollEvent.openWevent();
 }
 
@@ -213,7 +213,7 @@ LogDispatcher::rotateLog(uint64_t bucketId)
     pReq->m_TotalBuckets = RuleManager::getInstance()->getTotalBuckets();
     m_ReqList.push_back(pReq);
 
-    // 打开线程池句柄写事件
+    // ���̳߳ؾ��д�¼�
     m_WriteEpollEvent.openWevent();
 }
 
@@ -225,7 +225,7 @@ LogDispatcher::closeLog(uint64_t bucketId)
     pReq->m_LogEvent.m_BucketId = bucketId;
     m_ReqList.push_back(pReq);
 
-    // 打开线程池句柄写事件
+    // ���̳߳ؾ��д�¼�
     m_WriteEpollEvent.openWevent();
 }
 
@@ -237,7 +237,7 @@ LogDispatcher::flushLog(uint64_t bucketId)
     pReq->m_LogEvent.m_BucketId = bucketId;
     m_ReqList.push_back(pReq);
 
-    // 打开线程池句柄写事件
+    // ���̳߳ؾ��д�¼�
     m_WriteEpollEvent.openWevent();
 }
 
@@ -265,7 +265,7 @@ LogDispatcher::sendData()
     }
 
     if (m_ReqList.empty()) {
-        // 关闭写事件
+        // �ر�д�¼�
         m_WriteEpollEvent.closeWevent();
     }
 

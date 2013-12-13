@@ -70,15 +70,15 @@
 
 	<User>
 		<UserSerializable>true</UserSerializable>
-        <UserDeltaKeep>true</UserDeltaKeep>
+        <UserDeltaKeep>false</UserDeltaKeep>
 	</User>
 
     <Log>
 	    <!-- time or size -->
-	    <RotateStrategy>size</RotateStrategy>
+	    <RotateStrategy>time</RotateStrategy>
 	    <!-- seconds -->
 	    <!--<RotateTime>86400</RotateTime>-->
-	    <RotateTime>60000</RotateTime>
+	    <RotateTime>60</RotateTime>
 	    <!-- megabytes -->
 	    <RotateSize>100</RotateSize> 
 	    <!-- number of log files to save -->

@@ -217,6 +217,7 @@ int FSNameSpace::Stat(const char *path, FileAttr *fileAttr)
 	
 	struct stat st;
 	string pathname = m_Root + PATH_SEPARATOR_STRING + path;
+	cout <<"FSNameSpace::Stat="<<pathname<<endl;
 	int ret = stat(pathname.c_str(), &st);
 	if(ret == -1){
 		return -1;

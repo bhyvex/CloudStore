@@ -620,7 +620,7 @@ LogAccessEngine::bucketRootPath(uint64_t bucketId)
 
 bool
 LogAccessEngine::isfile(std::string &path)
-{
+{/*
 	Channel* pInfoChannel = ChannelManager::getInstance()->findChannel(MUConfiguration::getInstance()->m_MainChannelID);
 	NameSpace *InfoNS = pInfoChannel->m_DataNS;
 	
@@ -628,9 +628,9 @@ LogAccessEngine::isfile(std::string &path)
     FileAttr st;
 
     rt = InfoNS->Stat(path.c_str(), &st);
-
+	cout <<"LogAccessEngine::isfile(std::string &path)"<<endl;
     if (-1 == rt) {
-        DEBUG_LOG("path %s stat() error, %s.", path.c_str(), strerror(errno));
+        ERROR_LOG("path %s stat() error, %s.", path.c_str(), strerror(errno));
         return false;
     }
 
@@ -639,6 +639,26 @@ LogAccessEngine::isfile(std::string &path)
     }
 
     return false;
+    */
+
+	//-----------------------
+	int rt = 0;
+	struct stat st;
+
+	rt = ::stat(path.c_str(), &st);
+	cout <<"LogAccessEngine::isfile(std::string &path)="<<path<<endl;
+	if (-1 == rt) {
+		ERROR_LOG("path %s stat() error, %s.", path.c_str(), strerror(errno));
+		return false;
+	}
+
+	if (S_ISREG(st.st_mode)) {
+		return true;
+	}
+
+	return false;
+
+  
 }
 
 ReturnStatus
