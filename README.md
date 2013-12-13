@@ -18,4 +18,8 @@ AndroidClient 手机客户端，场景为手机娱乐<br/>
 特点：<br/>
 1 元数据服务器集群化<br/>
 2 多点登陆<br/>
-.
+...
+
+
+<a href = 'http://xtlx2000.github.io/doc/cstore/cstore2/CStore2.0%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1.htm'>CStore2.0概要设计文档</a><br/>
+CStore3.0正在开发当中...<br/>
