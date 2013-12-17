@@ -1,0 +1,76 @@
+<MU>
+    <System>
+        <ListenQueue>500</ListenQueue>
+        <!-- max number of file descriptor -->
+        <LimitNOFile>100000</LimitNOFile>
+        <!-- default log level, TRACE, DEBUG, INFO, WARN, ERROR, FATAL -->
+        <LogLevel>INFO</LogLevel>
+
+        <!-- configuration of MU thread pool -->
+        <ThreadPool>
+            <Worker>5</Worker>
+        </ThreadPool>
+    </System>
+
+    <CS>
+        <IP>192.168.10.113</IP>
+        <Port>16601</Port>
+    </CS>
+
+    <RS>
+        <IP>192.168.10.113</IP>
+        <Port>16602</Port>
+    </RS>
+
+    <Heartbeat>
+        <CS>
+            <KeepAlive>2</KeepAlive>
+            <TimeOut>3</TimeOut>
+        </CS>
+        <MU>
+            <KeepAlive>2</KeepAlive>
+            <TimeOut>3</TimeOut>
+        </MU>
+    </Heartbeat>
+
+    <!-- module to process client requests -->
+    <ClientPM>
+        <ListenIP>192.168.10.112</ListenIP>
+        <ListenPort>45000</ListenPort>
+    </ClientPM>
+
+    <!-- moduel to process CS commands -->
+    <CSPM>
+        <ListenIP>192.168.10.112</ListenIP>
+        <ListenPort>45001</ListenPort>
+    </CSPM>
+
+    <!-- module to process master-slave synchronization -->
+    <SyncPM>
+        <ListenIP>192.168.10.112</ListenIP>
+        <ListenPort>45002</ListenPort>
+    </SyncPM>
+
+    <!-- module to process data migration -->
+    <MigrationPM>
+        <ListenIP>192.168.10.112</ListenIP>
+        <ListenPort>45003</ListenPort>
+    </MigrationPM>
+
+    <Filesystem>
+        <Root>/home/MU/data</Root>
+        <UserSerializable>true</UserSerializable>
+        <Log>
+            <!-- time or size -->
+            <RotateStrategy>size</RotateStrategy>
+            <!-- seconds -->
+            <!--<RotateTime>86400</RotateTime>-->
+            <RotateTime>60000</RotateTime>
+            <!-- megabytes -->
+            <RotateSize>100</RotateSize> 
+            <!-- number of log files to save -->
+            <RotateLogFiles>10</RotateLogFiles> 
+        </Log>
+    </Filesystem>
+</MU>
+

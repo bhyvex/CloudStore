@@ -1,0 +1,4 @@
+ReturnStatus.lo: ../../../src/frame/ReturnStatus.cpp \
+  ../../../src/frame/ReturnStatus.h
+
+../../../src/frame/ReturnStatus.h:

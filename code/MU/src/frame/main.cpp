@@ -33,6 +33,7 @@
 #include "storage/RangeStruct.h"
 #include "storage/SplitPathStrategy.h"
 #include "data/FileMeta.h"
+#include "sys/ThreadPool.h"
 
 
 
@@ -58,12 +59,22 @@ string IntToString(int num)
 	return s;
 }
 
+class EchoItem : public ThreadPoolWorkItem {
+    public:
+        int process() {
+            int a++;
+            a++;
+            a++;
+        }
+};
+
+
 
 int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
 
-
+/*
     signal(SIGINT, sighandler);
     signal(SIGUSR1, sighandler);
 
@@ -105,7 +116,7 @@ int main(int argc, char *argv[])
     RunControl::getInstance()->run();
 
     return 0;
-
+*/
 
 //------------------------------------KVNameSpace test-----------------------------------------------------------
 
@@ -306,6 +317,17 @@ int main(int argc, char *argv[])
 	//db.Range("1/0/", "1/1/");
 	cout <<"--------"<<endl;
 	*/
+
+	//-----------------------------Theadpool-----------------
+	ThreadPool *pool = new ThreadPool();
+    pool->start();
+    
+    for (int i = 0; i < 1000000; ++i) {
+        pool->postRequest(new EchoItem());
+    }
+
+    sleep(5);
+	
 	return 0;
 }
 

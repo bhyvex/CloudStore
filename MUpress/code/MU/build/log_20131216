@@ -1,0 +1,33 @@
+
+
+=======================DevLog starts==========================
+2013-12-16 08:16:48 [ee8:7f673d355720] ERROR   	the opposit close the connection
+2013-12-16 08:16:48 [ee8:7f673d355720] ERROR   	TCPAgent::readData():m_Bufv.read()
+2013-12-16 08:16:48 [ee8:7f673d355720] ERROR   	opposit: 192.168.9.63 3734
+
+
+=======================DevLog starts==========================
+2013-12-16 08:42:27 [1316:7f8853a3b720] ERROR   	the opposit close the connection
+2013-12-16 08:42:27 [1316:7f8853a3b720] ERROR   	TCPAgent::readData():m_Bufv.read()
+2013-12-16 08:42:27 [1316:7f8853a3b720] ERROR   	opposit: 192.168.1.51 57053
+
+
+=======================DevLog starts==========================
+2013-12-16 08:45:45 [15ae:7fdb06044720] ERROR   	the opposit close the connection
+2013-12-16 08:45:45 [15ae:7fdb06044720] ERROR   	TCPAgent::readData():m_Bufv.read()
+2013-12-16 08:45:45 [15ae:7fdb06044720] ERROR   	opposit: 192.168.1.51 57064
+
+
+=======================DevLog starts==========================
+2013-12-16 08:47:11 [1865:7f0c2fff2720] ERROR   	the opposit close the connection
+2013-12-16 08:47:11 [1865:7f0c2fff2720] ERROR   	TCPAgent::readData():m_Bufv.read()
+2013-12-16 08:47:11 [1865:7f0c2fff2720] ERROR   	opposit: 192.168.1.51 57080
+
+
+=======================DevLog starts==========================
+2013-12-16 08:47:53 [1ab7:7fae18d00720] ERROR   	the opposit close the connection
+2013-12-16 08:47:53 [1ab7:7fae18d00720] ERROR   	TCPAgent::readData():m_Bufv.read()
+2013-12-16 08:47:53 [1ab7:7fae18d00720] ERROR   	opposit: 192.168.1.51 57087
+
+
+=======================DevLog starts==========================

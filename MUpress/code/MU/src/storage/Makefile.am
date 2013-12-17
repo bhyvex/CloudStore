@@ -1,0 +1,23 @@
+#lib_LTLIBRARIES = libstorage.la
+noinst_LTLIBRARIES = libstorage.la
+
+libstorage_la_SOURCES = Channel.cpp  \
+						ChannelManager.cpp \
+						ChannelMappingStrategy.cpp \
+						HashMappingStrategy.cpp \
+						NameSpace.cpp \
+						FSNameSpace.cpp \
+						KVNameSpace.cpp \
+						BuildStrategy.cpp \
+						SplitPathStrategy.cpp \
+						FullPathStrategy.cpp \
+						StoreEngine.cpp  \
+						LevelDBEngine.cpp \
+						Key.cpp \
+						Value.cpp
+						
+
+INCLUDES = $(GLOBAL_INCLUDES)  \
+		   -I$(top_srcdir)/common  \
+		   -I$(top_srcdir)/src
+

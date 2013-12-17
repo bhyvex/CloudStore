@@ -75,10 +75,10 @@
 
     <Log>
 	    <!-- time or size -->
-	    <RotateStrategy>time</RotateStrategy>
+	    <RotateStrategy>size</RotateStrategy>
 	    <!-- seconds -->
 	    <!--<RotateTime>86400</RotateTime>-->
-	    <RotateTime>60</RotateTime>
+	    <RotateTime>6000</RotateTime>
 	    <!-- megabytes -->
 	    <RotateSize>100</RotateSize> 
 	    <!-- number of log files to save -->
