@@ -3,7 +3,7 @@
  *
  *       Filename:  Thread.h
  *
- *    Description:  çº¿ç¨‹å°è£…
+ *    Description:  Ïß³Ì·â×°
  *
  *        Version:  1.0
  *        Created:  04/26/2011 04:51:08 PM
@@ -27,7 +27,7 @@
 #include "util/util.h"
 
 /**
- * @brief çº¿ç¨‹IDå°è£…
+ * @brief Ïß³ÌID·â×°
  */
 class ThreadID {
     public:
@@ -42,9 +42,9 @@ class ThreadID {
         bool operator!=(const ThreadID &tid);
 
         /**
-         * @brief è·å–åŸå§‹çš„ç±»å‹ä¸ºpthread_tçš„çº¿ç¨‹ID
+         * @brief »ñÈ¡Ô­Ê¼µÄÀàĞÍÎªpthread_tµÄÏß³ÌID
          *
-         * @return pthread_tç±»å‹çš„çº¿ç¨‹ID
+         * @return pthread_tÀàĞÍµÄÏß³ÌID
          */
         pthread_t getRawID() const;
 
@@ -53,7 +53,7 @@ class ThreadID {
 };
 
 /**
- * @brief linuxçº¿ç¨‹ç®€å•å°è£…ï¼ˆæŠ½è±¡ç±»ï¼‰
+ * @brief linuxÏß³Ì¼òµ¥·â×°£¨³éÏóÀà£©
  */
 class Thread {
     public:
@@ -61,39 +61,39 @@ class Thread {
         virtual ~Thread();
 
         /**
-         * @brief å¯åŠ¨çº¿ç¨‹
+         * @brief Æô¶¯Ïß³Ì
          *
-         * @param stackSize æ ˆå¤§å°
+         * @param stackSize Õ»´óĞ¡
          *
          * @return 
          */
         int start(int stackSize = 0);
 
         /**
-         * @brief çº¿ç¨‹æ˜¯å¦å­˜æ´»ï¼Œå³åº•å±‚çº¿ç¨‹æ˜¯å¦è¿è¡Œ
+         * @brief Ïß³ÌÊÇ·ñ´æ»î£¬¼´µ×²ãÏß³ÌÊÇ·ñÔËĞĞ
          *
          * @return 
          */
         bool isAlive() const;
 
         /**
-         * @brief ç­‰å¾…çº¿ç¨‹ç»“æŸ
+         * @brief µÈ´ıÏß³Ì½áÊø
          *
-         * @param valuePtr ç”¨äºå­˜æ”¾çº¿ç¨‹è¿”å›çŠ¶æ€çš„ç¼“å†²åŒºåœ°å€
+         * @param valuePtr ÓÃÓÚ´æ·ÅÏß³Ì·µ»Ø×´Ì¬µÄ»º³åÇøµØÖ·
          *
          * @return 
          */
         int join(void **valuePtr = NULL);
 
         /**
-         * @brief åˆ†ç¦»çº¿ç¨‹
+         * @brief ·ÖÀëÏß³Ì
          *
          * @return 
          */
         int detach();
 
         /**
-         * @brief è¿”å›çº¿ç¨‹ID
+         * @brief ·µ»ØÏß³ÌID
          *
          * @return 
          */
@@ -105,30 +105,30 @@ class Thread {
         Thread& operator=(const Thread &thread);
 
         /**
-         * @brief ä½¿è°ƒç”¨çº¿ç¨‹è‡ªåŠ¨æ”¾å¼ƒCPUï¼Œè®©å…¶å®ƒçº¿ç¨‹è¿è¡Œ
+         * @brief Ê¹µ÷ÓÃÏß³Ì×Ô¶¯·ÅÆúCPU£¬ÈÃÆäËüÏß³ÌÔËĞĞ
          */
         static void yield();
 
         /**
-         * @brief ä½¿è°ƒç”¨çº¿ç¨‹ç¡çœ 
+         * @brief Ê¹µ÷ÓÃÏß³ÌË¯Ãß
          *
-         * @param timeout ç¡çœ æ—¶é—´
+         * @param timeout Ë¯ÃßÊ±¼ä
          */
         static void sleep(const Time &timeout);
 
         /**
-         * @brief æ´¾ç”Ÿç±»å®ç°æ­¤æ–¹æ³•ä»¥æ‰§è¡Œå…·ä½“ä¸šåŠ¡
+         * @brief ÅÉÉúÀàÊµÏÖ´Ë·½·¨ÒÔÖ´ĞĞ¾ßÌåÒµÎñ
          */
         virtual void run() = 0;
 
     private:
         /**
-         * @brief å°†è¿è¡Œæ ‡å¿—ç½®ä¸ºfalse
+         * @brief ½«ÔËĞĞ±êÖ¾ÖÃÎªfalse
          */
         void done();
 
         /**
-         * @brief ä¼ é€’ç»™çº¿ç¨‹æ‰§è¡Œçš„å‡½æ•°
+         * @brief ´«µİ¸øÏß³ÌÖ´ĞĞµÄº¯Êı
          *
          * @param arg
          *
@@ -137,9 +137,9 @@ class Thread {
         static void* startHook(void *arg);
         
     protected:
-        bool m_bRunning;  // çº¿ç¨‹è¿è¡Œæ ‡å¿—
-        bool m_bDetached;  // åˆ†ç¦»çŠ¶æ€
-        ThreadID m_ThreadID;  // çº¿ç¨‹ID
+        bool m_bRunning;  // Ïß³ÌÔËĞĞ±êÖ¾
+        bool m_bDetached;  // ·ÖÀë×´Ì¬
+        ThreadID m_ThreadID;  // Ïß³ÌID
 };
 
 #endif  // COMMON_SYS_THREAD_H_

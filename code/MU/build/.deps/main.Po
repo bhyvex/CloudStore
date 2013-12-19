@@ -124,7 +124,8 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   /usr/include/assert.h /usr/include/leveldb/status.h \
   /usr/include/leveldb/options.h /usr/include/leveldb/write_batch.h \
   /usr/include/leveldb/comparator.h ../src/storage/RangeStruct.h \
-  ../src/storage/LevelDBEngine.h ../src/storage/Key.h
+  ../src/storage/LevelDBEngine.h ../src/storage/Key.h \
+  ../common/sys/ThreadPool.h
 
 /usr/include/c++/4.3/string:
 
@@ -555,3 +556,5 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 ../src/storage/LevelDBEngine.h:
 
 ../src/storage/Key.h:
+
+../common/sys/ThreadPool.h:

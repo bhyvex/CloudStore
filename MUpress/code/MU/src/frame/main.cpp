@@ -40,6 +40,12 @@
 
 
 
+int start;
+int limit;
+int total_num;
+TimeCounter tc;
+
+
 static void sighandler(int sig_no)
 {
     exit(0);
@@ -69,64 +75,55 @@ public:
 
 	int connectAfter(bool bConnect)
 	{
-		if(bConnect){
-			cout <<"connect OK!"<<endl;
-		}else{
+		if(bConnect == false){
 			cout <<"connect Error!"<<endl;
 		}
 
-		TimeCounter tc;
-		int num = 1000000;
-		tc.begin();
-		for(int i = 0; i < num; i++){
+		//make protocolbuf
+		cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
+		putFile.set_uid(1);
+		putFile.set_token("fdsfasdfasfd");
 
-
-			//make protocolbuf
-			cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
-			putFile.set_uid(1);
-			putFile.set_token("fdsfasdfasfd");
-
-			string filepath = "/";
-			filepath += util::conv::conv<string, int>(i);
-			putFile.set_path("filepath");
-
-
-
-			//make filemeta
-			cstore::File_Attr *pfa;
-			pfa = putFile.mutable_attr();
-			pfa->set_version(0);
-			pfa->set_mode(0);
-			pfa->set_ctime(0);
-			pfa->set_mtime(0);
-			pfa->set_type(MU_REGULAR_FILE);
-			pfa->set_size(0);
-
-
-			string output_string;
-			if(!putFile.SerializeToString(&output_string)){
-				cout <<"putFile serializeToString error!"<<endl;
-				return FAILED;
-			}
-
-
-			//make req
-			MsgHeader msg;
-			msg.cmd = MSG_SYS_MU_PUT_FILE;
-			msg.length = output_string.size();
-			
-			char *pBuf = new char[sizeof(msg) + msg.length];
-
-			memcpy(pBuf, &msg, sizeof(msg));
-			memcpy(pBuf + sizeof(msg), output_string.data(), msg.length);
-
-			writeDynData(pBuf, sizeof(msg) + msg.length);
-
-
+		string filepath = "/";
+		if(start >= limit){
+			tc.end();
+			cout <<"cost time:"<<tc.diff()<<endl;
+			exit(0);
 		}
-		tc.end();
-		cout <<"---Cost Time:"<<tc.diff()<<endl;
+		filepath += util::conv::conv<string, int>(start++);
+		putFile.set_path(filepath);
+
+
+
+		//make filemeta
+		cstore::File_Attr *pfa;
+		pfa = putFile.mutable_attr();
+		pfa->set_version(0);
+		pfa->set_mode(0);
+		pfa->set_ctime(0);
+		pfa->set_mtime(0);
+		pfa->set_type(MU_REGULAR_FILE);
+		pfa->set_size(0);
+
+
+		string output_string;
+		if(!putFile.SerializeToString(&output_string)){
+			cout <<"putFile serializeToString error!"<<endl;
+			return FAILED;
+		}
+
+
+		//make req
+		MsgHeader msg;
+		msg.cmd = MSG_SYS_MU_PUT_FILE;
+		msg.length = output_string.size();
 		
+		char *pBuf = new char[sizeof(msg) + msg.length];
+
+		memcpy(pBuf, &msg, sizeof(msg));
+		memcpy(pBuf + sizeof(msg), output_string.data(), msg.length);
+
+		writeDynData(pBuf, sizeof(msg) + msg.length);
 
 		
 	    return SUCCESSFUL;
@@ -134,7 +131,11 @@ public:
 	}
 	void readBack(InReq& req)
 	{
-		cout <<"readback"<<endl;
+		total_num++;
+		if(total_num % 10000 == 0){
+			cout <<"putfile ack "<<total_num<<endl;
+		}
+		connectAfter(true);
 	}
     void writeBack(bool result)
     {
@@ -157,6 +158,10 @@ int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
 
+	start = atoi(argv[3]);
+	limit = atoi(argv[4]);
+	cout <<"start = "<<start<<endl;
+	cout <<"limit = "<<limit<<endl;
 
     signal(SIGINT, sighandler);
     signal(SIGUSR1, sighandler);
@@ -204,6 +209,7 @@ int main(int argc, char *argv[])
 	agent.init();
 	agent.connect(sa);
 	cout <<"connect to "<<sa.getIP()<<":"<<sa.getPort()<<endl;
+	tc.begin();
 
     RunControl::getInstance()->run();
 

@@ -34,7 +34,10 @@
 #include "storage/SplitPathStrategy.h"
 #include "data/FileMeta.h"
 #include "sys/ThreadPool.h"
+#include "sys/DoubleQueue.h"
 
+DoubleQueue<uint64_t> queue;
+uint64_t num;
 
 
 static void sighandler(int sig_no)
@@ -62,19 +65,32 @@ string IntToString(int num)
 class EchoItem : public ThreadPoolWorkItem {
     public:
         int process() {
-            int a++;
+            int a;
             a++;
             a++;
         }
 };
+
+class HeheThread : public Thread
+{
+public:
+	void run()
+	{
+		while(1){
+			while(queue.size() != 0){
+				queue.pop();
+			}
+		}
+	}
+}
 
 
 
 int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
-
 /*
+
     signal(SIGINT, sighandler);
     signal(SIGUSR1, sighandler);
 
@@ -319,14 +335,39 @@ int main(int argc, char *argv[])
 	*/
 
 	//-----------------------------Theadpool-----------------
+	/*
 	ThreadPool *pool = new ThreadPool();
     pool->start();
-    
+
+    TimeCounter tc;
+    tc.begin();
     for (int i = 0; i < 1000000; ++i) {
         pool->postRequest(new EchoItem());
     }
+    tc.end();
+    cout <<tc.diff()<<endl;
 
     sleep(5);
+    */
+
+    //-----------------------DoubleQueue---------------------------------
+
+	HeheThread t1;
+	t1.start();
+    
+    
+    for(uint64_t i = 0; i < 1000; i++){
+    	queue.push(i);
+    	if(i % 10000 ==0){
+	    	cout <<"num"<<endl;
+	    }
+    }
+    
+    while(){
+    }
+
+    
+    
 	
 	return 0;
 }
