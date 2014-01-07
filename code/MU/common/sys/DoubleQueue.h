@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <queue>
+#include <pthread.h>
 using namespace std;
 
 template <class ElemType>
@@ -39,7 +40,7 @@ public:
 	int m_MaxQueueSize;
 	int m_SwapCounter;
 	
-	bool push(ElemType *pElem)
+	bool push(ElemType *pElem) 
 	{
 		//check args
 		if(pElem == NULL){

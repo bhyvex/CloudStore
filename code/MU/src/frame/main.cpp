@@ -50,7 +50,7 @@ void usage(const std::string &exeName)
     fprintf(stderr, "Usage: %s [-c configFilePath]\n", exeName.c_str());
 }
 
-
+/*
 string IntToString(int num)
 {
 	int ss;
@@ -83,13 +83,13 @@ public:
 		}
 	}
 }
-
+*/
 
 
 int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
-/*
+
 
     signal(SIGINT, sighandler);
     signal(SIGUSR1, sighandler);
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
     RunControl::getInstance()->run();
 
     return 0;
-*/
+
 
 //------------------------------------KVNameSpace test-----------------------------------------------------------
 
@@ -350,25 +350,6 @@ int main(int argc, char *argv[])
     sleep(5);
     */
 
-    //-----------------------DoubleQueue---------------------------------
-
-	HeheThread t1;
-	t1.start();
-    
-    
-    for(uint64_t i = 0; i < 1000; i++){
-    	queue.push(i);
-    	if(i % 10000 ==0){
-	    	cout <<"num"<<endl;
-	    }
-    }
-    
-    while(){
-    }
-
-    
-    
-	
 	return 0;
 }
 

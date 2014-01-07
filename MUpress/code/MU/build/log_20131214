@@ -1,3 +1,0 @@
-2013-12-14 02:14:13 [44d8:7fce3b826720] ERROR   	the opposit close the connection
-2013-12-14 02:14:13 [44d8:7fce3b826720] ERROR   	TCPAgent::readData():m_Bufv.read()
-2013-12-14 02:14:13 [44d8:7fce3b826720] ERROR   	opposit: 192.168.9.63 34234
