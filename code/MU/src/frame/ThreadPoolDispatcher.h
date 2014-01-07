@@ -17,38 +17,38 @@
 #include "comm/Agent.h"
 #include "comm/Epoll.h"
 #include "comm/EpollEvent.h"
-#include "sys/ThreadPool.h"
+#include "sys/ThreadPool3.h"
 
 /**
- * @brief Dispatcherç±»è‡ªèº«ç»´æŠ¤ä¸€æ ¹ç®¡é“ï¼Œ
- * ç”¨äºçº¿ç¨‹æ± ä¸­çš„ä»»åŠ¡å°†ç»“æœå†™å›ä¸Šå±‚ï¼Œ
- * æ­¤ç®¡é“çš„è¯»ç«¯æ³¨å†Œåˆ°Epollã€‚
- * å¦å¤–ï¼Œè·å–çº¿ç¨‹æ± ç®¡é“çš„å†™ç«¯ï¼Œå°†å…¶æ³¨å†Œåˆ°Epollï¼Œ
- * è¿™æ ·å¯ä»¥éé˜»å¡åœ°å°†ä»»åŠ¡ä¸‹å‘åˆ°çº¿ç¨‹æ± ã€‚
+ * @brief DispatcherÀà×ÔÉíÎ¬»¤Ò»¸ù¹ÜµÀ£¬
+ * ÓÃÓÚÏß³Ì³ØÖĞµÄÈÎÎñ½«½á¹ûĞ´»ØÉÏ²ã£¬
+ * ´Ë¹ÜµÀµÄ¶Á¶Ë×¢²áµ½Epoll¡£
+ * ÁíÍâ£¬»ñÈ¡Ïß³Ì³Ø¹ÜµÀµÄĞ´¶Ë£¬½«Æä×¢²áµ½Epoll£¬
+ * ÕâÑù¿ÉÒÔ·Ç×èÈûµØ½«ÈÎÎñÏÂ·¢µ½Ïß³Ì³Ø¡£
  */
 class ThreadPoolDispatcher : public Agent
 {
 public:
     virtual ~ThreadPoolDispatcher();
 
-    ThreadPoolDispatcher(Epoll *pEpoll, ThreadPool *pPool);
+    ThreadPoolDispatcher(Epoll *pEpoll, ThreadPool3 *pPool);
 
     /**
-     * @brief ä¸‹å‘ä»»åŠ¡åˆ°çº¿ç¨‹æ± 
+     * @brief ÏÂ·¢ÈÎÎñµ½Ïß³Ì³Ø
      *
      * @param pWorkItem
      */
-    virtual void postRequest(ThreadPoolWorkItem *pWorkItem);
+    virtual void postRequest(ThreadPoolWorkItem3 *pWorkItem);
 
     /**
-     * @brief è¯»äº‹ä»¶åˆ°æ¥ï¼Œä»ç®¡é“è¯»å–å¤„ç†ç»“æœ
+     * @brief ¶ÁÊÂ¼şµ½À´£¬´Ó¹ÜµÀ¶ÁÈ¡´¦Àí½á¹û
      *
      * @return
      */
     virtual int recvData();
 
     /**
-     * @brief å†™äº‹ä»¶åˆ°æ¥ï¼Œå°†ä»»åŠ¡ä¸‹å‘åˆ°çº¿ç¨‹æ± 
+     * @brief Ğ´ÊÂ¼şµ½À´£¬½«ÈÎÎñÏÂ·¢µ½Ïß³Ì³Ø
      *
      * @return
      */
@@ -56,20 +56,20 @@ public:
 
 protected:
     /**
-     * @brief å°†æè¿°ç¬¦è®¾ä¸ºéé˜»å¡
+     * @brief ½«ÃèÊö·ûÉèÎª·Ç×èÈû
      *
-     * @param fd æè¿°ç¬¦
+     * @param fd ÃèÊö·û
      *
      * @return
      */
     int setNonblock(int fd);
 
 protected:
-    ThreadPool *m_pThreadPool;
+    ThreadPool3 *m_pThreadPool;
     int m_hThreadPoolHandle;
     int m_hReadHandle;
     int m_hWriteHandle;
-    std::list<ThreadPoolWorkItem *> m_WorkItemList;
+    std::list<ThreadPoolWorkItem3 *> m_WorkItemList;
 
     // for epoll
     Epoll *m_pEpoll;

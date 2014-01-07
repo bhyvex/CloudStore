@@ -96,24 +96,34 @@ LogItem.lo: ../../../src/item/LogItem.cpp ../../../src/item/LogItem.h \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
   /usr/include/bits/uio.h ../../../common/util/os_path.h \
   ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
-  ../../../common/sys/noncopyable.h ../../../src/frame/MUTask.h \
-  ../../../common/comm/comm.h ../../../common/comm/BaseTask.h \
-  ../../../common/comm/BaseReq.h ../../../common/comm/BaseHeader.h \
-  /usr/include/netinet/in.h /usr/include/sys/socket.h \
-  /usr/include/sys/uio.h /usr/include/bits/socket.h \
-  /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
-  /usr/include/asm-generic/socket.h /usr/include/asm/sockios.h \
-  /usr/include/asm-generic/sockios.h /usr/include/bits/in.h \
-  ../../../common/comm/Epoll.h /usr/include/sys/epoll.h \
-  ../../../common/comm/Error.h /usr/include/c++/4.3/iostream \
+  ../../../common/sys/ThreadPool3.h ../../../common/sys/Thread.h \
+  ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
+  /usr/include/c++/4.3/iostream ../../../common/sys/Mutex.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
+  ../../../src/frame/MUTask.h ../../../common/comm/comm.h \
+  ../../../common/comm/BaseTask.h ../../../common/comm/BaseReq.h \
+  ../../../common/comm/BaseHeader.h /usr/include/netinet/in.h \
+  /usr/include/sys/socket.h /usr/include/sys/uio.h \
+  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
+  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+  /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+  /usr/include/bits/in.h ../../../common/comm/Epoll.h \
+  /usr/include/sys/epoll.h ../../../common/comm/Error.h \
   ../../../common/comm/EpollEvent.h ../../../common/comm/TCPSocket.h \
   ../../../common/comm/SocketAddress.h ../../../common/comm/Agent.h \
   /usr/include/inttypes.h ../../../common/comm/UDPSocket.h \
   ../../../common/comm/AgentManager.h ../../../common/comm/TCPAgent.h \
   ../../../common/comm/BufferManager.h /usr/include/c++/4.3/tr1/memory \
-  /usr/include/c++/4.3/memory /usr/include/c++/4.3/bits/stl_construct.h \
-  /usr/include/c++/4.3/bits/stl_uninitialized.h \
-  /usr/include/c++/4.3/bits/stl_tempbuf.h \
+  /usr/include/c++/4.3/memory /usr/include/c++/4.3/bits/stl_tempbuf.h \
   /usr/include/c++/4.3/bits/stl_raw_storage_iter.h \
   /usr/include/c++/4.3/backward/auto_ptr.h /usr/include/c++/4.3/typeinfo \
   /usr/include/c++/4.3/ext/concurrence.h \
@@ -463,6 +473,44 @@ LogItem.lo: ../../../src/item/LogItem.cpp ../../../src/item/LogItem.h \
 
 ../../../common/sys/ThreadPool.h:
 
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+/usr/include/c++/4.3/iostream:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
+
 ../../../common/sys/noncopyable.h:
 
 ../../../src/frame/MUTask.h:
@@ -501,8 +549,6 @@ LogItem.lo: ../../../src/item/LogItem.cpp ../../../src/item/LogItem.h \
 
 ../../../common/comm/Error.h:
 
-/usr/include/c++/4.3/iostream:
-
 ../../../common/comm/EpollEvent.h:
 
 ../../../common/comm/TCPSocket.h:
@@ -524,10 +570,6 @@ LogItem.lo: ../../../src/item/LogItem.cpp ../../../src/item/LogItem.h \
 /usr/include/c++/4.3/tr1/memory:
 
 /usr/include/c++/4.3/memory:
-
-/usr/include/c++/4.3/bits/stl_construct.h:
-
-/usr/include/c++/4.3/bits/stl_uninitialized.h:
 
 /usr/include/c++/4.3/bits/stl_tempbuf.h:
 

@@ -96,12 +96,24 @@ RuleManager.lo: ../../../src/state/RuleManager.cpp \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
   /usr/include/bits/uio.h ../../../common/util/os_path.h \
   ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
-  ../../../common/sys/noncopyable.h /usr/include/inttypes.h \
-  /usr/include/math.h /usr/include/bits/huge_val.h \
-  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
-  /usr/include/bits/inf.h /usr/include/bits/nan.h \
-  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
-  /usr/include/bits/mathinline.h
+  ../../../common/sys/ThreadPool3.h ../../../common/sys/Thread.h \
+  ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
+  /usr/include/c++/4.3/iostream ../../../common/sys/Mutex.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
+  /usr/include/inttypes.h /usr/include/math.h \
+  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
+  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
+  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
+  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h
 
 ../../../src/state/RuleManager.h:
 
@@ -410,6 +422,44 @@ RuleManager.lo: ../../../src/state/RuleManager.cpp \
 ../../../common/util/TimeCounter.h:
 
 ../../../common/sys/ThreadPool.h:
+
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+/usr/include/c++/4.3/iostream:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
 
 ../../../common/sys/noncopyable.h:
 

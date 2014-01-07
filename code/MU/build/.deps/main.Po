@@ -98,18 +98,25 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   ../common/util/os.h /usr/include/sys/stat.h /usr/include/bits/stat.h \
   /usr/include/fcntl.h /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
   ../common/util/os_path.h ../common/util/TimeCounter.h \
-  ../common/sys/ThreadPool.h ../common/sys/noncopyable.h \
+  ../common/sys/ThreadPool.h ../common/sys/ThreadPool3.h \
+  ../common/sys/Thread.h ../common/sys/ThreadPoolWorkItem3.h \
+  ../common/comm/Error.h ../common/sys/Mutex.h \
+  ../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../common/sys/noncopyable.h \
   ../src/frame/RunControl.h ../src/storage/ChannelMappingStrategy.h \
   ../src/storage/Channel.h ../src/storage/NameSpace.h \
   /usr/include/dirent.h /usr/include/bits/dirent.h \
   /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
   /usr/include/linux/limits.h ../src/data/FileMeta.h \
-  ../src/storage/ChannelManager.h /usr/include/c++/4.3/vector \
-  /usr/include/c++/4.3/bits/stl_construct.h \
-  /usr/include/c++/4.3/bits/stl_uninitialized.h \
-  /usr/include/c++/4.3/bits/stl_vector.h \
-  /usr/include/c++/4.3/bits/stl_bvector.h \
-  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  ../src/storage/ChannelManager.h /usr/include/math.h \
   /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
   /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
   /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
@@ -125,12 +132,7 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
   /usr/include/leveldb/options.h /usr/include/leveldb/write_batch.h \
   /usr/include/leveldb/comparator.h ../src/storage/RangeStruct.h \
   ../src/storage/LevelDBEngine.h ../src/storage/Key.h \
-  ../common/sys/ThreadPool.h ../common/sys/DoubleQueue.h \
-  /usr/include/c++/4.3/queue /usr/include/c++/4.3/deque \
-  /usr/include/c++/4.3/bits/stl_deque.h \
-  /usr/include/c++/4.3/bits/deque.tcc \
-  /usr/include/c++/4.3/bits/stl_heap.h \
-  /usr/include/c++/4.3/bits/stl_queue.h
+  ../common/sys/ThreadPool3.h
 
 /usr/include/c++/4.3/string:
 
@@ -466,6 +468,42 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 
 ../common/sys/ThreadPool.h:
 
+../common/sys/ThreadPool3.h:
+
+../common/sys/Thread.h:
+
+../common/sys/ThreadPoolWorkItem3.h:
+
+../common/comm/Error.h:
+
+../common/sys/Mutex.h:
+
+../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
+
 ../common/sys/noncopyable.h:
 
 ../src/frame/RunControl.h:
@@ -489,18 +527,6 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 ../src/data/FileMeta.h:
 
 ../src/storage/ChannelManager.h:
-
-/usr/include/c++/4.3/vector:
-
-/usr/include/c++/4.3/bits/stl_construct.h:
-
-/usr/include/c++/4.3/bits/stl_uninitialized.h:
-
-/usr/include/c++/4.3/bits/stl_vector.h:
-
-/usr/include/c++/4.3/bits/stl_bvector.h:
-
-/usr/include/c++/4.3/bits/vector.tcc:
 
 /usr/include/math.h:
 
@@ -562,18 +588,4 @@ main.o: ../src/frame/main.cpp /usr/include/c++/4.3/string \
 
 ../src/storage/Key.h:
 
-../common/sys/ThreadPool.h:
-
-../common/sys/DoubleQueue.h:
-
-/usr/include/c++/4.3/queue:
-
-/usr/include/c++/4.3/deque:
-
-/usr/include/c++/4.3/bits/stl_deque.h:
-
-/usr/include/c++/4.3/bits/deque.tcc:
-
-/usr/include/c++/4.3/bits/stl_heap.h:
-
-/usr/include/c++/4.3/bits/stl_queue.h:
+../common/sys/ThreadPool3.h:

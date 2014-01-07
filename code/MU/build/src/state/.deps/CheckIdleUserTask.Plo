@@ -146,7 +146,17 @@ CheckIdleUserTask.lo: ../../../src/state/CheckIdleUserTask.cpp \
   ../../../common/util/os.h /usr/include/sys/stat.h \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
   ../../../common/util/os_path.h ../../../common/util/TimeCounter.h \
-  ../../../common/sys/ThreadPool.h ../../../common/sys/noncopyable.h \
+  ../../../common/sys/ThreadPool.h ../../../common/sys/ThreadPool3.h \
+  ../../../common/sys/Thread.h ../../../common/sys/ThreadPoolWorkItem3.h \
+  ../../../common/comm/Error.h ../../../common/sys/Mutex.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
   ../../../src/frame/MUTask.h ../../../src/frame/ReturnStatus.h \
   /usr/include/assert.h ../../../src/frame/MUMacros.h \
   ../../../src/frame/MUTaskManager.h /usr/include/c++/4.3/set \
@@ -155,11 +165,10 @@ CheckIdleUserTask.lo: ../../../src/state/CheckIdleUserTask.cpp \
   ../../../src/frame/MURegister.h ../../../src/frame/MUWorkItemManager.h \
   ../../../src/frame/MUTPDispatcher.h \
   ../../../src/frame/ThreadPoolDispatcher.h \
-  ../../../common/sys/ThreadPool.h ../../../src/frame/MUWorkItem.h \
+  ../../../common/sys/ThreadPool3.h ../../../src/frame/MUWorkItem.h \
   ../../../src/oplog/LogDispatcher.h ../../../src/oplog/LogEvent.h \
   ../../../src/data/FileMeta.h ../../../src/oplog/LogThread.h \
-  ../../../common/sys/Thread.h ../../../src/oplog/LogEvent.h \
-  ../../../src/item/CheckIdleUserItem.h
+  ../../../src/oplog/LogEvent.h ../../../src/item/CheckIdleUserItem.h
 
 ../../../src/state/CheckIdleUserTask.h:
 
@@ -637,6 +646,38 @@ CheckIdleUserTask.lo: ../../../src/state/CheckIdleUserTask.cpp \
 
 ../../../common/sys/ThreadPool.h:
 
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
+
 ../../../common/sys/noncopyable.h:
 
 ../../../src/frame/MUTask.h:
@@ -663,7 +704,7 @@ CheckIdleUserTask.lo: ../../../src/state/CheckIdleUserTask.cpp \
 
 ../../../src/frame/ThreadPoolDispatcher.h:
 
-../../../common/sys/ThreadPool.h:
+../../../common/sys/ThreadPool3.h:
 
 ../../../src/frame/MUWorkItem.h:
 
@@ -674,8 +715,6 @@ CheckIdleUserTask.lo: ../../../src/state/CheckIdleUserTask.cpp \
 ../../../src/data/FileMeta.h:
 
 ../../../src/oplog/LogThread.h:
-
-../../../common/sys/Thread.h:
 
 ../../../src/oplog/LogEvent.h:
 

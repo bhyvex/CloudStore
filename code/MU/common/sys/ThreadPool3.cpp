@@ -14,9 +14,10 @@
 using namespace std;
 
 ThreadPool3::EventHandlerThread::
-EventHandlerThread()
+EventHandlerThread(ThreadPool3 *pool):
+	m_pThreadPool(pool)
 {
-	if( NULL == g_pThreadPool3 )
+	if( NULL == pool)
 	{
 		DEBUG_LOG( "NULL pointer argument." );
 	}
@@ -166,7 +167,7 @@ int ThreadPool3::start()
 {
 	for( int i = 0; i < m_nMaxIdle; ++i)
 	{
-		m_threadMap[i] = new EventHandlerThread();
+		m_threadMap[i] = new EventHandlerThread(this);
 	}
 	
 	for( int i = 0; i < m_nMaxIdle; ++i )

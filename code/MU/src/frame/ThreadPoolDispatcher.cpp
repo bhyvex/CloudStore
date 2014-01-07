@@ -16,10 +16,11 @@
 #include <assert.h>
 
 #include "log/log.h"
+#include "MURegister.h"
 
 ThreadPoolDispatcher::ThreadPoolDispatcher(
     Epoll *pEpoll,
-    ThreadPool *pPool) :
+    ThreadPool3 *pPool) :
     m_pEpoll(pEpoll),
     m_pThreadPool(pPool)
 {
@@ -36,15 +37,13 @@ ThreadPoolDispatcher::ThreadPoolDispatcher(
     m_ReadEpollEvent.setHandler(this);
     m_WriteEpollEvent.setHandler(this);
 
-    // get thread pool handle
-    m_hThreadPoolHandle = m_pThreadPool->getHandle();
 
     setNonblock(m_hThreadPoolHandle);
 
-    // 设置线程池句柄
+    // �����̳߳ؾ��
     m_WriteEpollEvent.setFd(m_hThreadPoolHandle);
     m_WriteEpollEvent.registerWEvent();
-    // 关闭写事件
+    // �ر�д�¼�
     m_WriteEpollEvent.closeWevent();
 
     // init pipe
@@ -62,7 +61,7 @@ ThreadPoolDispatcher::ThreadPoolDispatcher(
 
     m_ReadEpollEvent.setFd(m_hReadHandle);
 
-    // 注册管道读事件
+    // ע��ܵ����¼�
     m_ReadEpollEvent.registerREvent();
 }
 
@@ -96,12 +95,10 @@ ThreadPoolDispatcher::setNonblock(int fd)
 }
 
 void
-ThreadPoolDispatcher::postRequest(ThreadPoolWorkItem *pWorkItem)
+ThreadPoolDispatcher::postRequest(ThreadPoolWorkItem3 *pWorkItem)
 {
-    m_WorkItemList.push_back(pWorkItem);
-
-    // 打开线程池句柄写事件
-    m_WriteEpollEvent.openWevent();
+	ThreadPool3 *pThreadPool3 = MURegister::getInstance()->getThreadPool();
+    pThreadPool3->postRequest(pWorkItem);
 }
 
 int
@@ -128,7 +125,7 @@ ThreadPoolDispatcher::sendData()
     }
 
     if (m_WorkItemList.empty()) {
-        // 关闭写事件
+        // �ر�д�¼�
         m_WriteEpollEvent.closeWevent();
     }
 

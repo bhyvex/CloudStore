@@ -170,13 +170,20 @@ LogDispatcher.lo: ../../../src/oplog/LogDispatcher.cpp \
   ../../../common/sys/Cond.h ../../../common/sys/Lock.h \
   ../../../common/sys/RWLock.h ../../../common/sys/Singleton.h \
   ../../../common/sys/Thread.h ../../../common/sys/ThreadPool.h \
-  ../../../common/sys/noncopyable.h /usr/include/math.h \
-  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
-  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
-  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
-  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
-  ../../../src/state/BucketManager.h ../../../src/state/Bucket.h \
-  ../../../src/frame/MUWorkItemManager.h
+  ../../../common/sys/ThreadPool3.h \
+  ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
+  ../../../common/sys/Mutex.h ../../../common/sys/DoubleQueue.h \
+  /usr/include/c++/4.3/queue /usr/include/c++/4.3/deque \
+  /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
+  /usr/include/math.h /usr/include/bits/huge_val.h \
+  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
+  /usr/include/bits/inf.h /usr/include/bits/nan.h \
+  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
+  /usr/include/bits/mathinline.h ../../../src/state/BucketManager.h \
+  ../../../src/state/Bucket.h ../../../src/frame/MUWorkItemManager.h
 
 ../../../src/oplog/LogDispatcher.h:
 
@@ -711,6 +718,28 @@ LogDispatcher.lo: ../../../src/oplog/LogDispatcher.cpp \
 ../../../common/sys/Thread.h:
 
 ../../../common/sys/ThreadPool.h:
+
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
 
 ../../../common/sys/noncopyable.h:
 

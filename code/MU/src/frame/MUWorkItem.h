@@ -23,7 +23,7 @@
 
 class MUTPDispatcher;
 
-class MUWorkItem : public ThreadPoolWorkItem
+class MUWorkItem : public ThreadPoolWorkItem3
 {
 public:
     virtual ~MUWorkItem();

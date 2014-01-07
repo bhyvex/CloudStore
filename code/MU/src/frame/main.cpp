@@ -33,7 +33,7 @@
 #include "storage/RangeStruct.h"
 #include "storage/SplitPathStrategy.h"
 #include "data/FileMeta.h"
-#include "sys/ThreadPool.h"
+#include "sys/ThreadPool3.h"
 #include "sys/DoubleQueue.h"
 
 DoubleQueue<uint64_t> queue;

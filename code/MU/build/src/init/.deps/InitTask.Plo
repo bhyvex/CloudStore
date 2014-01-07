@@ -142,7 +142,17 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
   ../../../common/util/os.h /usr/include/sys/stat.h \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
   ../../../common/util/os_path.h ../../../common/util/TimeCounter.h \
-  ../../../common/sys/ThreadPool.h ../../../common/sys/noncopyable.h \
+  ../../../common/sys/ThreadPool.h ../../../common/sys/ThreadPool3.h \
+  ../../../common/sys/Thread.h ../../../common/sys/ThreadPoolWorkItem3.h \
+  ../../../common/comm/Error.h ../../../common/sys/Mutex.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
   ../../../src/frame/MUTask.h ../../../src/frame/ReturnStatus.h \
   /usr/include/math.h /usr/include/bits/huge_val.h \
   /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
@@ -154,11 +164,10 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
   ../../../src/frame/MUTPDispatcher.h \
   ../../../src/frame/ThreadPoolDispatcher.h ../../../common/comm/Agent.h \
   ../../../common/comm/Epoll.h ../../../common/comm/EpollEvent.h \
-  ../../../common/sys/ThreadPool.h ../../../src/frame/MUWorkItem.h \
+  ../../../common/sys/ThreadPool3.h ../../../src/frame/MUWorkItem.h \
   ../../../src/oplog/LogDispatcher.h ../../../src/oplog/LogEvent.h \
   ../../../src/data/FileMeta.h ../../../src/oplog/LogThread.h \
-  ../../../common/sys/Thread.h ../../../src/oplog/LogEvent.h \
-  ../../../src/frame/MUConfiguration.h \
+  ../../../src/oplog/LogEvent.h ../../../src/frame/MUConfiguration.h \
   ../../../src/frame/MUTCPListenAgent.h ../../../src/frame/PassiveTask.h \
   ../../../src/frame/MUTaskManager.h /usr/include/c++/4.3/set \
   /usr/include/c++/4.3/bits/stl_set.h \
@@ -182,10 +191,7 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
   /usr/include/linux/param.h /usr/include/asm/param.h \
   /usr/include/asm-generic/param.h \
   /usr/local/include/google/protobuf/extension_set.h \
-  /usr/include/c++/4.3/vector /usr/include/c++/4.3/bits/stl_vector.h \
-  /usr/include/c++/4.3/bits/stl_bvector.h \
-  /usr/include/c++/4.3/bits/vector.tcc /usr/include/c++/4.3/utility \
-  /usr/include/c++/4.3/bits/stl_relops.h \
+  /usr/include/c++/4.3/utility /usr/include/c++/4.3/bits/stl_relops.h \
   /usr/local/include/google/protobuf/generated_message_reflection.h \
   /usr/local/include/google/protobuf/message.h \
   /usr/local/include/google/protobuf/unknown_field_set.h \
@@ -660,6 +666,38 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
 
 ../../../common/sys/ThreadPool.h:
 
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
+
 ../../../common/sys/noncopyable.h:
 
 ../../../src/frame/MUTask.h:
@@ -702,7 +740,7 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
 
 ../../../common/comm/EpollEvent.h:
 
-../../../common/sys/ThreadPool.h:
+../../../common/sys/ThreadPool3.h:
 
 ../../../src/frame/MUWorkItem.h:
 
@@ -713,8 +751,6 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
 ../../../src/data/FileMeta.h:
 
 ../../../src/oplog/LogThread.h:
-
-../../../common/sys/Thread.h:
 
 ../../../src/oplog/LogEvent.h:
 
@@ -781,14 +817,6 @@ InitTask.lo: ../../../src/init/InitTask.cpp ../../../src/init/InitTask.h \
 /usr/include/asm-generic/param.h:
 
 /usr/local/include/google/protobuf/extension_set.h:
-
-/usr/include/c++/4.3/vector:
-
-/usr/include/c++/4.3/bits/stl_vector.h:
-
-/usr/include/c++/4.3/bits/stl_bvector.h:
-
-/usr/include/c++/4.3/bits/vector.tcc:
 
 /usr/include/c++/4.3/utility:
 

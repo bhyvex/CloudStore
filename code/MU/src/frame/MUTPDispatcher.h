@@ -19,7 +19,7 @@
 class MUTPDispatcher : public ThreadPoolDispatcher
 {
 public:
-    MUTPDispatcher(Epoll *pEpoll, ThreadPool *pPool);
+    MUTPDispatcher(Epoll *pEpoll, ThreadPool3 *pPool);
 
     /**
      * @brief called by Epoll when there's some results in the write-back pipe.

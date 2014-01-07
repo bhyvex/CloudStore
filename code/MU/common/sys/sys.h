@@ -27,6 +27,7 @@
 #include "Singleton.h"
 #include "Thread.h"
 #include "ThreadPool.h"
+#include "ThreadPool3.h"
 #include "Time.h"
 #include "noncopyable.h"
 

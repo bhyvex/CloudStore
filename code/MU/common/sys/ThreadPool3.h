@@ -43,7 +43,7 @@ protected:
 	class EventHandlerThread : public Thread
 	{
 	public:
-		EventHandlerThread();
+		EventHandlerThread(ThreadPool3 *pool);
 
 		int DispatchItem(const ThreadPoolWorkItem3 *item);
 		int ResultItem(const ThreadPoolWorkItem3 *item);
@@ -56,6 +56,8 @@ protected:
 	public:
 		DoubleQueue<ThreadPoolWorkItem3 *>  m_RequestQueue;
 		DoubleQueue<ThreadPoolWorkItem3 *>  m_ResultQueue;
+
+		ThreadPool3 *m_pThreadPool;
 	};
 
 	class ThreadExitWorkItem : public ThreadPoolWorkItem3

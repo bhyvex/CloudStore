@@ -191,7 +191,7 @@ RunControl::initThreadPool()
     pEpoll = MURegister::getInstance()->getEpoll();
 
     // init thread pool
-    ThreadPool *pThreadPool = new ThreadPool(
+    ThreadPool3 *pThreadPool = new ThreadPool3(
         MUConfiguration::getInstance()->m_ThreadPoolWorkers);
     pThreadPool->start();
 

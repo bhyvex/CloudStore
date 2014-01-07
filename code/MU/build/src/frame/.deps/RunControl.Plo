@@ -96,8 +96,20 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
   /usr/include/bits/uio.h ../../../common/util/os_path.h \
   ../../../common/util/TimeCounter.h ../../../common/sys/ThreadPool.h \
-  ../../../common/sys/noncopyable.h ../../../src/frame/MUConfiguration.h \
-  /usr/include/c++/4.3/iostream /usr/include/inttypes.h \
+  ../../../common/sys/ThreadPool3.h ../../../common/sys/Thread.h \
+  ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
+  /usr/include/c++/4.3/iostream ../../../common/sys/Mutex.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
+  /usr/include/c++/4.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.3/bits/stl_deque.h \
+  /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
+  /usr/include/c++/4.3/bits/stl_vector.h \
+  /usr/include/c++/4.3/bits/stl_bvector.h \
+  /usr/include/c++/4.3/bits/vector.tcc \
+  /usr/include/c++/4.3/bits/stl_heap.h \
+  /usr/include/c++/4.3/bits/stl_queue.h ../../../common/sys/noncopyable.h \
+  ../../../src/frame/MUConfiguration.h /usr/include/inttypes.h \
   ../../../src/frame/MURegister.h ../../../common/comm/comm.h \
   ../../../common/comm/BaseTask.h ../../../common/comm/BaseReq.h \
   ../../../common/comm/BaseHeader.h /usr/include/netinet/in.h \
@@ -112,8 +124,6 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   ../../../common/comm/UDPSocket.h ../../../common/comm/AgentManager.h \
   ../../../common/comm/TCPAgent.h ../../../common/comm/BufferManager.h \
   /usr/include/c++/4.3/tr1/memory /usr/include/c++/4.3/memory \
-  /usr/include/c++/4.3/bits/stl_construct.h \
-  /usr/include/c++/4.3/bits/stl_uninitialized.h \
   /usr/include/c++/4.3/bits/stl_tempbuf.h \
   /usr/include/c++/4.3/bits/stl_raw_storage_iter.h \
   /usr/include/c++/4.3/backward/auto_ptr.h /usr/include/c++/4.3/typeinfo \
@@ -147,15 +157,15 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   ../../../src/frame/MUTPDispatcher.h \
   ../../../src/frame/ThreadPoolDispatcher.h ../../../common/comm/Agent.h \
   ../../../common/comm/Epoll.h ../../../common/comm/EpollEvent.h \
-  ../../../common/sys/ThreadPool.h ../../../src/frame/MUWorkItem.h \
+  ../../../common/sys/ThreadPool3.h ../../../src/frame/MUWorkItem.h \
   ../../../src/frame/MUTask.h ../../../src/frame/MUTCPAgent.h \
   ../../../src/frame/MUMacros.h ../../../src/protocol/MUMacros.h \
   ../../../src/frame/ReturnStatus.h ../../../src/oplog/LogDispatcher.h \
   ../../../src/oplog/LogEvent.h ../../../src/data/FileMeta.h \
-  ../../../src/oplog/LogThread.h ../../../common/sys/Thread.h \
-  ../../../src/oplog/LogEvent.h ../../../src/frame/MUTCPListenAgent.h \
-  ../../../src/frame/PassiveTask.h ../../../src/frame/MUTaskManager.h \
-  /usr/include/c++/4.3/set /usr/include/c++/4.3/bits/stl_set.h \
+  ../../../src/oplog/LogThread.h ../../../src/oplog/LogEvent.h \
+  ../../../src/frame/MUTCPListenAgent.h ../../../src/frame/PassiveTask.h \
+  ../../../src/frame/MUTaskManager.h /usr/include/c++/4.3/set \
+  /usr/include/c++/4.3/bits/stl_set.h \
   /usr/include/c++/4.3/bits/stl_multiset.h \
   ../../../src/frame/MUAgentManager.h ../../../src/frame/RecycleTask.h \
   ../../../src/frame/MUTask.h ../../../src/frame/MUTimer.h \
@@ -175,10 +185,7 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
   ../../../src/item/MigrationServerItem.h \
   ../../../src/CSPM/StopBucketTask.h ../../../src/CSPM/StartBucketTask.h \
   ../../../src/state/CheckIdleUserTask.h \
-  ../../../src/storage/ChannelManager.h /usr/include/c++/4.3/vector \
-  /usr/include/c++/4.3/bits/stl_vector.h \
-  /usr/include/c++/4.3/bits/stl_bvector.h \
-  /usr/include/c++/4.3/bits/vector.tcc /usr/include/math.h \
+  ../../../src/storage/ChannelManager.h /usr/include/math.h \
   /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
   /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
   /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
@@ -496,11 +503,47 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 
 ../../../common/sys/ThreadPool.h:
 
+../../../common/sys/ThreadPool3.h:
+
+../../../common/sys/Thread.h:
+
+../../../common/sys/ThreadPoolWorkItem3.h:
+
+../../../common/comm/Error.h:
+
+/usr/include/c++/4.3/iostream:
+
+../../../common/sys/Mutex.h:
+
+../../../common/sys/DoubleQueue.h:
+
+/usr/include/c++/4.3/queue:
+
+/usr/include/c++/4.3/deque:
+
+/usr/include/c++/4.3/bits/stl_construct.h:
+
+/usr/include/c++/4.3/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.3/bits/stl_deque.h:
+
+/usr/include/c++/4.3/bits/deque.tcc:
+
+/usr/include/c++/4.3/vector:
+
+/usr/include/c++/4.3/bits/stl_vector.h:
+
+/usr/include/c++/4.3/bits/stl_bvector.h:
+
+/usr/include/c++/4.3/bits/vector.tcc:
+
+/usr/include/c++/4.3/bits/stl_heap.h:
+
+/usr/include/c++/4.3/bits/stl_queue.h:
+
 ../../../common/sys/noncopyable.h:
 
 ../../../src/frame/MUConfiguration.h:
-
-/usr/include/c++/4.3/iostream:
 
 /usr/include/inttypes.h:
 
@@ -559,10 +602,6 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 /usr/include/c++/4.3/tr1/memory:
 
 /usr/include/c++/4.3/memory:
-
-/usr/include/c++/4.3/bits/stl_construct.h:
-
-/usr/include/c++/4.3/bits/stl_uninitialized.h:
 
 /usr/include/c++/4.3/bits/stl_tempbuf.h:
 
@@ -658,7 +697,7 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 
 ../../../common/comm/EpollEvent.h:
 
-../../../common/sys/ThreadPool.h:
+../../../common/sys/ThreadPool3.h:
 
 ../../../src/frame/MUWorkItem.h:
 
@@ -679,8 +718,6 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 ../../../src/data/FileMeta.h:
 
 ../../../src/oplog/LogThread.h:
-
-../../../common/sys/Thread.h:
 
 ../../../src/oplog/LogEvent.h:
 
@@ -755,14 +792,6 @@ RunControl.lo: ../../../src/frame/RunControl.cpp \
 ../../../src/state/CheckIdleUserTask.h:
 
 ../../../src/storage/ChannelManager.h:
-
-/usr/include/c++/4.3/vector:
-
-/usr/include/c++/4.3/bits/stl_vector.h:
-
-/usr/include/c++/4.3/bits/stl_bvector.h:
-
-/usr/include/c++/4.3/bits/vector.tcc:
 
 /usr/include/math.h:
 

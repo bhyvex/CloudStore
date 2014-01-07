@@ -19,7 +19,7 @@
 #include "MUWorkItemManager.h"
 #include "MURegister.h"
 
-MUTPDispatcher::MUTPDispatcher(Epoll *pEpoll, ThreadPool *pPool) :
+MUTPDispatcher::MUTPDispatcher(Epoll *pEpoll, ThreadPool3 *pPool) :
     ThreadPoolDispatcher(pEpoll, pPool)
 {
 

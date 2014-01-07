@@ -33,9 +33,9 @@ public:
 
     inline void setEpoll(Epoll *pEpoll);
 
-    inline ThreadPool *getThreadPool();
+    inline ThreadPool3 *getThreadPool();
 
-    inline void setThreadPool(ThreadPool *pPool);
+    inline void setThreadPool(ThreadPool3 *pPool);
 
     inline MUTPDispatcher *getThreadPoolDispatcher();
 
@@ -63,7 +63,7 @@ protected:
 
 private:
     Epoll *m_pEpoll;
-    ThreadPool *m_pThreadPool;
+    ThreadPool3 *m_pThreadPool;
     MUTPDispatcher *m_pTPDispatcher;
     MUWorkItemManager *m_pCurrentItemManager;
     MUWorkItemManager *m_pDelayItemManager;
@@ -87,14 +87,14 @@ MURegister::setEpoll(Epoll *pEpoll)
     m_pEpoll = pEpoll;
 }
 
-ThreadPool *
+ThreadPool3 *
 MURegister::getThreadPool()
 {
     return m_pThreadPool;
 }
 
 void
-MURegister::setThreadPool(ThreadPool *pPool)
+MURegister::setThreadPool(ThreadPool3 *pPool)
 {
     m_pThreadPool = pPool;
 }
