@@ -123,6 +123,7 @@ MUWorkItem::generateItemId()
 void
 MUWorkItem::postRequest()
 {
+	
     MUWorkItemManager *pItemManager =
         MURegister::getInstance()->getCurrentItemManager();
     pItemManager->put(m_ItemId, this);
@@ -133,6 +134,11 @@ MUWorkItem::postRequest()
     assert(pDispatcher);
 
     pDispatcher->postRequest(this);
+
+    /*
+    ThreadPool3 *pThreadPool3 = MURegister::getInstance()->getThreadPool();
+    pThreadPool3->postRequest(this);
+    */
 }
 
 

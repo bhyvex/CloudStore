@@ -121,6 +121,7 @@ MUTask::setParent(MUTask *pTask)
 void
 MUTask::sendItem(MUWorkItem *pItem)
 {
+
     if (MURegister::getInstance()->bigLock()) {
         pItem->delay();
 

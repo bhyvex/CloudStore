@@ -68,8 +68,8 @@ run()
 
 		if(ret != true)
 		{
-			DEBUG_LOG( "pop error:queue is empty.");
-			::sleep(1);
+			//DEBUG_LOG( "pop error:queue is empty.");
+			//::sleep(1);
 			continue;
 		}
 
@@ -178,7 +178,7 @@ int ThreadPool3::start()
 			DEBUG_LOG( "Error occurred whilst starting a thread." );
             return FAILED;
 		}else{
-			INFO_LOG( "started a thread." );
+			//INFO_LOG( "started a thread." );
 		}
 	}
 

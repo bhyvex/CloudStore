@@ -38,6 +38,8 @@
 
 DoubleQueue<uint64_t> queue;
 uint64_t num;
+TimeCounter tc;
+
 
 
 static void sighandler(int sig_no)
@@ -50,7 +52,7 @@ void usage(const std::string &exeName)
     fprintf(stderr, "Usage: %s [-c configFilePath]\n", exeName.c_str());
 }
 
-/*
+
 string IntToString(int num)
 {
 	int ss;
@@ -62,15 +64,25 @@ string IntToString(int num)
 	return s;
 }
 
-class EchoItem : public ThreadPoolWorkItem {
+class EchoItem : public ThreadPoolWorkItem3 {
     public:
         int process() {
-            int a;
-            a++;
-            a++;
+        	__sync_fetch_and_add(&num, 1);
+        	if(num % 10000 == 0){
+        		cout <<"num="<<num<<endl;
+        	}
+        	if(num >= 99999999){
+				tc.end();
+				cout <<tc.diff()<<endl;
+				exit(1);
+			}
+        }
+        int postProcess() {
+        	delete this;
         }
 };
 
+/*
 class HeheThread : public Thread
 {
 public:
@@ -336,18 +348,17 @@ int main(int argc, char *argv[])
 
 	//-----------------------------Theadpool-----------------
 	/*
-	ThreadPool *pool = new ThreadPool();
+	ThreadPool3 *pool = new ThreadPool3();
     pool->start();
 
-    TimeCounter tc;
+
     tc.begin();
-    for (int i = 0; i < 1000000; ++i) {
+    for (int i = 0; i < 100000000; ++i) {
         pool->postRequest(new EchoItem());
     }
-    tc.end();
-    cout <<tc.diff()<<endl;
 
-    sleep(5);
+
+    pause();
     */
 
 	return 0;
