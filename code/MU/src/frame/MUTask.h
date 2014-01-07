@@ -141,7 +141,7 @@ protected:
     *
     * @param pItem
     */
-    void sendItem(MUWorkItem *pItem);
+    void sendItem(MUWorkItem *pItem, int bucketID = -1);
 
     /**
      * @brief close socket connection and release associated agent

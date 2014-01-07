@@ -42,6 +42,7 @@
 
 int start;
 int limit;
+int total_should;
 int total_num;
 TimeCounter tc;
 
@@ -73,23 +74,15 @@ class MUPressAgent:public TCPAgent
 public:
 	MUPressAgent(const SocketAddress& sa, Epoll* pEpoll):TCPAgent(sa, pEpoll){}
 
-	int connectAfter(bool bConnect)
+	int putFile()
 	{
-		if(bConnect == false){
-			cout <<"connect Error!"<<endl;
-		}
-
 		//make protocolbuf
 		cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
 		putFile.set_uid(1);
 		putFile.set_token("fdsfasdfasfd");
 
 		string filepath = "/";
-		if(start >= limit){
-			tc.end();
-			cout <<"cost time:"<<tc.diff()<<endl;
-			exit(0);
-		}
+
 		filepath += util::conv::conv<string, int>(start++);
 		putFile.set_path(filepath);
 
@@ -127,6 +120,21 @@ public:
 
 		
 	    return SUCCESSFUL;
+	}
+	
+	int connectAfter(bool bConnect)
+	{
+		if(bConnect == false){
+			cout <<"connect Error!"<<endl;
+		}
+
+		while(1){
+			putFile();
+			if(start >= limit){
+				
+				break;
+			}
+		}
 	    
 	}
 	void readBack(InReq& req)
@@ -135,7 +143,12 @@ public:
 		if(total_num % 10000 == 0){
 			cout <<"putfile ack "<<total_num<<endl;
 		}
-		connectAfter(true);
+
+		if(total_num >= total_should){
+			tc.end();
+			cout <<"cost time:"<<tc.diff()<<endl;
+			exit(0);
+		}
 	}
     void writeBack(bool result)
     {
@@ -160,6 +173,7 @@ int main(int argc, char *argv[])
 
 	start = atoi(argv[3]);
 	limit = atoi(argv[4]);
+	total_should = limit - start;
 	cout <<"start = "<<start<<endl;
 	cout <<"limit = "<<limit<<endl;
 

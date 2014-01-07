@@ -625,7 +625,8 @@ ClientTask::putFile(const InReq &req)
 
     pItem->setFileMetaIn(meta);
 
-    sendItem(pItem);
+    sendItem(pItem,
+    		RuleManager::getInstance()->getBucketIdByUserId(putFile.uid()));
 
     return 0;
 }

@@ -119,15 +119,17 @@ MUTask::setParent(MUTask *pTask)
 }
 
 void
-MUTask::sendItem(MUWorkItem *pItem)
+MUTask::sendItem(MUWorkItem *pItem, int bucketID)
 {
-
+/*
     if (MURegister::getInstance()->bigLock()) {
         pItem->delay();
 
     } else {
         pItem->postRequest();
     }
+*/
+	pItem->postRequest(bucketID);
 
     ref();
 }

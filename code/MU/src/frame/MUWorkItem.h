@@ -39,7 +39,7 @@ public:
     /**
      * @brief Send this work item to thread pool
      */
-    void postRequest();
+    void postRequest(int bucketID = -1);
 
     /**
      * @brief put this item into a map, then execute it in future

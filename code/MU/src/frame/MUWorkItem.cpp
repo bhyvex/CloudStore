@@ -21,6 +21,9 @@
 
 #include "log/log.h"
 #include "sys/sys.h"
+#include "storage/ChannelManager.h"
+#include "storage/Channel.h"
+
 
 #include <limits.h>
 
@@ -121,9 +124,9 @@ MUWorkItem::generateItemId()
 }
 
 void
-MUWorkItem::postRequest()
+MUWorkItem::postRequest(int bucketID)
 {
-	
+	/*
     MUWorkItemManager *pItemManager =
         MURegister::getInstance()->getCurrentItemManager();
     pItemManager->put(m_ItemId, this);
@@ -134,11 +137,19 @@ MUWorkItem::postRequest()
     assert(pDispatcher);
 
     pDispatcher->postRequest(this);
-
-    /*
-    ThreadPool3 *pThreadPool3 = MURegister::getInstance()->getThreadPool();
-    pThreadPool3->postRequest(this);
     */
+
+    
+    ThreadPool3 *pThreadPool3 = MURegister::getInstance()->getThreadPool();
+
+    if(bucketID == -1){
+    	pThreadPool3->postRequest(this);
+    }else{
+    	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(bucketID);
+    	int threadID = pDataChannel->m_Id;
+    	pThreadPool3->postRequest(threadID, this);
+    }
+    
 }
 
 
