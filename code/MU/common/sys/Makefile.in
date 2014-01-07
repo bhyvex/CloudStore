@@ -44,7 +44,7 @@ CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libsys_la_LIBADD =
 am_libsys_la_OBJECTS = Cond.lo Exception.lo Mutex.lo RWLock.lo \
-	Thread.lo ThreadPool.lo Time.lo
+	Thread.lo ThreadPool.lo Time.lo ThreadPool3.lo
 libsys_la_OBJECTS = $(am_libsys_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -187,7 +187,8 @@ libsys_la_SOURCES = Cond.cpp  \
 				   RWLock.cpp  \
 				   Thread.cpp  \
 				   ThreadPool.cpp  \
-				   Time.cpp  
+				   Time.cpp  \
+				   ThreadPool3.cpp 
 
 INCLUDES = $(GLOBAL_INCLUDES) -I$(top_srcdir)/common
 all: all-am
@@ -247,6 +248,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RWLock.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Thread.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ThreadPool.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ThreadPool3.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Time.Plo@am__quote@
 
 .cpp.o:

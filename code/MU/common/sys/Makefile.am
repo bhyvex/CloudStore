@@ -7,7 +7,8 @@ libsys_la_SOURCES = Cond.cpp  \
 				   RWLock.cpp  \
 				   Thread.cpp  \
 				   ThreadPool.cpp  \
-				   Time.cpp  
+				   Time.cpp  \
+				   ThreadPool3.cpp 
 
 
 INCLUDES = $(GLOBAL_INCLUDES) -I$(top_srcdir)/common
