@@ -70,6 +70,7 @@ bool ChannelManager::deleteChannel(int ChannelID)
 	}
 }
 
+/*
 Channel* ChannelManager::findChannel(int ChannelID)
 {
 	if(ChannelID > m_ChannelVec.size()){
@@ -78,7 +79,7 @@ Channel* ChannelManager::findChannel(int ChannelID)
 		return m_ChannelVec[ChannelID];
 	}
 }
-
+*/
 
 int ChannelManager::ChannelSize()
 {

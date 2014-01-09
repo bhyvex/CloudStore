@@ -30,7 +30,16 @@ public:
 	
 	bool createChannel(int ChannelID, string RootPath);
 	bool deleteChannel(int ChannelID);
-	Channel* findChannel(int ChannelID);
+
+	Channel* findChannel(int ChannelID)
+	{
+		if(ChannelID > m_ChannelVec.size()){
+			return NULL;
+		}else{
+			return m_ChannelVec[ChannelID];
+		}
+	}
+
 	int ChannelSize();
 	vector<Channel*> m_ChannelVec;
 

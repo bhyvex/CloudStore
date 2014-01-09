@@ -41,7 +41,7 @@ class Singleton {
          *
          * @return 指向实例的指针
          */
-        static T* getInstance() {
+        static inline T* getInstance() {
             pthread_once(&m_InstanceFlag, &Singleton::initInstance);
             return m_pInstance;
         }

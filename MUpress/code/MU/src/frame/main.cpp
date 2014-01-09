@@ -42,9 +42,23 @@
 
 int start;
 int limit;
+int userid;
 int total_should;
 int total_num;
 TimeCounter tc;
+
+char* tokens[10] = {
+	"fdsfasdfasf1",
+	"fdsfasdfasf2",
+	"fdsfasdfasf3",
+	"fdsfasdfasf4",
+	"fdsfasdfasf5",
+	"fdsfasdfasf6",
+	"fdsfasdfasf7",
+	"fdsfasdfasf8",
+	"fdsfasdfasf9",
+	"fdsfasdfasf0"
+};
 
 
 static void sighandler(int sig_no)
@@ -78,8 +92,8 @@ public:
 	{
 		//make protocolbuf
 		cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
-		putFile.set_uid(1);
-		putFile.set_token("fdsfasdfasfd");
+		putFile.set_uid(userid);
+		putFile.set_token(tokens[userid]);
 
 		string filepath = "/";
 
@@ -139,7 +153,7 @@ public:
 	}
 	void readBack(InReq& req)
 	{
-		total_num++;
+		total_num+=2;
 		if(total_num % 10000 == 0){
 			cout <<"putfile ack "<<total_num<<endl;
 		}
@@ -173,6 +187,7 @@ int main(int argc, char *argv[])
 
 	start = atoi(argv[3]);
 	limit = atoi(argv[4]);
+	userid = atoi(argv[5]);
 	total_should = limit - start;
 	cout <<"start = "<<start<<endl;
 	cout <<"limit = "<<limit<<endl;
