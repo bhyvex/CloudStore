@@ -4,6 +4,7 @@
 #include "sys/Thread.h"
 #include "sys/ThreadPoolWorkItem3.h"
 #include "sys/Mutex.h"
+#include "sys/Cond.h"
 #include "sys/DoubleQueue.h"
 #include <iostream>
 #include <map>
@@ -54,6 +55,8 @@ protected:
 		void SetNonblock(int fd);
 
 	public:
+		Mutex m_queueMutex;	//to notify m_RequestQueue
+		Cond m_queueCond;	//to notify m_RequestQueue
 		DoubleQueue<ThreadPoolWorkItem3 *>  m_RequestQueue;
 		DoubleQueue<ThreadPoolWorkItem3 *>  m_ResultQueue;
 

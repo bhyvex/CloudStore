@@ -281,7 +281,6 @@ int FSNameSpace::RmdirRecursive(const char *pathname)
     }
 
     // delete its children
-
     struct dirent *pEnt = NULL;
 
     while (NULL != (pEnt = ::readdir(pDir))) {

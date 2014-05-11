@@ -1369,7 +1369,7 @@ ClientTask::putFile(MUWorkItem *pItem)
 
         m_pOwner->sendPacket(msg, NULL);
 
-        logPutFile(pItem);
+        //logPutFile(pItem);
 
     } else {
         msg.error = rs.errorCode;

@@ -1,25 +1,25 @@
 CloudStore
 ==========
 
-一个分布式文件系统，专为海量PB级小文件存储读多写少的场景制定
+һ���ֲ�ʽ�ļ�ϵͳ��רΪ����PB��С�ļ��洢����д�ٵĳ����ƶ�
 
 
-模块分为<br/>
-CA 认证服务器<br/>
-CS 规则服务器<br/>
-MU 元数据服务器<br/>
-SU 数据服务器<br/>
-Gateway 网关<br/>
-LinuxClient linux客户端，场景为科学计算<br/>
-WindowsClient Windows客户端，场景为桌面网盘<br/>
-AndroidClient 手机客户端，场景为手机娱乐<br/>
+ģ���Ϊ<br/>
+CA ��֤������<br/>
+CS ���������<br/>
+MU Ԫ���ݷ�����<br/>
+SU ���ݷ�����<br/>
+Gateway ����<br/>
+LinuxClient linux�ͻ��ˣ�����Ϊ��ѧ����<br/>
+WindowsClient Windows�ͻ��ˣ�����Ϊ��������<br/>
+AndroidClient �ֻ��ͻ��ˣ�����Ϊ�ֻ�����<br/>
 
 
-特点：<br/>
-1 元数据服务器集群化<br/>
-2 多点登陆<br/>
+�ص㣺<br/>
+1 Ԫ���ݷ�������Ⱥ��<br/>
+2 ����½<br/>
 ...
 
 
-<a href = 'http://xtlx2000.github.io/doc/cstore/cstore2/CStore2.0%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1.htm'>CStore2.0概要设计文档</a><br/>
-CStore3.0正在开发当中...<br/>
+<a href = 'http://xtlx2000.github.io/doc/cstore/cstore2/CStore2.0%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1.htm'>CStore2.0��Ҫ����ĵ�</a><br/>
+CStore3.0���ڿ�������...<br/>

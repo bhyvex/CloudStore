@@ -95,9 +95,21 @@ ThreadPoolDispatcher.lo: ../../../src/frame/ThreadPoolDispatcher.cpp \
   /usr/include/bits/fcntl.h ../../../common/util/os_path.h \
   ../../../common/util/TimeCounter.h \
   ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
-  ../../../common/sys/Mutex.h ../../../common/sys/DoubleQueue.h \
-  /usr/include/c++/4.3/queue /usr/include/c++/4.3/deque \
-  /usr/include/c++/4.3/bits/stl_construct.h \
+  ../../../common/sys/Mutex.h ../../../common/sys/Cond.h \
+  /usr/include/c++/4.3/cerrno /usr/include/errno.h \
+  /usr/include/bits/errno.h /usr/include/linux/errno.h \
+  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h ../../../common/log/log.h \
+  /usr/include/c++/4.3/cstring /usr/include/string.h \
+  ../../../common/log/LogLevel.h ../../../common/log/Logger.h \
+  /usr/include/c++/4.3/cstdarg ../../../common/sys/noncopyable.h \
+  ../../../common/log/LogLevel.h ../../../common/log/LoggerFactory.h \
+  /usr/include/c++/4.3/map /usr/include/c++/4.3/bits/stl_tree.h \
+  /usr/include/c++/4.3/bits/stl_map.h \
+  /usr/include/c++/4.3/bits/stl_multimap.h \
+  ../../../common/sys/Singleton.h ../../../common/log/Logger.h \
+  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
+  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
   /usr/include/c++/4.3/bits/stl_uninitialized.h \
   /usr/include/c++/4.3/bits/stl_deque.h \
   /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
@@ -105,30 +117,18 @@ ThreadPoolDispatcher.lo: ../../../src/frame/ThreadPoolDispatcher.cpp \
   /usr/include/c++/4.3/bits/stl_bvector.h \
   /usr/include/c++/4.3/bits/vector.tcc \
   /usr/include/c++/4.3/bits/stl_heap.h \
-  /usr/include/c++/4.3/bits/stl_queue.h /usr/include/c++/4.3/map \
-  /usr/include/c++/4.3/bits/stl_tree.h \
-  /usr/include/c++/4.3/bits/stl_map.h \
-  /usr/include/c++/4.3/bits/stl_multimap.h /usr/include/assert.h \
-  ../../../common/log/log.h /usr/include/c++/4.3/cstring \
-  /usr/include/string.h /usr/include/c++/4.3/cerrno /usr/include/errno.h \
-  /usr/include/bits/errno.h /usr/include/linux/errno.h \
-  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
-  /usr/include/asm-generic/errno-base.h ../../../common/log/LogLevel.h \
-  ../../../common/log/Logger.h /usr/include/c++/4.3/cstdarg \
-  ../../../common/sys/noncopyable.h ../../../common/log/LogLevel.h \
-  ../../../common/log/LoggerFactory.h ../../../common/sys/Singleton.h \
-  ../../../common/log/Logger.h ../../../src/frame/MURegister.h \
-  ../../../common/sys/sys.h ../../../common/sys/Cond.h \
-  ../../../common/sys/Lock.h ../../../common/sys/RWLock.h \
-  ../../../common/sys/Singleton.h ../../../common/sys/Thread.h \
-  ../../../common/sys/ThreadPool.h ../../../common/sys/ThreadPool3.h \
-  ../../../common/sys/noncopyable.h ../../../common/comm/comm.h \
-  ../../../common/comm/BaseTask.h ../../../common/comm/BaseReq.h \
-  ../../../common/comm/Epoll.h ../../../common/comm/EpollEvent.h \
-  ../../../common/comm/UDPSocket.h ../../../common/comm/AgentManager.h \
-  ../../../common/comm/TCPAgent.h ../../../common/comm/BufferManager.h \
-  /usr/include/c++/4.3/tr1/memory /usr/include/c++/4.3/memory \
-  /usr/include/c++/4.3/bits/stl_tempbuf.h \
+  /usr/include/c++/4.3/bits/stl_queue.h /usr/include/assert.h \
+  ../../../src/frame/MURegister.h ../../../common/sys/sys.h \
+  ../../../common/sys/Cond.h ../../../common/sys/Lock.h \
+  ../../../common/sys/RWLock.h ../../../common/sys/Singleton.h \
+  ../../../common/sys/Thread.h ../../../common/sys/ThreadPool.h \
+  ../../../common/sys/ThreadPool3.h ../../../common/sys/noncopyable.h \
+  ../../../common/comm/comm.h ../../../common/comm/BaseTask.h \
+  ../../../common/comm/BaseReq.h ../../../common/comm/Epoll.h \
+  ../../../common/comm/EpollEvent.h ../../../common/comm/UDPSocket.h \
+  ../../../common/comm/AgentManager.h ../../../common/comm/TCPAgent.h \
+  ../../../common/comm/BufferManager.h /usr/include/c++/4.3/tr1/memory \
+  /usr/include/c++/4.3/memory /usr/include/c++/4.3/bits/stl_tempbuf.h \
   /usr/include/c++/4.3/bits/stl_raw_storage_iter.h \
   /usr/include/c++/4.3/backward/auto_ptr.h /usr/include/c++/4.3/typeinfo \
   /usr/include/c++/4.3/ext/concurrence.h \
@@ -467,6 +467,52 @@ ThreadPoolDispatcher.lo: ../../../src/frame/ThreadPoolDispatcher.cpp \
 
 ../../../common/sys/Mutex.h:
 
+../../../common/sys/Cond.h:
+
+/usr/include/c++/4.3/cerrno:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+../../../common/log/log.h:
+
+/usr/include/c++/4.3/cstring:
+
+/usr/include/string.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/Logger.h:
+
+/usr/include/c++/4.3/cstdarg:
+
+../../../common/sys/noncopyable.h:
+
+../../../common/log/LogLevel.h:
+
+../../../common/log/LoggerFactory.h:
+
+/usr/include/c++/4.3/map:
+
+/usr/include/c++/4.3/bits/stl_tree.h:
+
+/usr/include/c++/4.3/bits/stl_map.h:
+
+/usr/include/c++/4.3/bits/stl_multimap.h:
+
+../../../common/sys/Singleton.h:
+
+../../../common/log/Logger.h:
+
 ../../../common/sys/DoubleQueue.h:
 
 /usr/include/c++/4.3/queue:
@@ -493,51 +539,7 @@ ThreadPoolDispatcher.lo: ../../../src/frame/ThreadPoolDispatcher.cpp \
 
 /usr/include/c++/4.3/bits/stl_queue.h:
 
-/usr/include/c++/4.3/map:
-
-/usr/include/c++/4.3/bits/stl_tree.h:
-
-/usr/include/c++/4.3/bits/stl_map.h:
-
-/usr/include/c++/4.3/bits/stl_multimap.h:
-
 /usr/include/assert.h:
-
-../../../common/log/log.h:
-
-/usr/include/c++/4.3/cstring:
-
-/usr/include/string.h:
-
-/usr/include/c++/4.3/cerrno:
-
-/usr/include/errno.h:
-
-/usr/include/bits/errno.h:
-
-/usr/include/linux/errno.h:
-
-/usr/include/asm/errno.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-../../../common/log/LogLevel.h:
-
-../../../common/log/Logger.h:
-
-/usr/include/c++/4.3/cstdarg:
-
-../../../common/sys/noncopyable.h:
-
-../../../common/log/LogLevel.h:
-
-../../../common/log/LoggerFactory.h:
-
-../../../common/sys/Singleton.h:
-
-../../../common/log/Logger.h:
 
 ../../../src/frame/MURegister.h:
 

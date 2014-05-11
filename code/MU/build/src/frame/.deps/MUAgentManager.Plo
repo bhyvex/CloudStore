@@ -101,8 +101,9 @@ MUAgentManager.lo: ../../../src/frame/MUAgentManager.cpp \
   ../../../common/sys/ThreadPool3.h ../../../common/sys/Thread.h \
   ../../../common/sys/ThreadPoolWorkItem3.h ../../../common/comm/Error.h \
   /usr/include/c++/4.3/iostream ../../../common/sys/Mutex.h \
-  ../../../common/sys/DoubleQueue.h /usr/include/c++/4.3/queue \
-  /usr/include/c++/4.3/deque /usr/include/c++/4.3/bits/stl_construct.h \
+  ../../../common/sys/Cond.h ../../../common/sys/DoubleQueue.h \
+  /usr/include/c++/4.3/queue /usr/include/c++/4.3/deque \
+  /usr/include/c++/4.3/bits/stl_construct.h \
   /usr/include/c++/4.3/bits/stl_uninitialized.h \
   /usr/include/c++/4.3/bits/stl_deque.h \
   /usr/include/c++/4.3/bits/deque.tcc /usr/include/c++/4.3/vector \
@@ -482,6 +483,8 @@ MUAgentManager.lo: ../../../src/frame/MUAgentManager.cpp \
 /usr/include/c++/4.3/iostream:
 
 ../../../common/sys/Mutex.h:
+
+../../../common/sys/Cond.h:
 
 ../../../common/sys/DoubleQueue.h:
 

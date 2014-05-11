@@ -15,7 +15,9 @@ using namespace std;
 
 ThreadPool3::EventHandlerThread::
 EventHandlerThread(ThreadPool3 *pool):
-	m_pThreadPool(pool)
+	m_pThreadPool(pool),
+	m_queueMutex(),
+	m_queueCond(m_queueMutex)
 {
 	if( NULL == pool)
 	{
@@ -29,6 +31,9 @@ DispatchItem(const ThreadPoolWorkItem3 *item)
 {
 	ThreadPoolWorkItem3 *pItem = const_cast<ThreadPoolWorkItem3 *>(item);
 	bool ret = m_RequestQueue.push(pItem);
+
+	//m_queueCond.notify();
+	
 	if(ret != true)
 	{
 		return FAILED;
@@ -61,7 +66,6 @@ run()
 
 	for(; ; )
 	{
-
 		bool ret = m_RequestQueue.pop(&pWorkItem);
 
 		pthread_testcancel();
@@ -69,7 +73,8 @@ run()
 		if(ret != true)
 		{
 			//DEBUG_LOG( "pop error:queue is empty.");
-			//::sleep(1);
+			::sleep(1);
+			//m_queueCond.wait();
 			continue;
 		}
 

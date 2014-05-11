@@ -45,6 +45,7 @@ int limit;
 int userid;
 int total_should;
 int total_num;
+string cmd;
 TimeCounter tc;
 
 char* tokens[10] = {
@@ -88,6 +89,7 @@ class MUPressAgent:public TCPAgent
 public:
 	MUPressAgent(const SocketAddress& sa, Epoll* pEpoll):TCPAgent(sa, pEpoll){}
 
+	//上传文件
 	int putFile()
 	{
 		//make protocolbuf
@@ -135,6 +137,40 @@ public:
 		
 	    return SUCCESSFUL;
 	}
+
+	//下载文件
+	int getFile()
+	{
+		//make protocolbuf
+		cstore::pb_MSG_SYS_MU_GET_FILE getFile;
+		getFile.set_uid(userid);
+		getFile.set_token(tokens[userid]);
+
+		string filepath = "/";
+		filepath += util::conv::conv<string, int>(start++);
+		getFile.set_path(filepath);
+
+		string output_string;
+		if(!getFile.SerializeToString(&output_string)){
+			cout <<"getFile serializeToString error!"<<endl;
+			return FAILED;
+		}
+
+		//make req
+		MsgHeader msg;
+		msg.cmd = MSG_SYS_MU_GET_FILE;
+		msg.length = output_string.size();
+		
+		char *pBuf = new char[sizeof(msg) + msg.length];
+
+		memcpy(pBuf, &msg, sizeof(msg));
+		memcpy(pBuf + sizeof(msg), output_string.data(), msg.length);
+
+		writeDynData(pBuf, sizeof(msg) + msg.length);
+
+		
+	    return SUCCESSFUL;
+	}
 	
 	int connectAfter(bool bConnect)
 	{
@@ -142,8 +178,17 @@ public:
 			cout <<"connect Error!"<<endl;
 		}
 
+		
+
 		while(1){
-			putFile();
+		
+			if(cmd == "put")			putFile();
+			else if(cmd == "get")		getFile();
+			else{		
+				cout << "invalid cmd:"<<cmd <<endl;
+				break;
+			}
+			
 			if(start >= limit){
 				
 				break;
@@ -153,9 +198,9 @@ public:
 	}
 	void readBack(InReq& req)
 	{
-		total_num+=2;
+		total_num+=1;//
 		if(total_num % 10000 == 0){
-			cout <<"putfile ack "<<total_num<<endl;
+			cout <<"file ack "<<total_num<<endl;
 		}
 
 		if(total_num >= total_should){
@@ -184,10 +229,15 @@ class EchoItem : public ThreadPoolWorkItem {
 int main(int argc, char *argv[])
 {
 //-----------------------------------MU------------------------------------------------------------
+	if(argc != 7){
+		cout <<"usage: ./MUpress -c [config.xml] start limit userid [get/set]"<<endl;
+		exit(1);
+	}
 
 	start = atoi(argv[3]);
 	limit = atoi(argv[4]);
 	userid = atoi(argv[5]);
+	cmd = argv[6];
 	total_should = limit - start;
 	cout <<"start = "<<start<<endl;
 	cout <<"limit = "<<limit<<endl;
