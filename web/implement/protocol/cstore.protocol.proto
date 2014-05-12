@@ -1,0 +1,170 @@
+
+enum Module_Name
+{
+    NO_module = 0;
+    RS_module = 1;  
+    CA_module = 2;  
+    CS_module = 3;
+    MU_module = 4;
+    SU_module = 5;
+}
+
+message Module_Item
+{
+    required int32 Module_IP = 1;
+    required Module_Name module = 2;
+    required int32 mem = 3;
+    required int32 disk = 4;
+    required int32 net = 5;
+}
+
+message IP_scope
+{
+    required int32 Start_IP = 1;
+    required int32 Serial_num = 2;
+}
+
+message Map_Item
+{
+    repeated int32 Module_IP = 1;
+    required int32 bucket_num = 2;
+}
+
+message Bucket_Item
+{
+	required int32 bucket_num = 1;
+	required int32 bucket_load = 2;
+}
+
+message Bucket_List
+{
+    repeated Bucket_Item bucket_item = 1;
+    required int32 mu_ip = 2;
+}
+
+message pb_MSG_MPC_MU_CREATE_USER
+{
+    required int64 uid = 1;
+    required int64 quota = 2;
+}
+
+message pb_MSG_MPC_MU_DELETE_USER
+{
+    required int64 uid = 1;
+}
+
+message pb_MSG_MPC_CS_RUBBISH_RECYCLE 
+{
+    required int32 scale = 1;
+}
+
+message pb_MSG_MPC_CS_SU_MIGRATE_BUCKET
+{
+    required int32 source_ip = 1;
+    required int32 destination_ip = 2;
+    required int32 bucket_num = 3;
+}
+
+message pb_MSG_MPC_CS_MU_MIGRATE_BUCKET
+{
+    required int32 source_ip = 1;
+    required int32 destination_ip = 2;
+    required int32 bucket_num = 3;
+}
+
+message pb_MSG_MPC_CS_MU_EXTENT_BUCKET 
+{
+    required int32 new_mod = 1;
+}
+
+message pb_MSG_MPC_CS_SU_EXTENT_BUCKET 
+{
+    required int32 new_mod = 1;
+}
+
+message pb_MSG_MPC_CS_GET_SU_RULE_ACK 
+{
+    repeated Map_Item  map_bucket = 1;
+}
+
+message pb_MSG_MPC_CS_GET_MU_RULE_ACK 
+{
+    repeated Map_Item  map_bucket = 1;
+}
+
+message IP_bucket
+{
+    required int32 ip = 1;
+    repeated int32 buckets = 2;
+}
+
+message pb_MSG_MPC_CS_SU_INIT_HASH
+{
+    repeated IP_scope module_ip = 1;
+    required int32 mod = 2;
+    required int32 duplicate_num = 3;
+}
+
+message pb_MSG_MPC_CS_MU_INIT_HASH
+{
+    repeated IP_scope module_ip = 1;
+    required int32 mod = 2;
+    required int32 duplicate_num = 3;
+}
+
+message pb_MSG_MPC_CS_MU_BUCKET_ACK
+{
+    repeated Bucket_List bucket_list = 1;
+}
+
+message pb_MSG_MPC_CS_SU_BUCKET_ACK
+{
+    repeated Bucket_List bucket_list = 1;
+}
+
+message Node_Block
+{
+    required int32 node_ip = 1;
+    required int32 bucket_number = 2;
+    required int32 block_number = 3;
+    required int32 storage_limit = 4;
+}
+
+message pb_MSG_MPC_CS_GET_BLOCK_NUM_ACK
+{
+    repeated Node_Block su_node_list = 1;
+    repeated Node_Block mu_node_list = 2;
+    required int32 su_dup = 3;
+    required int32 mu_dup = 4;
+}
+
+message Report_Bucket_List
+{
+    required Bucket_List node_bucket_list = 1;
+    required int32       node_storage_limit = 2;
+}
+
+message pb_MSG_CS_MPC_REPORT_BUCKET_LIST
+{
+    repeated Report_Bucket_List mu_bucket_list = 1;
+    repeated Report_Bucket_List su_bucket_list = 3;
+}
+
+message pb_MSG_MPC_DS_MODULES_INFO_ACK
+{
+    repeated Module_Item module_list = 1;
+}
+
+message pb_MSG_MPC_DS_START_MODULE
+{
+    required int32 Module_IP = 1;
+    required Module_Name module_name = 2;
+    optional string args = 3;
+}
+
+message pb_MSG_MPC_DS_STOP_MODULE
+{
+    required int32 Module_IP = 1;
+}
+
+

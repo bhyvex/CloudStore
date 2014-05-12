@@ -32,7 +32,9 @@ DispatchItem(const ThreadPoolWorkItem3 *item)
 	ThreadPoolWorkItem3 *pItem = const_cast<ThreadPoolWorkItem3 *>(item);
 	bool ret = m_RequestQueue.push(pItem);
 
-	//m_queueCond.notify();
+	m_queueMutex.lock();
+	m_queueCond.notify();
+	m_queueMutex.unlock();
 	
 	if(ret != true)
 	{
@@ -73,8 +75,11 @@ run()
 		if(ret != true)
 		{
 			//DEBUG_LOG( "pop error:queue is empty.");
-			::sleep(1);
-			//m_queueCond.wait();
+			//::sleep(1);
+
+			m_queueMutex.lock();
+			m_queueCond.wait();
+			m_queueMutex.unlock();
 			continue;
 		}
 

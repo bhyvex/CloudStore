@@ -1,0 +1,42 @@
+.mu_background{
+    background-color: #FFE4B5;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mu_tips{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: #FF3030;
+    background-color: #FFFACD;
+}
+
+.mu_mytable{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mu_mytable td, .mu_mytable th{
+    font-size: 1em;
+    text-align:center;
+    border: 1px solid #98bf21;
+    padding: 3px 7px 2px 7px;
+}
+
+.mu_mytable th{
+    font-size:1.1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color:#A7C942;
+    color:#FFFFFF;
+}
+
+.mu_mytable tr.mu_alt td{
+    color: #000000;
+    background-color: #EAF2D3;
+}
+
+

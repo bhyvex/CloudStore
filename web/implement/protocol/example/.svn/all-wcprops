@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example
+END
+test.pb
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/test.pb
+END
+pb_proto_test_with_new_field.php
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/pb_proto_test_with_new_field.php
+END
+test.proto
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/test.proto
+END
+pb_proto_test_new.php
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/pb_proto_test_new.php
+END
+test.php
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/test.php
+END
+pb_proto_test.php
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/pb_proto_test.php
+END
+test_new.proto
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/test_new.proto
+END
+protoc.php
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/protoc.php
+END
+test_new.php
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/example/test_new.php
+END

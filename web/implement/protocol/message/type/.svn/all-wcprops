@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type
+END
+pb_int.php
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_int.php
+END
+pb_bool.php
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_bool.php
+END
+pb_signed_int.php
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_signed_int.php
+END
+pb_enum.php
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_enum.php
+END
+pb_scalar.php
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_scalar.php
+END
+pb_bytes.php
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_bytes.php
+END
+pb_string.php
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/!svn/ver/20786/%E7%A7%81%E6%9C%89%E4%BA%91%E5%AD%98%E5%82%A8/%E4%BA%8C%E6%9C%9Fcode/trunk/portal/2portal/implement/protocol/message/type/pb_string.php
+END

@@ -1,0 +1,11 @@
+[cs_db]
+db_ip = 192.168.10.23
+db_port = 3306
+username = "root"
+passwd = "mysql"
+
+db_name = "cs"
+migration_table = "migration_history"
+extension_table = "extension_history"
+
+[ca_db]
