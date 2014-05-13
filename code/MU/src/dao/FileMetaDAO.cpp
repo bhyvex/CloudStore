@@ -573,11 +573,11 @@ FileMetaDAO::putFile(const std::string &path, const FileMeta &meta,
     assert(pDelta);
 
     if (FILE_VERSION_INIT == meta.m_Attr.m_Version) {
-    	//ERROR_LOG("createFile, %s", path.c_str());
+    	ERROR_LOG("  FileMetaDAO::putFile() createFile, %s", path.c_str());
         return createFile(path, meta, pMeta, pDelta);
 
     } else {
-    	//ERROR_LOG("updateFile, %s", path.c_str());
+    	ERROR_LOG("  FileMetaDAO::putFile() updateFile, %s", path.c_str());
         return updateFile(path, meta, pMeta, pDelta);
     }
 }

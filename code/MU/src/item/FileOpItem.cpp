@@ -329,16 +329,14 @@ FileOpItem::putFile()
 {
     std::string path = absPath(m_Path);
 
-    //TRACE_LOG("put file, path %s", path.c_str());
-
-    //INFO_LOG("put file1, path %s", path.c_str());
+    TRACE_LOG(" FileOpItem::putFile() put file, path %s", path.c_str());
 
     FileMetaDAO *pMetaDAO = new FileMetaDAO();
     pMetaDAO->setBucketID(m_BucketId);
     pMetaDAO->setUserID(m_UserId);
 
     int delta = 0;
-    //INFO_LOG("put file2, path %s", path.c_str());
+    INFO_LOG(" FileOpItem::pMetaDao->putFile() put file2, path %s", path.c_str());
     m_ReturnStatus = pMetaDAO->putFile(
                          absPath(m_Path), m_FileMetaIn,
                          &m_FileMetaOut, &delta);
@@ -347,7 +345,7 @@ FileOpItem::putFile()
     pMetaDAO = NULL;
     
 
-	//INFO_LOG("put file3, path %s", path.c_str());
+	INFO_LOG(" FileOpItem::putFile() put file3, path %s", path.c_str());
 	
     if (!m_ReturnStatus.success()) {
         ERROR_LOG("path %s, put file failed", path.c_str());
@@ -358,13 +356,13 @@ FileOpItem::putFile()
 	if(MUConfiguration::getInstance()->m_UserDeltaKeep) {
 	    UserDAO *pUserDAO = new UserDAO();
 
-	    //INFO_LOG("put file4, path %s", path.c_str());
+	    INFO_LOG("put file4, path %s", path.c_str());
 
 	    struct UserInfo info;
 
 	    m_ReturnStatus = pUserDAO->readUserInfo(m_BucketId, m_UserId, &info);
 
-	    //INFO_LOG("put file5, path %s", path.c_str());
+	    INFO_LOG("put file5, path %s", path.c_str());
 
 	    if (!m_ReturnStatus.success()) {
 	        ERROR_LOG("path %s, readUserInfo() failed", path.c_str());

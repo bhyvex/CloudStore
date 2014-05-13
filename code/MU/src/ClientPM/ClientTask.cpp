@@ -566,6 +566,8 @@ ClientTask::movDir(const InReq &req)
 int
 ClientTask::putFile(const InReq &req)
 {
+	cout <<"ClientTask::putFile(req)"<<endl;
+
     std::string data(req.ioBuf, req.m_msgHeader.length);
     cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
 
@@ -579,17 +581,21 @@ ClientTask::putFile(const InReq &req)
     rs = checkUser(putFile.uid());
 
     if (!rs.success()) {
+    	
         simpleResponse(MSG_SYS_MU_PUT_FILE_ACK,
                        rs.errorCode, req.m_msgHeader.para1);
+        cout <<"ClientTask::putFile(req) checkUser() is error: no such user : "<< putFile.uid()<<"and return ACK"<<endl;
         return 0;
     }
 
     std::string path = putFile.path();
 
     if (!checkPath(path) || path == ROOT_PATH) {
-        ERROR_LOG("invalid path, %s", path.c_str());
+        
         simpleResponse(MSG_SYS_MU_PUT_FILE_ACK,
                        PATH_INVALID, req.m_msgHeader.para1);
+        ERROR_LOG("ClientTask::putFile(req) checkPath() invalid path, %s", path.c_str());
+        cout <<"and return ACK"<<endl;
         return 0;
     }
 
@@ -1364,14 +1370,17 @@ ClientTask::putFile(MUWorkItem *pItem)
     msg.para1 = pRItem->getRequestId();
 
     if (rs.success()) {
+    	cout <<"ClientTask::putFile(pItem) return ACK(MU_OK)"<<endl;
         msg.error = MU_OK;
         msg.length = 0;
 
         m_pOwner->sendPacket(msg, NULL);
 
+		//Ð´ÈÕÖ¾
         //logPutFile(pItem);
 
     } else {
+    	
         msg.error = rs.errorCode;
 
         if (VERSION_OUTDATED != rs.errorCode
@@ -1386,7 +1395,7 @@ ClientTask::putFile(MUWorkItem *pItem)
         } else {
             // version outdated or file exists
 
-            ERROR_LOG("put file failed, version outdated, "
+            ERROR_LOG("put file failed, version outdated or file exists, "
                       "user id %llu, bucket id %llu, path %s",
                       pRItem->getUserId(), pRItem->getBucketId(),
                       pRItem->getPath().c_str());
@@ -1416,6 +1425,7 @@ ClientTask::putFile(MUWorkItem *pItem)
 int
 ClientTask::delFile(MUWorkItem *pItem)
 {
+	cout <<"ClientTask::delFile(pItem)"<<endl;
     std::auto_ptr<FileOpItem> pRItem =
         std::auto_ptr<FileOpItem>(dynamic_cast<FileOpItem *>(pItem));
 

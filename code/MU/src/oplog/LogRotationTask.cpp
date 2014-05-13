@@ -228,7 +228,7 @@ LogRotationTask::checkLogFileSize(MUWorkItem *pItem)
     for (std::map<uint64_t, uint64_t>::const_iterator it = logMap.begin();
          it != logMap.end(); ++it) {
         if (it->second >= m_RotateSize) {
-            INFO_LOG("do rotation for bucket " PRIu64, it->first);
+            //INFO_LOG("do rotation for bucket " PRIu64, it->first);
             pLogDispatcher->rotateLog(it->first);
         }
     }
