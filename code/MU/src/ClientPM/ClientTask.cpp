@@ -640,6 +640,7 @@ ClientTask::putFile(const InReq &req)
 int
 ClientTask::delFile(const InReq &req)
 {
+	cout <<"\nClientTask::delFile(req)"<<endl;
     std::string data(req.ioBuf, req.m_msgHeader.length);
     cstore::pb_MSG_SYS_MU_DEL_FILE delFile;
 

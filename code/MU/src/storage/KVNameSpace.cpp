@@ -215,7 +215,7 @@ int KVNameSpace::Link(const char *oldpath, const char *newpath)
 //TODO
 int KVNameSpace::Unlink(const char *pathname)
 {
-	return 0;
+	return Remove(pathname);
 }
 
 //TODO

@@ -22,12 +22,16 @@ AC_PROG_MKDIR_P
 AC_CHECK_LIB([dl], [main])
 # FIXME: Replace `main' with a function in `-lgtest':
 AC_CHECK_LIB([gtest], [main])
+# FIXME: Replace `main' with a function in `-lleveldb':
+AC_CHECK_LIB([leveldb], [main])
 # FIXME: Replace `main' with a function in `-lprotobuf':
 AC_CHECK_LIB([protobuf], [main])
 # FIXME: Replace `main' with a function in `-lpthread':
 AC_CHECK_LIB([pthread], [main])
 # FIXME: Replace `main' with a function in `-lrt':
 AC_CHECK_LIB([rt], [main])
+# FIXME: Replace `main' with a function in `-lsnappy':
+AC_CHECK_LIB([snappy], [main])
 # FIXME: Replace `main' with a function in `-lxml2':
 AC_CHECK_LIB([xml2], [main])
 # FIXME: Replace `main' with a function in `-lzip':
@@ -116,6 +120,7 @@ AC_CONFIG_FILES([Makefile
                  src/protocol/Makefile
                  src/state/Makefile
                  src/storage/Makefile
+                 src/storage/test/Makefile
                  src/test/Makefile
                  src/test/fakeModule/Makefile
                  src/test/gtest/Makefile

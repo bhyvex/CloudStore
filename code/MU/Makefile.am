@@ -6,7 +6,7 @@ MU_LDADD = src/libMU.la  \
 		  common/libcommon.la  \
 		  lib/sqlite3/libsqlite3.la
 
-AM_CXXFLAGS = -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS 
+AM_CXXFLAGS = -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -g
 export AM_CXXFLAGS
 
 GLOBAL_INCLUDES = -I/usr/local/protobuf/include  \

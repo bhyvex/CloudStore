@@ -148,10 +148,15 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	}
 	string key = Key::serialize(&keyinfo);
 
+	//drop the last "/" if key has
+	if(key[key.size()-1] == '/'){
+		key = key.substr(0, key.size() - 1);
+	}
+
 	/* get from db */
 	string value;
 	ret = m_StoreEngine->Get(key, value);
-	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 2="<<ret<<endl;
+	cout <<"SplitPathStrategy::GetEntry(string pathname="<<key<<", char *buf, int *n) 2="<<ret<<endl;
 	if(ret == false){
 		*n = -1;
 		return -1;

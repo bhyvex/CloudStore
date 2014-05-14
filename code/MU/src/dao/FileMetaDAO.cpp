@@ -268,10 +268,12 @@ FileMetaDAO::addFileSizeToDelta(const std::string &path, uint64_t *pDelta)
     rt = DataNS->readn(&fd, &attr, sizeof(attr));
     DataNS->Close(&fd);
 
+	/*
     if (sizeof(attr) != rt) {
         ERROR_LOG("path %s, readn() error", path.c_str());
         return ;
     }
+    */
 
     *pDelta += attr.m_Size;
 }
@@ -836,6 +838,7 @@ FileMetaDAO::isfile(const std::string &path)
 ReturnStatus
 FileMetaDAO::delFile(const std::string &path, int *pDelta)
 {
+	cout <<"FileMetaDAO::delFile() path="<<path<<endl;
 	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
 	NameSpace *DataNS = pDataChannel->m_DataNS;
 	
@@ -847,6 +850,7 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     rs = isfile(path);
 
     if (!rs.success()) {
+    	cout <<path<<" is not a file. error"<<endl;
         return rs;
     }
 
@@ -862,18 +866,23 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
     FileAttr attr;
 
     rt = DataNS->readn(&fd, &attr, sizeof(attr));
+    cout <<"DataNS->readn() = "<<rt<<endl;
     DataNS->Close(&fd);
+    cout <<"DataNS->close()"<<endl;
 
+	/*
     if (sizeof(attr) != rt) {
         ERROR_LOG("path %s, readn() error", path.c_str());
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
+    */
 
     *pDelta = attr.m_Size;
 
     // do delete action
 
     rt = DataNS->Unlink(path.c_str());
+    cout <<"DataNS->Unlink()="<<rt<<endl;
 
     if (-1 == rt) {
         ERROR_LOG("path %s, unlink() error, %s.",
@@ -983,7 +992,7 @@ FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
 	int rt = 0;
 
 	//TODO
-	int max_blocks = 512;//max file size is 256MB
+	int max_blocks = 512*10;//max file size is 256MB*10
 	char *buffer = new char[max_blocks * FIXED_BLOCK_CHECKSUM_LEN];
 	rt = DataNS->readn(fd, buffer, max_blocks * FIXED_BLOCK_CHECKSUM_LEN);
 	memcpy(&(pMeta->m_Attr), buffer, sizeof(pMeta->m_Attr));
