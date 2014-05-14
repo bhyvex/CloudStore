@@ -80,7 +80,10 @@ BuildStrategy.lo: ../../../src/storage/BuildStrategy.cpp \
   /usr/include/leveldb/status.h /usr/include/leveldb/options.h \
   /usr/include/leveldb/write_batch.h /usr/include/leveldb/comparator.h \
   ../../../src/storage/RangeStruct.h ../../../src/storage/LevelDBEngine.h \
-  ../../../src/storage/Key.h
+  ../../../src/storage/Key.h /usr/include/sys/mman.h \
+  /usr/include/bits/mman.h /usr/include/sys/stat.h \
+  /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+  /usr/include/bits/uio.h
 
 ../../../src/storage/BuildStrategy.h:
 
@@ -329,3 +332,17 @@ BuildStrategy.lo: ../../../src/storage/BuildStrategy.cpp \
 ../../../src/storage/LevelDBEngine.h:
 
 ../../../src/storage/Key.h:
+
+/usr/include/sys/mman.h:
+
+/usr/include/bits/mman.h:
+
+/usr/include/sys/stat.h:
+
+/usr/include/bits/stat.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/bits/fcntl.h:
+
+/usr/include/bits/uio.h:

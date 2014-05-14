@@ -156,7 +156,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	/* get from db */
 	string value;
 	ret = m_StoreEngine->Get(key, value);
-	cout <<"SplitPathStrategy::GetEntry(string pathname="<<key<<", char *buf, int *n) 2="<<ret<<endl;
+	cout <<"SplitPathStrategy::GetEntry(string pathname="<<key<<", char *buf, int *n) 2="<<ret<<"value.size()="<<value.size()<<endl;
 	if(ret == false){
 		*n = -1;
 		return -1;

@@ -26,6 +26,10 @@ public:
 	virtual bool DirOpen(string pathname, RangeStruct *rs) = 0;
 	virtual bool Next(RangeStruct *rs, KeyValuePair *kv) = 0;
 
+	//-------------------
+	int m_FidFd;
+	uint64_t *m_pFid;
+	//---------------------
 	uint64_t m_Fid;//gcc atomic sync
 	StoreEngine *m_StoreEngine;
 	string m_Root;

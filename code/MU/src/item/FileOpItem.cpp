@@ -404,6 +404,7 @@ FileOpItem::putFile()
 void
 FileOpItem::delFile()
 {
+	cout <<"\nFileOpItem::delFile()"<<endl;
     std::string path = absPath(m_Path);
 
     TRACE_LOG("del file, path %s", path.c_str());
