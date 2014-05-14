@@ -24,8 +24,8 @@ SplitPathStrategy::~SplitPathStrategy()
   */
 int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 {
-	//cout <<"SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)"<<endl;
-	//cout <<"	pathname="<<pathname<<endl;
+	cout <<"SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)"<<endl;
+	cout <<"	pathname="<<pathname<<endl;
 	bool ret = false;
 	bool isroot = false;
 	size_t pos;
@@ -60,7 +60,7 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 
 	string p_fid;
 	ret = FindEntryID(ParentDir, userID, p_fid);
-	//cout <<"	ret = FindEntryID(ParentDir, userID, p_fid)="<<ret<<endl;
+	cout <<"	ret = FindEntryID(ParentDir, userID, p_fid)="<<ret<<endl;
 	if(ret == false){
 		return -1;
 	}
@@ -75,14 +75,14 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 		keyinfo.FileName = ".";
 	}
 	string key = Key::serialize(&keyinfo);
-	//cout <<"PutEntry(string pathname, const char* buf, int n) key="<<key<<endl;
+	cout <<"PutEntry(string pathname, const char* buf, int n) key="<<key<<endl;
 
 	/* make the value */
 	string value(buf, n);
 
 	/* insert to db */
 	ret = m_StoreEngine->Put(key, value);
-	//cout <<"	ret = m_StoreEngine->Put(key, value)="<<ret<<endl;
+	cout <<"	ret = m_StoreEngine->Put(key, value)="<<ret<<endl;
 	if(ret == false){
 		return -1;
 	}
@@ -95,8 +95,8 @@ int SplitPathStrategy::PutEntry(string pathname, const char* buf, int n)
 //pathname = "bucket10/user2/hehe/a.txt"
 int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 {
-	//cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 0"<<endl;
-	//cout <<"	pathname="<<pathname<<endl;
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 0"<<endl;
+	cout <<"	pathname="<<pathname<<endl;
 	
 	bool ret = false;
 	size_t pos;
@@ -130,8 +130,8 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 
 	string p_fid;
 	ret = FindEntryID(ParentDir, userID, p_fid);
-	//cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 1="<<ret<<endl;
-	//cout <<"	ParentDir="<<ParentDir<<endl;
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 1="<<ret<<endl;
+	cout <<"	ParentDir="<<ParentDir<<endl;
 	if(ret == false){
 		*n = -1;
 		return -1;
@@ -151,7 +151,7 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 	/* get from db */
 	string value;
 	ret = m_StoreEngine->Get(key, value);
-	//cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 2="<<ret<<endl;
+	cout <<"SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 2="<<ret<<endl;
 	if(ret == false){
 		*n = -1;
 		return -1;

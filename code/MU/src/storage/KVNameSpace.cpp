@@ -74,7 +74,7 @@ int KVNameSpace::Read(Args *args, void *buf, size_t count)
 	}
 	
 	m_BuildStrategy->GetEntry(args->arg3, (char *)buf, &ret);
-	//cout <<"KVNameSpace::Read(Args *args, void *buf, size_t count) count="<<ret<<endl;
+	cout <<"KVNameSpace::Read(Args *args, void *buf, size_t count) count="<<ret<<endl;
 	args->valid = true;
 	return ret;
 }

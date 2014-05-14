@@ -663,6 +663,7 @@ ReturnStatus
 FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
                         FileMeta *pMeta, int *pDelta)
 {
+	cout <<"FileMetaDAO::updateFile()"<<endl;
 	Channel* pDataChannel = ChannelManager::getInstance()->Mapping(m_BucketId);
 	NameSpace *DataNS = pDataChannel->m_DataNS;
 	
@@ -691,13 +692,17 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
 
     FileAttr attr;
 
+	
     rt = DataNS->readn(&fd, &attr, sizeof(attr));
+    cout <<"readn()=="<<rt<<endl;
 
+	/*
     if (sizeof(attr) != rt) {
         ERROR_LOG("readn() error");
         DataNS->Close(&fd);
         return ReturnStatus(MU_FAILED, MU_UNKNOWN_ERROR);
     }
+    */
 
     if (meta.m_Attr.m_Version != attr.m_Version + 1) {
         ERROR_LOG("version outdated, current version %" PRIu64 ", "
@@ -711,6 +716,7 @@ FileMetaDAO::updateFile(const std::string &path, const FileMeta &meta,
     // write metadata
 
     rs = writeFileMeta(&fd, meta);
+    cout <<"FileMetaDAO::updateFile() writeFileMeta"<<endl;
 
     DataNS->Close(&fd);;
 

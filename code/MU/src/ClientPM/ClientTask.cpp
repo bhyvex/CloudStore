@@ -566,7 +566,7 @@ ClientTask::movDir(const InReq &req)
 int
 ClientTask::putFile(const InReq &req)
 {
-	cout <<"ClientTask::putFile(req)"<<endl;
+	cout <<"\nClientTask::putFile(req)"<<endl;
 
     std::string data(req.ioBuf, req.m_msgHeader.length);
     cstore::pb_MSG_SYS_MU_PUT_FILE putFile;
@@ -686,6 +686,7 @@ ClientTask::delFile(const InReq &req)
 int
 ClientTask::getFile(const InReq &req)
 {
+	cout <<"\nClientTask::getFile(req)"<<endl;
     std::string data(req.ioBuf, req.m_msgHeader.length);
     cstore::pb_MSG_SYS_MU_GET_FILE getFile;
 
@@ -1351,6 +1352,7 @@ ClientTask::movDir(MUWorkItem *pItem)
 int
 ClientTask::putFile(MUWorkItem *pItem)
 {
+	cout <<"ClientTask::putFile(pItem)"<<endl;
     std::auto_ptr<FileOpItem> pRItem =
         std::auto_ptr<FileOpItem>(dynamic_cast<FileOpItem *>(pItem));
 
