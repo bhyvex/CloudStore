@@ -31,3 +31,7 @@ SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 0
 SplitPathStrategy::GetEntry(string pathname, char *buf, int *n) 1=1
 	ParentDir=
 NotFound: 
+
+
+
+5 m_FID的问题曲线救国解决了，使用了一个保存了uint64_t的文件，文件名为fidFile，放在与MU相同的目录下，
