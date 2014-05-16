@@ -29,6 +29,7 @@ bool LevelDBEngine::Open(string dbPath)
 	
 	m_Options.create_if_missing = true;
 	m_Options.comparator = &m_Cmp;
+	m_Options.write_buffer_size = 100000000;
 
 	
 	leveldb::Status status = leveldb::DB::Open(m_Options, m_DbPath.c_str(), &m_Db);

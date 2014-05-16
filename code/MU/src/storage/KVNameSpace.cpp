@@ -122,9 +122,9 @@ int KVNameSpace::MkDir(const char *pathname, mode_t mode)
 	int ret;
 	FileAttr st;
 	//-------------------
-	//st.m_FID = __sync_fetch_and_add(&(m_BuildStrategy->m_Fid), 1);
-	st.m_FID = __sync_fetch_and_add((m_BuildStrategy->m_pFid), 1);
-	fsync(m_BuildStrategy->m_FidFd);
+	st.m_FID = __sync_fetch_and_add(&(m_BuildStrategy->m_Fid), 1);
+	//st.m_FID = __sync_fetch_and_add((m_BuildStrategy->m_pFid), 1);
+	//fsync(m_BuildStrategy->m_FidFd);
 	//-------------------
 	st.m_CTime = 0;
 	st.m_Mode = 0;
