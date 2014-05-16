@@ -865,8 +865,8 @@ FileMetaDAO::delFile(const std::string &path, int *pDelta)
 
     FileAttr attr;
 
-    rt = DataNS->readn(&fd, &attr, sizeof(attr));
-    cout <<"DataNS->readn() = "<<rt<<endl;
+    //rt = DataNS->readn(&fd, &attr, sizeof(attr));
+    //cout <<"DataNS->readn() = "<<rt<<endl;
     DataNS->Close(&fd);
     cout <<"DataNS->close()"<<endl;
 

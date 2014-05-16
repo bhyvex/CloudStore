@@ -35,3 +35,8 @@ NotFound:
 
 
 5 m_FID的问题曲线救国解决了，使用了一个保存了uint64_t的文件，文件名为fidFile，放在与MU相同的目录下，
+
+
+6 
+FileMetaDAO中delFile中伟神先打开读取了元数据再删除，现在删除大文件会出现segment 
+fault，原因是leveldb一次不会只读attr大小，而是全部元数据读出，会造成buffer大小不够，因此注释掉了读取的代码

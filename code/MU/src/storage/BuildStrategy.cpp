@@ -13,7 +13,7 @@ BuildStrategy::BuildStrategy(string path)
 	m_Root = path;
 
 	//-------------------
-	/*
+	
 	if ((m_FidFd = open("fidFile", O_RDWR| O_CREAT, S_IRWXU)) < 0){ 
 		perror("open() ");
 	}
@@ -24,7 +24,7 @@ BuildStrategy::BuildStrategy(string path)
 	}
 
 	m_pFid = (uint64_t*)sfp;
-	*/
+	
 
 	//---------------------
 
