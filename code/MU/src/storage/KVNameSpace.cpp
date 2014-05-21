@@ -60,7 +60,7 @@ int KVNameSpace::Close(Args *args)
 
 int KVNameSpace::Read(Args *args, void *buf, size_t count)
 {
-	int ret;
+	int ret = count;
 	args->valid = false;
 
 	if(args == NULL){

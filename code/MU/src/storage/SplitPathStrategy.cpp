@@ -162,8 +162,14 @@ int SplitPathStrategy::GetEntry(string pathname, char *buf, int *n)
 		return -1;
 	}
 
-	memcpy(buf, value.c_str(), value.size());
-	*n = value.size();
+	//fix the big file BUG
+	if(*n < value.size()){
+		memcpy(buf, value.c_str(), *n);
+	}else{
+		memcpy(buf, value.c_str(), value.size());
+		*n = value.size();
+	}
+	
 
 	return 0;
 }
