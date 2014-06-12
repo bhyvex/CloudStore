@@ -992,7 +992,7 @@ FileMetaDAO::readFileMeta(Args *fd, FileMeta *pMeta)
 	int rt = 0;
 
 	//TODO
-	int max_blocks = 512*10;//max file size is 256MB*10
+	int max_blocks = 512*10;//max file size is 256MB*10 = 2.5GB
 	char *buffer = new char[max_blocks * FIXED_BLOCK_CHECKSUM_LEN];
 	rt = DataNS->readn(fd, buffer, max_blocks * FIXED_BLOCK_CHECKSUM_LEN);
 	memcpy(&(pMeta->m_Attr), buffer, sizeof(pMeta->m_Attr));

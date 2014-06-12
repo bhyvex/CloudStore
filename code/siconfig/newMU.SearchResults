@@ -1,3 +1,2 @@
----- TASK_RECYCLED Matches (2 in 2 files) ----
-ClientTask.cpp (mu\src\clientpm):    m_CurrentState = TASK_RECYCLED;
-ClientTask.h (mu\src\clientpm):        TASK_RECYCLED
+---- 256MB Matches (1 in 1 files) ----
+FileMetaDAO.cpp (mu\src\dao):	int max_blocks = 512*10;//max file size is 256MB*10
