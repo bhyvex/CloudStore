@@ -1,2 +1,2 @@
----- 256MB Matches (1 in 1 files) ----
-FileMetaDAO.cpp (mu\src\dao):	int max_blocks = 512*10;//max file size is 256MB*10
+---- fidFile Matches (1 in 1 files) ----
+BuildStrategy.cpp (mu\src\storage):	if ((m_FidFd = open("fidFile", O_RDWR| O_CREAT, S_IRWXU)) < 0){ 
