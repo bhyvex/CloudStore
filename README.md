@@ -22,5 +22,5 @@ AndroidClient 手机客户端，场景为手机娱乐<br/>
 ...
 
 
-<a href = 'http://xtlx2000.github.io/doc/cstore/cstore2/CStore2.0%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1.htm'>CStore2.0设计文档</a><br/>
-<a href = 'http://www.lvpengcheng.com/documents/cstore.htm'>CStore3.0设计文档</a><br/>
+<a href = 'http://xtlx2000.github.io/doc/cstore/cstore2/CStore2.0%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1.htm'>CStore2.0 designe document</a><br/>
+<a href = 'http://www.lvpengcheng.com/documents/cstore.htm'>CStore3.0 designe document</a><br/>
